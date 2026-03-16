@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="M2 Fitness - Personal training and fitness classes with expert coaching. All ages and abilities welcome in Surrey.">
+    <title>M2 Fitness | Personal Training & Classes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">M2FT</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="m2-football.html">M2 Football</a></li>
+                <li><a href="m2-fitness.html">M2 Fitness</a></li>
+                <li><a href="holiday-camps.html">Holiday Camps</a></li>
+                <li><a href="school-partnerships.html">School Partnerships</a></li>
+                <li><a href="trainers.html">Trainers</a></li>
+                <li><a href="contact.html" class="btn-primary">Book Now</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Background Video -->
+    <section class="hero" style="min-height: 70vh; position: relative; overflow: hidden;">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline webkit-playsinline style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); z-index: 0; object-fit: cover;">
+            <source src="https://www.dropbox.com/scl/fi/kp0lu9f7iktyam28zc2s9/Video-13-03-2026-16-49-26.mov?rlkey=w0568cz5i0fzy35jhj7ph0fxn&st=j552j9hs&raw=1" type="video/mp4">
+        </video>
+        
+        <!-- Dark Overlay -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 10, 0.6); z-index: 1;"></div>
+        
+        <!-- Content -->
+        <div class="hero-content" style="grid-template-columns: 1fr; position: relative; z-index: 2;">
+            <div class="hero-text" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h1>M2 FITNESS</h1>
+                <p style="max-width: 700px; margin: 0 auto 2.5rem;">Performance training and fitness classes for all ages and abilities. From 1-to-1 personal training to high-energy group sessions — we help you build strength, confidence, and lasting results.</p>
+                <div class="hero-cta" style="justify-content: center;">
+                    <a href="contact.html" class="btn-primary">Book a Session</a>
+                    <a href="#classes" class="btn-secondary">View Schedule</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fitness Video Slider -->
+    <section class="video-slider-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>See Our Training in Action</h2>
+                <p>Real sessions, real results — from personal training to group classes</p>
+            </div>
+            
+            <div class="video-slider">
+                <div class="slider-container">
+                    <div class="slider-track" id="fitnessSliderTrack">
+                        <!-- Video 1: PT Session -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/iqr1zkiv5uaagopz1pefb/copy_0DD5A6D6-5ABE-4255-89A3-4557B9665C52.MOV?rlkey=5zy9pgg1qf1ygw1mfnne77qiv&st=xn8p8z13&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 2: Fitness Class -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/nyv2ub9d7x05uu8tit2im/IMG_2783.mov?rlkey=qg3efuu0q4do9odra6c7ccycw&st=63v4fbh4&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 3: PT Session -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/kh6mf6lvxckjak678bxuu/IMG_7363.MOV?rlkey=n9co8zjc1l4lk5ox1zh2rox2h&st=y1lfbdoj&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 4: Fitness Class -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/w6bd3z6so7vb2z9xjauyp/IMG_1956.mov?rlkey=oxqbd6zyeawheghmyrkm4gamt&st=ob2g6ceb&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 5: PT Session -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/0q2tnknokxvbl4zklaunm/copy_19284BF5-4C74-448B-B625-6023828765CB.MOV?rlkey=q7xdmviqjhbj368zpbw13endx&st=igtdcfiy&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 6: Fitness Class -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/787qvkwbegp0oofxjdni6/IMG_1533.mov?rlkey=0bzoi0lrk9aql86kvj49du5pf&st=dl8u5t7h&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 7: PT Session -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/0ps3rbv0mg1u6aaww0jdn/IMG_6996.MOV?rlkey=79b96f8xof05shuz6yl55e62m&st=gf35pxng&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 8: Fitness Class -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/56tdt0n26t7smevl3ocr9/IMG_8124.MOV?rlkey=cp10cpxbpa8qra47szub94797&st=21zjcpj5&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 9: PT Session -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/og1jnuv0vjck9umdpnbfv/IMG_6997.MOV?rlkey=i7f2c2z0u0jp5a3y3xboewlfv&st=qapqsks5&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 10: Fitness Class -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/trkjutkvde9nqwlioroph/IMG_4772.mov?rlkey=gjwsnnick4pvnrff3mc41ciih&st=3iwl619h&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Video 11: PT Session -->
+                        <div class="slider-item">
+                            <video controls playsinline webkit-playsinline>
+                                <source src="https://www.dropbox.com/scl/fi/gtpdaku4pp86sn2mlzv6q/IMG_1254.mov?rlkey=pvluux68lygk33xj6nedyk67g&st=op4bewkw&raw=1" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider Controls -->
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn" onclick="moveFitnessSlide(-1)">&#10094;</button>
+                    <button class="slider-btn next-btn" onclick="moveFitnessSlide(1)">&#10095;</button>
+                </div>
+                
+                <!-- Slider Dots -->
+                <div class="slider-dots" id="fitnessDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose M2 Fitness -->
+    <section style="background-color: var(--navy); padding: 5rem 5%;">
+        <div class="container">
+            <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                <h2 style="margin-bottom: 2rem; font-size: 2.5rem;">Why Choose M2 Fitness</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--white); margin-bottom: 2rem;">
+                    At M2 Fitness, we've helped over 100+ members achieve their fitness goals — from fat loss and muscle gain to strength building, toning, and overall health transformation. Whether you're looking to drop body fat, build lean muscle, increase strength, or simply feel more confident in your own skin, our personalized approach delivers real, lasting results. Led by MSc-qualified coaches with years of experience in performance training, every session is backed by science, tailored to your goals, and designed to push you forward. We don't just offer workouts — we offer expertise, accountability, and a proven system that works. From 1-to-1 personal training to high-energy group classes, M2 Fitness is your partner in transformation. When you train with us, you're not just investing in sessions — you're investing in a healthier, stronger, more confident version of yourself.
+                </p>
+                <div style="margin-top: 3rem;">
+                    <a href="contact.html" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Start Your Transformation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">16</div>
+                <div class="stat-label">Classes per Month</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4x</div>
+                <div class="stat-label">Weekly Sessions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Members (In-Person + Online)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">All</div>
+                <div class="stat-label">Ages & Abilities</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What We Offer -->
+    <section style="background-color: var(--black);">
+        <div class="container">
+            <div class="section-title">
+                <h2>What We Offer</h2>
+                <p>Choose the training style that fits your lifestyle and goals</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+                <!-- Personal Training -->
+                <div style="background-color: var(--navy); padding: 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="https://www.genspark.ai/api/files/s/NngeJ7Ex" alt="Personal Training" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">Personal Training</h3>
+                    <p style="margin-bottom: 1.5rem;">Tailored 1-to-1 sessions designed around your fitness level, goals, and preferences. Expert guidance, focused attention, and results that last.</p>
+                    <ul style="list-style: none; color: var(--medium-grey);">
+                        <li style="padding: 0.5rem 0;">✓ Customized workout plans</li>
+                        <li style="padding: 0.5rem 0;">✓ Nutrition & recovery advice</li>
+                        <li style="padding: 0.5rem 0;">✓ Progress tracking</li>
+                        <li style="padding: 0.5rem 0;">✓ Free M2FT app membership</li>
+                    </ul>
+                </div>
+
+                <!-- Fitness Classes -->
+                <div style="background-color: var(--navy); padding: 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="https://www.genspark.ai/api/files/s/qMseA8cM" alt="Fitness Classes" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">Fitness Classes</h3>
+                    <p style="margin-bottom: 1.5rem;">High-energy group sessions featuring cardio, strength, and functional training. Motivating atmosphere, professional coaching, and results.</p>
+                    <ul style="list-style: none; color: var(--medium-grey);">
+                        <li style="padding: 0.5rem 0;">✓ Mon/Wed/Fri/Sat sessions</li>
+                        <li style="padding: 0.5rem 0;">✓ All fitness levels welcome</li>
+                        <li style="padding: 0.5rem 0;">✓ Circuit & HIIT training</li>
+                        <li style="padding: 0.5rem 0;">✓ From £3.75 per class</li>
+                    </ul>
+                </div>
+
+                <!-- Small Group Training -->
+                <div style="background-color: var(--navy); padding: 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="https://www.genspark.ai/api/files/s/h9Smah5Q" alt="Small Group Training" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem;">Small Group Training</h3>
+                    <p style="margin-bottom: 1.5rem;">Train with 2-4 people. Get personal attention at a lower cost while maintaining the motivation of group training.</p>
+                    <ul style="list-style: none; color: var(--medium-grey);">
+                        <li style="padding: 0.5rem 0;">✓ 2-4 people per session</li>
+                        <li style="padding: 0.5rem 0;">✓ Personalized coaching</li>
+                        <li style="padding: 0.5rem 0;">✓ Cost-effective option</li>
+                        <li style="padding: 0.5rem 0;">✓ Flexible scheduling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Training Pricing -->
+    <section style="background-color: var(--navy);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Personal Training Pricing</h2>
+                <p>All sessions include free M2FT app membership with exclusive programmes and nutrition guidance</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto;">
+                <!-- 1-to-1 -->
+                <div style="background-color: var(--black); padding: 3rem 2.5rem; border-radius: 8px; text-align: center; border: 2px solid rgba(255,255,255,0.1);">
+                    <h3 style="margin-bottom: 1rem;">1-to-1 Training</h3>
+                    <div style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;">£50</div>
+                    <div style="color: var(--medium-grey); margin-bottom: 0.5rem;">per session (one-off)</div>
+                    <div style="background-color: var(--navy); padding: 0.75rem; border-radius: 8px; margin: 1rem 0;">
+                        <div style="font-size: 2rem; font-weight: 800; color: var(--white);">£45</div>
+                        <div style="color: var(--medium-grey); font-size: 0.9rem;">per session (4-week block)</div>
+                    </div>
+                    <ul style="list-style: none; text-align: left; margin: 2rem 0; color: var(--medium-grey);">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Tailored workouts</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Nutrition advice</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Recovery strategies</li>
+                        <li style="padding: 0.75rem 0;">✓ Free app access</li>
+                    </ul>
+                    <a href="contact.html" class="btn-primary" style="margin-top: 1rem; display: inline-block;">Book Now</a>
+                </div>
+
+                <!-- 2 People -->
+                <div style="background-color: var(--black); padding: 3rem 2.5rem; border-radius: 8px; text-align: center; border: 2px solid rgba(255,255,255,0.1);">
+                    <h3 style="margin-bottom: 1rem;">2 People</h3>
+                    <div style="font-size: 3rem; font-weight: 800; margin: 1.5rem 0;">£35</div>
+                    <div style="color: var(--medium-grey); margin-bottom: 2rem;">per person / session</div>
+                    <ul style="list-style: none; text-align: left; margin: 2rem 0; color: var(--medium-grey);">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ 60-minute session</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Partner training</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Personalized focus</li>
+                        <li style="padding: 0.75rem 0;">✓ Free app access</li>
+                    </ul>
+                    <a href="contact.html" class="btn-primary" style="margin-top: 1rem; display: inline-block;">Book Now</a>
+                </div>
+
+                <!-- 3-4 People -->
+                <div style="background-color: var(--black); padding: 3rem 2.5rem; border-radius: 8px; text-align: center; border: 2px solid var(--white);">
+                    <div style="background-color: var(--white); color: var(--black); padding: 0.5rem 1rem; border-radius: 20px; display: inline-block; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">POPULAR</div>
+                    <h3 style="margin-bottom: 1rem;">3-4 People</h3>
+                    <div style="font-size: 3rem; font-weight: 800; margin: 1.5rem 0;">£30</div>
+                    <div style="color: var(--medium-grey); margin-bottom: 2rem;">per person / session</div>
+                    <ul style="list-style: none; text-align: left; margin: 2rem 0; color: var(--medium-grey);">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ 60-minute session</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Small group energy</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Great value</li>
+                        <li style="padding: 0.75rem 0;">✓ Free app access</li>
+                    </ul>
+                    <a href="contact.html" class="btn-primary" style="margin-top: 1rem; display: inline-block;">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fitness Classes Schedule -->
+    <section id="classes" style="background-color: var(--black);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Fitness Classes Schedule</h2>
+                <p>High-energy sessions across Surrey — all fitness levels welcome</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-bottom: 3rem;">
+                <!-- Monday -->
+                <div style="background-color: var(--navy); padding: 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="https://www.genspark.ai/api/files/s/MjcnpyJY" alt="Monday Fitness Class" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 0.5rem;">Monday</h3>
+                    <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">6:45 PM - 7:30 PM</div>
+                    <div style="color: var(--medium-grey); margin-bottom: 1rem;">📍 Nescot Sports Centre (Sep-Mar)<br>📍 Auriol Park (Apr-Aug)</div>
+                    <p style="margin-bottom: 1rem;">Circuit-based training with weights, kettlebells, and resistance bands. Led by Coach Kam.</p>
+                    <div style="background-color: var(--black); padding: 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--medium-grey);">
+                        <strong style="color: var(--white);">Focus:</strong> Strength & Core
+                    </div>
+                </div>
+
+                <!-- Wednesday -->
+                <div style="background-color: var(--navy); padding: 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="https://www.genspark.ai/api/files/s/W4lOMEBg" alt="Wednesday Fitness Class" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 0.5rem;">Wednesday</h3>
+                    <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">6:45 PM - 7:30 PM</div>
+                    <div style="color: var(--medium-grey); margin-bottom: 1rem;">📍 Nescot Sports Centre (Sep-Mar)<br>📍 Auriol Park (Apr-Aug)</div>
+                    <p style="margin-bottom: 1rem;">High-intensity workouts with resistance bands and lighter weights plus cardio-based sessions.</p>
+                    <div style="background-color: var(--black); padding: 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--medium-grey);">
+                        <strong style="color: var(--white);">Focus:</strong> HIIT & Cardio
+                    </div>
+                </div>
+
+                <!-- Friday -->
+                <div style="background-color: var(--navy); padding: 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="https://www.genspark.ai/api/files/s/IcRYsmQO" alt="Friday Fitness Class" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 0.5rem;">Friday</h3>
+                    <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">8:30 AM - 9:15 AM</div>
+                    <div style="color: var(--medium-grey); margin-bottom: 1rem;">📍 Auriol Park, Stoneleigh</div>
+                    <p style="margin-bottom: 1rem;">Cardio and core-focused session with weights and resistance bands. Led by Marco & Kam.</p>
+                    <div style="background-color: var(--black); padding: 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--medium-grey);">
+                        <strong style="color: var(--white);">Focus:</strong> Cardio & Core
+                    </div>
+                </div>
+
+                <!-- Saturday -->
+                <div style="background-color: var(--navy); padding: 2.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="https://www.genspark.ai/api/files/s/UzPfZqY6" alt="Saturday Fitness Class" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 0.5rem;">Saturday</h3>
+                    <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--white);">8:30 AM - 9:15 AM</div>
+                    <div style="color: var(--medium-grey); margin-bottom: 1rem;">📍 Auriol Park, Stoneleigh</div>
+                    <p style="margin-bottom: 1rem;">Weight training and high-intensity exercises with resistance bands, plus cardio and core work.</p>
+                    <div style="background-color: var(--black); padding: 1rem; border-radius: 8px; font-size: 0.9rem; color: var(--medium-grey);">
+                        <strong style="color: var(--white);">Focus:</strong> Weights & HIIT
+                    </div>
+                </div>
+            </div>
+
+            <!-- Class Pricing -->
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h3 style="text-align: center; margin-bottom: 2rem;">Class Pricing</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem;">
+                    <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px; text-align: center;">
+                        <h4 style="margin-bottom: 1rem;">Pay-as-you-go</h4>
+                        <div style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;">£7.50</div>
+                        <div style="color: var(--medium-grey);">per class</div>
+                    </div>
+                    <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px; text-align: center;">
+                        <h4 style="margin-bottom: 1rem;">2 Classes/Week</h4>
+                        <div style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;">£12</div>
+                        <div style="color: var(--medium-grey);">per week</div>
+                    </div>
+                    <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px; text-align: center;">
+                        <h4 style="margin-bottom: 1rem;">3 Classes/Week</h4>
+                        <div style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;">£15</div>
+                        <div style="color: var(--medium-grey);">per week</div>
+                    </div>
+                    <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px; text-align: center; border: 2px solid var(--white);">
+                        <div style="background-color: var(--white); color: var(--black); padding: 0.4rem 0.8rem; border-radius: 15px; display: inline-block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem;">BEST VALUE</div>
+                        <h4 style="margin-bottom: 1rem;">4 Classes/Week</h4>
+                        <div style="font-size: 2.5rem; font-weight: 800; margin: 1rem 0;">£18</div>
+                        <div style="color: var(--medium-grey);">per week</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Training via PT App -->
+    <section style="background-color: var(--black); padding: 5rem 5%;">
+        <div class="container">
+            <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+                <h2 style="margin-bottom: 1.5rem;">Prefer to Train Online?</h2>
+                <p style="font-size: 1.1rem; color: var(--medium-grey); margin-bottom: 3rem;">Join our live online fitness classes via the M2FT PT App and train from anywhere</p>
+                
+                <div style="background: linear-gradient(135deg, var(--navy) 0%, rgba(25, 40, 70, 0.8) 100%); padding: 3rem; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1);">
+                    <div style="display: inline-block; background-color: var(--white); color: var(--black); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 700; margin-bottom: 1.5rem;">M2 SHRED</div>
+                    
+                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">Online Core & HIIT Class</h3>
+                    <p style="color: var(--light-grey); margin-bottom: 2rem; font-size: 1.1rem;">Core-based high-intensity session for strong abs and total body conditioning</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                        <div>
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📅</div>
+                            <div style="font-weight: 600; margin-bottom: 0.3rem;">Every Sunday</div>
+                            <div style="color: var(--medium-grey);">10:00 AM</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💰</div>
+                            <div style="font-weight: 600; margin-bottom: 0.3rem;">£5 per class</div>
+                            <div style="color: var(--medium-grey);">Pay-as-you-go</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
+                            <div style="font-weight: 600; margin-bottom: 0.3rem;">Live via PT App</div>
+                            <div style="color: var(--medium-grey);">Train from home</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+                        <h4 style="margin-bottom: 1rem;">What You'll Need:</h4>
+                        <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; color: var(--light-grey);">
+                            <div>✓ Exercise mat</div>
+                            <div>✓ Small resistance bands</div>
+                            <div>✓ Water bottle</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="https://m2ft.mypthub.net/" target="_blank" class="btn-primary" style="font-size: 1.1rem;">Access PT App</a>
+                        <a href="contact.html" class="btn-secondary" style="font-size: 1.1rem;">Book Your Spot</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section style="background-color: var(--navy);">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Members Say</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background-color: var(--black); padding: 2rem; border-radius: 8px;">
+                    <p style="font-style: italic; margin-bottom: 1rem; color: var(--light-grey);">"Love bootcamp, the camaraderie, the laughs, the fitness, and Marco the motivator! Always smiling and ready to go! Can arrive feeling tired, always leave feeling energised!"</p>
+                    <div style="font-weight: 600;">— Tiff</div>
+                </div>
+                <div style="background-color: var(--black); padding: 2rem; border-radius: 8px;">
+                    <p style="font-style: italic; margin-bottom: 1rem; color: var(--light-grey);">"Marco's classes are great, he's super positive, and makes it a really fun session for everyone!"</p>
+                    <div style="font-weight: 600;">— Mel</div>
+                </div>
+                <div style="background-color: var(--black); padding: 2rem; border-radius: 8px;">
+                    <p style="font-style: italic; margin-bottom: 1rem; color: var(--light-grey);">"Love Marco's classes, he's really motivating. Fitness, plus lots of fun!"</p>
+                    <div style="font-weight: 600;">— Moyra</div>
+                </div>
+                <div style="background-color: var(--black); padding: 2rem; border-radius: 8px;">
+                    <p style="font-style: italic; margin-bottom: 1rem; color: var(--light-grey);">"Would definitely recommend, they are very professional and have excellent knowledge."</p>
+                    <div style="font-weight: 600;">— Calum</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background-color: var(--black); text-align: center;">
+        <div class="container">
+            <h2 style="margin-bottom: 1.5rem;">Ready to Start Your Fitness Journey?</h2>
+            <p style="max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.2rem;">Your first class is FREE. Come try a session and experience the M2 Fitness difference.</p>
+            <a href="contact.html" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Book Your Free Session</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>M2FT</h3>
+                <p>Elite football coaching and performance training in Surrey. Train like a pro with Marco Muthi, MSc Performance Coach.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:Marco@officialm2ft.com" style="color: var(--medium-grey);">Marco@officialm2ft.com</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="m2-football.html">M2 Football</a></li>
+                    <li><a href="m2-fitness.html">M2 Fitness</a></li>
+                    <li><a href="holiday-camps.html">Holiday Camps</a></li>
+                    <li><a href="trainers.html">Our Trainers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="trainers.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>M2 Football</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/m2football" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/share/1829VR5wNt/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.youtube.com/@m2ftfootball" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.tiktok.com/@m2ftfootball" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>M2 Fitness</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/m2ft_fitness" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/share/1NRaPvtmwN/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
+                    <li><a href="https://youtube.com/@m2ftfitness" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.tiktok.com/@m2ftfitness" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div>© 2025 M2FT Ltd. All rights reserved. | <a href="privacy-policy.html" style="color: var(--white); text-decoration: underline;">Privacy Policy</a> | <a href="terms-conditions.html" style="color: var(--white); text-decoration: underline;">Terms & Conditions</a></div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

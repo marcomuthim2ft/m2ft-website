@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with M2FT - Book your football coaching or fitness training session today. Contact Marco Muthi.">
+    <title>Contact Us | Book Your Session</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background-color: var(--black);
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--white);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--white);
+            color: var(--black);
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">M2FT</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="m2-football.html">M2 Football</a></li>
+                <li><a href="m2-fitness.html">M2 Fitness</a></li>
+                <li><a href="holiday-camps.html">Holiday Camps</a></li>
+                <li><a href="school-partnerships.html">School Partnerships</a></li>
+                <li><a href="trainers.html">Trainers</a></li>
+                <li><a href="contact.html" class="btn-primary">Book Now</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="min-height: 50vh; padding: 6rem 5% 3rem;">
+        <div class="hero-content" style="grid-template-columns: 1fr;">
+            <div class="hero-text" style="max-width: 700px; margin: 0 auto; text-align: center;">
+                <h1>GET IN TOUCH</h1>
+                <p style="max-width: 600px; margin: 0 auto;">Ready to start your training journey? Fill out the form below or contact us directly at Marco@officialm2ft.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form & Info -->
+    <section style="background-color: var(--navy); padding: 5rem 5%;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+                <!-- Contact Form -->
+                <div style="background-color: var(--black); padding: 3rem; border-radius: 12px;">
+                    <h2 style="margin-bottom: 2rem;">Send Us a Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">I'm Interested In *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service...</option>
+                                <option value="football-121">M2 Football - 1-to-1 Coaching</option>
+                                <option value="football-group">M2 Football - Small Group</option>
+                                <option value="fitness-pt">M2 Fitness - Personal Training</option>
+                                <option value="fitness-classes">M2 Fitness - Classes</option>
+                                <option value="holiday-camps">Holiday Camps</option>
+                                <option value="school-partnerships">School Partnerships</option>
+                                <option value="online">Online Programmes</option>
+                                <option value="other">Other / General Inquiry</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us about your goals, availability, or any questions you have..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--medium-grey);">
+                        * Required fields. We'll get back to you within 24 hours.
+                    </p>
+                </div>
+
+                <!-- Contact Information -->
+                <div>
+                    <!-- Direct Contact -->
+                    <div style="background-color: var(--black); padding: 2.5rem; border-radius: 12px; margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 2rem;">Contact Information</h3>
+                        
+                        <div style="margin-bottom: 2rem;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="font-size: 1.5rem;">📧</span>
+                                <span>Email</span>
+                            </div>
+                            <a href="mailto:Marco@officialm2ft.com" style="color: var(--medium-grey); font-size: 1.1rem; display: block; margin-left: 2.25rem;">Marco@officialm2ft.com</a>
+                        </div>
+                        
+                        <div style="margin-bottom: 2rem;">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="font-size: 1.5rem;">📱</span>
+                                <span>Social Media</span>
+                            </div>
+                            <div style="margin-left: 2.25rem; color: var(--medium-grey);">
+                                <p style="font-weight: 500; margin-bottom: 0.75rem; color: var(--white);">M2 Football:</p>
+                                <a href="https://www.instagram.com/m2football" target="_blank" style="display: block; margin-bottom: 0.5rem; color: var(--medium-grey);">Instagram: @m2football</a>
+                                <a href="https://www.tiktok.com/@m2ftfootball" target="_blank" style="display: block; margin-bottom: 0.5rem; color: var(--medium-grey);">TikTok: @m2ftfootball</a>
+                                <a href="https://www.youtube.com/@m2ftfootball" target="_blank" style="display: block; margin-bottom: 0.5rem; color: var(--medium-grey);">YouTube: @m2ftfootball</a>
+                                <a href="https://www.facebook.com/share/1829VR5wNt/?mibextid=wwXIfr" target="_blank" style="display: block; margin-bottom: 1.5rem; color: var(--medium-grey);">Facebook: M2FT</a>
+                                
+                                <p style="font-weight: 500; margin-bottom: 0.75rem; color: var(--white);">M2 Fitness:</p>
+                                <a href="https://www.instagram.com/m2ft_fitness" target="_blank" style="display: block; margin-bottom: 0.5rem; color: var(--medium-grey);">Instagram: @m2ft_fitness</a>
+                                <a href="https://www.tiktok.com/@m2ftfitness" target="_blank" style="display: block; margin-bottom: 0.5rem; color: var(--medium-grey);">TikTok: @m2ftfitness</a>
+                                <a href="https://youtube.com/@m2ftfitness" target="_blank" style="display: block; margin-bottom: 0.5rem; color: var(--medium-grey);">YouTube: @m2ftfitness</a>
+                                <a href="https://www.facebook.com/share/1NRaPvtmwN/?mibextid=wwXIfr" target="_blank" style="display: block; color: var(--medium-grey);">Facebook: M2 Fitness</a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="font-size: 1.5rem;">📍</span>
+                                <span>Training Locations</span>
+                            </div>
+                            <div style="margin-left: 2.25rem; color: var(--medium-grey); line-height: 1.8;">
+                                <p style="margin-bottom: 0.5rem;">Nescot Sports Centre, Epsom</p>
+                                <p style="margin-bottom: 0.5rem;">Auriol Park, Stoneleigh</p>
+                                <p>Surrey & surrounding areas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div style="background-color: var(--black); padding: 2.5rem; border-radius: 12px;">
+                        <h3 style="margin-bottom: 1.5rem;">Quick Links</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <a href="m2-football.html" style="color: var(--medium-grey); transition: color 0.3s ease;">→ M2 Football Coaching</a>
+                            <a href="m2-fitness.html" style="color: var(--medium-grey); transition: color 0.3s ease;">→ M2 Fitness Training</a>
+                            <a href="holiday-camps.html" style="color: var(--medium-grey); transition: color 0.3s ease;">→ Holiday Camps</a>
+                            <a href="trainers.html" style="color: var(--medium-grey); transition: color 0.3s ease;">→ Meet the Team</a>
+                        </div>
+                    </div>
+
+                    <!-- App Download -->
+                    <div style="background-color: var(--black); padding: 2.5rem; border-radius: 12px; margin-top: 2rem; text-align: center;">
+                        <h3 style="margin-bottom: 1rem;">Download the M2FT PT App</h3>
+                        <p style="color: var(--medium-grey); margin-bottom: 1.5rem; font-size: 0.95rem;">Access training programmes on the go</p>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="https://apps.apple.com/gb/app/m2ft-pt-app/id6749760282" target="_blank" style="background-color: var(--navy); padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; border: 2px solid var(--navy);">📱 App Store</a>
+                            <a href="https://play.google.com/store/apps/details?id=com.mypthub.theptapp&pcampaignid=web_share" target="_blank" style="background-color: var(--navy); padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; border: 2px solid var(--navy);">📱 Google Play</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="background-color: var(--black);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">How do I book a session?</h3>
+                    <p style="color: var(--medium-grey); line-height: 1.7;">Fill out the contact form above or email us directly at Marco@officialm2ft.com. We'll get back to you within 24 hours to discuss availability and schedule your first session.</p>
+                </div>
+
+                <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">What should I bring to my first session?</h3>
+                    <p style="color: var(--medium-grey); line-height: 1.7;">For football: boots, trainers, shin pads, water bottle, and weather-appropriate kit. For fitness: trainers, water bottle, and comfortable workout clothes.</p>
+                </div>
+
+                <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Do you offer trial sessions?</h3>
+                    <p style="color: var(--medium-grey); line-height: 1.7;">Yes! Your first fitness class is FREE. For 1-to-1 coaching, get in touch to discuss a trial session.</p>
+                </div>
+
+                <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Where are sessions held?</h3>
+                    <p style="color: var(--medium-grey); line-height: 1.7;">We operate at Nescot Sports Centre (Epsom), Auriol Park (Stoneleigh), and other locations across Surrey. Specific venues are confirmed when you book.</p>
+                </div>
+
+                <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">What's your cancellation policy?</h3>
+                    <p style="color: var(--medium-grey); line-height: 1.7;">You must inform us at least 24 hours before your session. We can reschedule or refund you. Cancellations with less than 24 hours notice incur a 50% charge.</p>
+                </div>
+
+                <div style="background-color: var(--navy); padding: 2rem; border-radius: 8px;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Do you offer online coaching?</h3>
+                    <p style="color: var(--medium-grey); line-height: 1.7;">Yes! Download the M2FT app for online programmes, video demonstrations, and remote coaching support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>M2FT</h3>
+                <p>Elite football coaching and performance training in Surrey. Train like a pro with Marco Muthi, MSc Performance Coach.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:Marco@officialm2ft.com" style="color: var(--medium-grey);">Marco@officialm2ft.com</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="m2-football.html">M2 Football</a></li>
+                    <li><a href="m2-fitness.html">M2 Fitness</a></li>
+                    <li><a href="holiday-camps.html">Holiday Camps</a></li>
+                    <li><a href="trainers.html">Our Trainers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="trainers.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>M2 Football</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/m2football" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/share/1829VR5wNt/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.youtube.com/@m2ftfootball" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.tiktok.com/@m2ftfootball" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>M2 Fitness</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/m2ft_fitness" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/share/1NRaPvtmwN/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
+                    <li><a href="https://youtube.com/@m2ftfitness" target="_blank">YouTube</a></li>
+                    <li><a href="https://www.tiktok.com/@m2ftfitness" target="_blank">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div>© 2025 M2FT Ltd. All rights reserved. | <a href="privacy-policy.html" style="color: var(--white); text-decoration: underline;">Privacy Policy</a> | <a href="terms-conditions.html" style="color: var(--white); text-decoration: underline;">Terms & Conditions</a></div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
