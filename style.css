@@ -459,7 +459,8 @@ section {
 .pro-player-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* Desktop: show full image */
+    object-position: center;
     display: block;
 }
 
@@ -531,6 +532,11 @@ section {
     
     .pro-player-image {
         height: 350px;
+    }
+    
+    .pro-player-image img {
+        object-fit: cover; /* Mobile: fill space and crop */
+        object-position: center top;
     }
     
     .pro-player-info {
