@@ -43,13 +43,8 @@ class VideoSlider {
             this.nextBtn.addEventListener('click', () => this.next());
         }
         
-        // Auto play first video
-        if (this.videos[0]) {
-            this.videos[0].play().catch(e => console.log('Autoplay prevented'));
-        }
-        
-        // Auto advance every 10 seconds
-        this.startAutoPlay();
+        // Videos are muted and paused by default
+        // Users must manually play
     }
     
     createDots() {
@@ -89,13 +84,10 @@ class VideoSlider {
         this.track.style.transform = `translateX(${offset}%)`;
         this.updateDots();
         
-        // Play new video
+        // Pause new video (user must manually play)
         if (this.videos[this.currentIndex]) {
-            this.videos[this.currentIndex].play().catch(e => console.log('Autoplay prevented'));
+            this.videos[this.currentIndex].pause();
         }
-        
-        // Reset auto play
-        this.resetAutoPlay();
     }
     
     next() {
@@ -106,17 +98,6 @@ class VideoSlider {
     prev() {
         const prevIndex = (this.currentIndex - 1 + this.slideCount) % this.slideCount;
         this.goToSlide(prevIndex);
-    }
-    
-    startAutoPlay() {
-        this.autoPlayInterval = setInterval(() => {
-            this.next();
-        }, 10000); // 10 seconds
-    }
-    
-    resetAutoPlay() {
-        clearInterval(this.autoPlayInterval);
-        this.startAutoPlay();
     }
 }
 
