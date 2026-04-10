@@ -482,16 +482,21 @@ function calculateResults() {
         }
     });
     
-    // Average the category scores
+    // Average the category scores and normalize to 60-95 range for better feel
     Object.keys(categoryScores).forEach(key => {
         if (scoreCounts[key] > 0) {
-            categoryScores[key] = Math.round(categoryScores[key] / scoreCounts[key]);
+            // Average the raw scores
+            let avgScore = categoryScores[key] / scoreCounts[key];
+            
+            // Normalize to 60-95 range (base score of 60 + up to 35 points)
+            // This ensures everyone gets a decent score but can still see improvement areas
+            categoryScores[key] = Math.round(60 + (avgScore * 0.35));
+            
+            // Cap at 95 (elite level)
+            categoryScores[key] = Math.min(95, Math.max(60, categoryScores[key]));
+        } else {
+            categoryScores[key] = 65; // Default if no data
         }
-    });
-    
-    // Normalize to 0-100 scale
-    Object.keys(categoryScores).forEach(key => {
-        categoryScores[key] = Math.min(100, Math.max(0, categoryScores[key]));
     });
     
     // Find dominant archetype
@@ -504,7 +509,7 @@ function calculateResults() {
         }
     });
     
-    // Calculate overall score
+    // Calculate overall score (average of 4 categories)
     const overallScore = Math.round(
         (categoryScores.technical + categoryScores.tactical + categoryScores.physical + categoryScores.mental) / 4
     );
