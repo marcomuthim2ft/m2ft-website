@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover your football player type and get your personalized M2 Player Score. Find out if you're a Technician, Workhorse, Explosive, Leader, Wall, or Finisher.">
+    <title>M2 Player Scorecard - Discover Your Football Player Type</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Quiz-specific styles */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .quiz-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .quiz-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B35 0%, #ff8c5a 100%);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--medium-grey);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, var(--navy) 0%, rgba(25, 40, 70, 0.95) 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255,107,53,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .question-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .question-subtitle {
+            font-size: 1rem;
+            color: var(--medium-grey);
+            margin-bottom: 2rem;
+        }
+
+        .answer-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .answer-option {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .answer-option:hover {
+            background: rgba(255,107,53,0.1);
+            border-color: #FF6B35;
+            transform: translateX(5px);
+        }
+
+        .answer-option.selected {
+            background: rgba(255,107,53,0.2);
+            border-color: #FF6B35;
+        }
+
+        .answer-option input[type="radio"] {
+            display: none;
+        }
+
+        .answer-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .range-input-container {
+            margin: 2rem 0;
+        }
+
+        .range-input {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #FF6B35;
+            cursor: pointer;
+        }
+
+        .range-input::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #FF6B35;
+            cursor: pointer;
+            border: none;
+        }
+
+        .range-value {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FF6B35;
+            margin-top: 1rem;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--medium-grey);
+        }
+
+        .quiz-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-quiz {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            flex: 1;
+        }
+
+        .btn-next {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: #ff8c5a;
+            transform: translateY(-2px);
+        }
+
+        .btn-next:disabled {
+            background: rgba(255,107,53,0.3);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-back {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-back:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Email Gate */
+        .email-gate {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .email-gate h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .email-gate p {
+            color: var(--medium-grey);
+            margin-bottom: 2rem;
+        }
+
+        .email-input-group {
+            max-width: 500px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .email-input-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        .email-input-group input::placeholder {
+            color: var(--medium-grey);
+        }
+
+        /* Results Page */
+        .results-container {
+            display: none;
+        }
+
+        .results-container.active {
+            display: block;
+        }
+
+        .archetype-reveal {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .archetype-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .archetype-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #FF6B35;
+            margin-bottom: 1rem;
+        }
+
+        .archetype-subtitle {
+            font-size: 1.3rem;
+            color: var(--light-grey);
+            margin-bottom: 2rem;
+        }
+
+        .archetype-description {
+            font-size: 1.1rem;
+            color: var(--medium-grey);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .famous-players {
+            display: inline-block;
+            background: rgba(255,107,53,0.1);
+            border: 1px solid #FF6B35;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--light-grey);
+        }
+
+        .famous-players strong {
+            color: #FF6B35;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .score-card {
+            background: var(--navy);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            color: var(--medium-grey);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #FF6B35;
+        }
+
+        .score-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B35 0%, #ff8c5a 100%);
+            border-radius: 10px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #ff8c5a 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-section h3 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-white {
+            background: white;
+            color: #FF6B35;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">M2FT</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="m2-football.html">M2 Football</a></li>
+                <li><a href="m2-fitness.html">M2 Fitness</a></li>
+                <li><a href="holiday-camps.html">Holiday Camps</a></li>
+                <li><a href="school-partnerships.html">School Partnerships</a></li>
+                <li><a href="trainers.html">Trainers</a></li>
+                <li><a href="free-trial.html" class="btn-secondary">Free Trial</a></li>
+                <li><a href="contact.html" class="btn-primary">Book Now</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section / Landing -->
+    <section id="landing" class="hero" style="min-height: 80vh; background: linear-gradient(135deg, var(--black) 0%, var(--navy) 100%);">
+        <div class="hero-content" style="grid-template-columns: 1fr;">
+            <div class="hero-text" style="text-align: center; max-width: 900px; margin: 0 auto;">
+                <div style="display: inline-block; background-color: #FF6B35; color: var(--black); padding: 0.6rem 1.5rem; border-radius: 25px; font-weight: 700; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    ⚽ FREE PLAYER ASSESSMENT
+                </div>
+                <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem;">What Type of Footballer Are You?</h1>
+                <p style="font-size: 1.3rem; margin-bottom: 2.5rem; color: var(--light-grey); max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Discover your unique player profile and get your personalized M2 Player Score in just 2 minutes.
+                </p>
+                
+                <!-- The 6 Archetypes Preview -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; max-width: 800px; margin: 2rem auto 3rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎨</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--white);">The Technician</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💪</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--white);">The Workhorse</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚡</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--white);">The Explosive</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧠</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--white);">The Leader</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🛡️</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--white);">The Wall</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: var(--white);">The Finisher</div>
+                    </div>
+                </div>
+
+                <button onclick="startQuiz()" class="btn-primary" style="font-size: 1.2rem; padding: 1.2rem 3rem;">
+                    Start Your Assessment →
+                </button>
+
+                <div style="margin-top: 2rem; color: var(--medium-grey); font-size: 0.95rem;">
+                    ⏱️ Takes 2 minutes • 🎁 100% Free • 📊 Instant Results
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="quiz-container" style="display: none; background-color: var(--black); min-height: 100vh; padding-top: 2rem;">
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">Question 1 of 15</div>
+
+        <!-- Quiz Questions will be dynamically inserted here -->
+        <div id="quizQuestions"></div>
+
+        <!-- Navigation Buttons -->
+        <div class="quiz-buttons">
+            <button class="btn-quiz btn-back" id="btnBack" onclick="previousQuestion()" style="display: none;">← Back</button>
+            <button class="btn-quiz btn-next" id="btnNext" onclick="nextQuestion()" disabled>Next →</button>
+        </div>
+    </section>
+
+    <!-- Email Gate Section -->
+    <section id="emailGate" class="quiz-container" style="display: none; background-color: var(--black); min-height: 100vh; padding-top: 4rem;">
+        <div class="question-card email-gate">
+            <h3>🎉 Assessment Complete!</h3>
+            <p>Enter your details below to see your player type and personalized M2 Player Score.</p>
+            
+            <div class="email-input-group">
+                <input type="text" id="playerName" placeholder="Your Name" required>
+                <input type="email" id="playerEmail" placeholder="Your Email Address" required>
+                <input type="number" id="playerAge" placeholder="Your Age" min="8" max="99" required>
+                <select id="playerPosition" required style="width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: var(--white); font-size: 1rem;">
+                    <option value="">Select Your Primary Position</option>
+                    <option value="Goalkeeper">Goalkeeper</option>
+                    <option value="Defender">Defender</option>
+                    <option value="Midfielder">Midfielder</option>
+                    <option value="Winger">Winger</option>
+                    <option value="Striker">Striker</option>
+                </select>
+                <button class="btn-quiz btn-next" onclick="submitEmailAndShowResults()" style="margin-top: 1rem;">
+                    See My Results 🎯
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="quiz-container results-container" style="background-color: var(--black); min-height: 100vh; padding-top: 2rem;">
+        <!-- Results will be dynamically generated -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>M2FT Performance</h3>
+                    <p>Elite football and fitness training in Surrey</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="m2-football.html">M2 Football</a></li>
+                        <li><a href="m2-fitness.html">M2 Fitness</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: marco@m2ftperformance.com</p>
+                    <p>Phone: 07XXX XXXXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 M2FT Performance. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="m2-scorecard-quiz.js"></script>
+</body>
+</html>
