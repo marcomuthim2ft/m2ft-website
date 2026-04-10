@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Leads - M2FT Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: var(--black);
+            color: var(--white);
+            padding: 2rem;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 2px solid #FF6B35;
+        }
+
+        .admin-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #FF6B35;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--navy);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #FF6B35;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--medium-grey);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filters {
+            background: var(--navy);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 0.75rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            color: var(--white);
+            font-size: 0.95rem;
+        }
+
+        .filters button {
+            padding: 0.75rem 1.5rem;
+            background: #FF6B35;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filters button:hover {
+            background: #ff8c5a;
+        }
+
+        .leads-table {
+            background: var(--navy);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(0,0,0,0.3);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #FF6B35;
+            border-bottom: 2px solid rgba(255,107,53,0.3);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+
+        tr:hover {
+            background: rgba(255,107,53,0.05);
+        }
+
+        .archetype-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .archetype-technician { background: rgba(100, 149, 237, 0.2); color: #6495ED; }
+        .archetype-workhorse { background: rgba(60, 179, 113, 0.2); color: #3CB371; }
+        .archetype-explosive { background: rgba(255, 215, 0, 0.2); color: #FFD700; }
+        .archetype-leader { background: rgba(138, 43, 226, 0.2); color: #8A2BE2; }
+        .archetype-wall { background: rgba(105, 105, 105, 0.2); color: #A9A9A9; }
+        .archetype-finisher { background: rgba(255, 69, 0, 0.2); color: #FF4500; }
+
+        .score-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .score-high { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
+        .score-medium { background: rgba(255, 193, 7, 0.2); color: #FFC107; }
+        .score-low { background: rgba(244, 67, 54, 0.2); color: #F44336; }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--medium-grey);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 3rem;
+            color: var(--medium-grey);
+        }
+
+        .export-btn {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+
+        .export-btn:hover {
+            background: rgba(76, 175, 80, 0.3);
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+
+        .view-btn:hover {
+            background: rgba(33, 150, 243, 0.3);
+        }
+
+        .email-btn {
+            background: rgba(255, 107, 53, 0.2);
+            color: #FF6B35;
+        }
+
+        .email-btn:hover {
+            background: rgba(255, 107, 53, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 1rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+            <h1>🎯 Quiz Leads Dashboard</h1>
+            <p style="color: var(--medium-grey); margin: 0;">M2 Player Scorecard - Lead Management</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalLeads">-</div>
+                <div class="stat-label">Total Leads</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgScore">-</div>
+                <div class="stat-label">Avg Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="topArchetype">-</div>
+                <div class="stat-label">Top Archetype</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayLeads">-</div>
+                <div class="stat-label">Today</div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <select id="filterArchetype" onchange="filterLeads()">
+                <option value="">All Archetypes</option>
+                <option value="The Technician">The Technician</option>
+                <option value="The Workhorse">The Workhorse</option>
+                <option value="The Explosive">The Explosive</option>
+                <option value="The Leader">The Leader</option>
+                <option value="The Wall">The Wall</option>
+                <option value="The Finisher">The Finisher</option>
+            </select>
+
+            <select id="filterPosition" onchange="filterLeads()">
+                <option value="">All Positions</option>
+                <option value="Goalkeeper">Goalkeeper</option>
+                <option value="Defender">Defender</option>
+                <option value="Midfielder">Midfielder</option>
+                <option value="Winger">Winger</option>
+                <option value="Striker">Striker</option>
+            </select>
+
+            <input type="number" id="filterMinScore" placeholder="Min Score" onchange="filterLeads()" style="width: 120px;">
+            
+            <input type="text" id="searchName" placeholder="Search by name..." onchange="filterLeads()" style="flex: 1; min-width: 200px;">
+
+            <button onclick="loadLeads()">🔄 Refresh</button>
+            <button class="export-btn" onclick="exportToCSV()">📥 Export CSV</button>
+        </div>
+
+        <!-- Leads Table -->
+        <div class="leads-table">
+            <div id="loadingState" class="loading">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⏳</div>
+                <p>Loading quiz leads...</p>
+            </div>
+
+            <div id="noDataState" class="no-data" style="display: none;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📭</div>
+                <p>No quiz leads yet. Share the quiz link to start collecting leads!</p>
+                <p style="margin-top: 1rem; color: #FF6B35;">
+                    <strong>Quiz URL:</strong> m2ftperformance.com/m2-player-scorecard.html
+                </p>
+            </div>
+
+            <table id="leadsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Position</th>
+                        <th>Archetype</th>
+                        <th>Score</th>
+                        <th>Tech</th>
+                        <th>Tact</th>
+                        <th>Phys</th>
+                        <th>Ment</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="leadsBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let allLeads = [];
+        let filteredLeads = [];
+        let isAuthenticated = false;
+
+        // Password protection
+        function checkPassword() {
+            const correctPassword = "M2FT2026!"; // Change this to your preferred password
+            const enteredPassword = prompt("🔒 Enter admin password to access quiz leads:");
+            
+            if (enteredPassword === correctPassword) {
+                isAuthenticated = true;
+                loadLeads();
+            } else if (enteredPassword !== null) {
+                alert("❌ Incorrect password. Access denied.");
+                window.location.href = "index.html";
+            } else {
+                window.location.href = "index.html";
+            }
+        }
+
+        async function loadLeads() {
+            if (!isAuthenticated) return;
+            try {
+                document.getElementById('loadingState').style.display = 'block';
+                document.getElementById('noDataState').style.display = 'none';
+                document.getElementById('leadsTable').style.display = 'none';
+
+                const response = await fetch('tables/player_scorecard_leads?limit=1000&sort=-created_at');
+                const data = await response.json();
+
+                allLeads = data.data || [];
+                filteredLeads = [...allLeads];
+
+                document.getElementById('loadingState').style.display = 'none';
+
+                if (allLeads.length === 0) {
+                    document.getElementById('noDataState').style.display = 'block';
+                } else {
+                    document.getElementById('leadsTable').style.display = 'table';
+                    renderLeads();
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Error loading leads:', error);
+                document.getElementById('loadingState').innerHTML = `
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+                    <p>Error loading leads. Please try again.</p>
+                `;
+            }
+        }
+
+        function renderLeads() {
+            const tbody = document.getElementById('leadsBody');
+            
+            if (filteredLeads.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="12" style="text-align: center; padding: 2rem; color: var(--medium-grey);">
+                            No leads match your filters
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filteredLeads.map(lead => {
+                const date = new Date(lead.completed_at).toLocaleDateString('en-GB', { 
+                    day: '2-digit', 
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const archetypeClass = lead.archetype.toLowerCase().replace(' ', '-').replace('the-', '');
+                
+                let scoreClass = 'score-medium';
+                if (lead.overall_score >= 80) scoreClass = 'score-high';
+                else if (lead.overall_score < 65) scoreClass = 'score-low';
+
+                return `
+                    <tr>
+                        <td>${date}</td>
+                        <td><strong>${lead.name}</strong></td>
+                        <td>${lead.email}</td>
+                        <td>${lead.age}</td>
+                        <td>${lead.position}</td>
+                        <td><span class="archetype-badge archetype-${archetypeClass}">${lead.archetype}</span></td>
+                        <td><span class="score-badge ${scoreClass}">${lead.overall_score}</span></td>
+                        <td>${lead.technical_score}</td>
+                        <td>${lead.tactical_score}</td>
+                        <td>${lead.physical_score}</td>
+                        <td>${lead.mental_score}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn email-btn" onclick="emailLead('${lead.email}', '${lead.name}', '${lead.archetype}')">
+                                    📧
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateStats() {
+            // Total leads
+            document.getElementById('totalLeads').textContent = allLeads.length;
+
+            // Average score
+            const avgScore = Math.round(
+                allLeads.reduce((sum, lead) => sum + lead.overall_score, 0) / allLeads.length
+            );
+            document.getElementById('avgScore').textContent = avgScore || '-';
+
+            // Top archetype
+            const archetypeCounts = {};
+            allLeads.forEach(lead => {
+                archetypeCounts[lead.archetype] = (archetypeCounts[lead.archetype] || 0) + 1;
+            });
+            const topArchetype = Object.keys(archetypeCounts).reduce((a, b) => 
+                archetypeCounts[a] > archetypeCounts[b] ? a : b, 
+                'N/A'
+            );
+            const shortName = topArchetype.replace('The ', '');
+            document.getElementById('topArchetype').textContent = shortName;
+
+            // Today's leads
+            const today = new Date().toDateString();
+            const todayCount = allLeads.filter(lead => 
+                new Date(lead.completed_at).toDateString() === today
+            ).length;
+            document.getElementById('todayLeads').textContent = todayCount;
+        }
+
+        function filterLeads() {
+            const archetypeFilter = document.getElementById('filterArchetype').value;
+            const positionFilter = document.getElementById('filterPosition').value;
+            const minScore = parseInt(document.getElementById('filterMinScore').value) || 0;
+            const searchName = document.getElementById('searchName').value.toLowerCase();
+
+            filteredLeads = allLeads.filter(lead => {
+                if (archetypeFilter && lead.archetype !== archetypeFilter) return false;
+                if (positionFilter && lead.position !== positionFilter) return false;
+                if (lead.overall_score < minScore) return false;
+                if (searchName && !lead.name.toLowerCase().includes(searchName)) return false;
+                return true;
+            });
+
+            renderLeads();
+        }
+
+        function emailLead(email, name, archetype) {
+            const subject = encodeURIComponent(`Your M2 Player Scorecard Results - ${archetype}`);
+            const body = encodeURIComponent(`Hi ${name},\n\nThank you for completing the M2 Player Scorecard!\n\nYour result: ${archetype}\n\nBased on your profile, I'd love to discuss how M2FT Performance can help you develop your game.\n\nWould you be interested in:\n- FREE trial of M2 Ball Mastery\n- Personalized training plan\n- 1-to-1 coaching session\n\nLet me know!\n\nBest,\nMarco\nM2FT Performance`);
+            
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        }
+
+        function exportToCSV() {
+            const headers = ['Date', 'Name', 'Email', 'Age', 'Position', 'Archetype', 'Overall Score', 'Technical', 'Tactical', 'Physical', 'Mental'];
+            
+            const csvContent = [
+                headers.join(','),
+                ...filteredLeads.map(lead => {
+                    const date = new Date(lead.completed_at).toLocaleString('en-GB');
+                    return [
+                        date,
+                        lead.name,
+                        lead.email,
+                        lead.age,
+                        lead.position,
+                        lead.archetype,
+                        lead.overall_score,
+                        lead.technical_score,
+                        lead.tactical_score,
+                        lead.physical_score,
+                        lead.mental_score
+                    ].join(',');
+                })
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `m2ft-quiz-leads-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        // Check password on page load
+        checkPassword();
+
+        // Auto-refresh every 30 seconds (only if authenticated)
+        setInterval(() => {
+            if (isAuthenticated) loadLeads();
+        }, 30000);
+    </script>
+</body>
+</html>
