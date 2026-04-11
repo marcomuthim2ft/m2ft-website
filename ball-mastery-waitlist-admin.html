@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2 Ball Mastery Waitlist - Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a2846 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .password-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a2846 100%);
+            z-index: 1000;
+        }
+
+        .password-box {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .password-box h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #FF6B35;
+        }
+
+        .password-box p {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .password-box button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #FF6B35 0%, #ff8c5a 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .password-box button:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #f44336;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .header {
+            background: rgba(10, 10, 10, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #FF6B35;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #FF6B35;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-top: 0.3rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #FF6B35 0%, #ff8c5a 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .table-container {
+            background: rgba(10, 10, 10, 0.9);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(255, 107, 53, 0.2);
+        }
+
+        th {
+            padding: 1.2rem 1rem;
+            text-align: left;
+            font-weight: 700;
+            color: #FF6B35;
+            border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+        }
+
+        td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e5e7eb;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 107, 53, 0.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #4CAF50;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #9ca3af;
+            font-size: 1.2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            color: #9ca3af;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-small:hover {
+            background: rgba(255, 107, 53, 0.3);
+            border-color: #FF6B35;
+        }
+
+        .btn-danger {
+            background: rgba(244, 67, 54, 0.2);
+            border-color: #f44336;
+            color: #f44336;
+        }
+
+        .btn-danger:hover {
+            background: rgba(244, 67, 54, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats {
+                width: 100%;
+            }
+
+            .stat-box {
+                flex: 1;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.8rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Screen -->
+    <div id="passwordScreen" class="password-screen">
+        <div class="password-box">
+            <h2>🔒 Admin Access</h2>
+            <p>Enter password to view M2 Ball Mastery waitlist</p>
+            <input type="password" id="passwordInput" placeholder="Enter admin password" autocomplete="off">
+            <button onclick="checkPassword()">Access Waitlist</button>
+            <p class="error-message" id="errorMessage">Incorrect password. Try again.</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>⚽ M2 Ball Mastery Waitlist</h1>
+                <p style="color: #9ca3af; margin-top: 0.5rem;">Manage registrations for the FREE online football session</p>
+            </div>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalRegistrations">0</div>
+                    <div class="stat-label">Total Registrations</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="todayRegistrations">0</div>
+                    <div class="stat-label">Today</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <input type="text" id="searchBox" class="search-box" placeholder="🔍 Search by name or email..." onkeyup="filterTable()">
+            <button class="btn" onclick="loadWaitlist()">🔄 Refresh</button>
+            <button class="btn btn-secondary" onclick="exportToCSV()">📥 Export CSV</button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <div id="loadingState" class="loading">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⏳</div>
+                Loading waitlist data...
+            </div>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-state-icon">📭</div>
+                <h3 style="margin-bottom: 0.5rem;">No registrations yet</h3>
+                <p>Waitlist entries will appear here when people register</p>
+            </div>
+
+            <table id="waitlistTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Footballer Name</th>
+                        <th>Parent Name</th>
+                        <th>Email</th>
+                        <th>Registered</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = 'M2FT2026!';
+        let allRegistrations = [];
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                loadWaitlist();
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        async function loadWaitlist() {
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            const table = document.getElementById('waitlistTable');
+            const tableBody = document.getElementById('tableBody');
+
+            loadingState.style.display = 'block';
+            emptyState.style.display = 'none';
+            table.style.display = 'none';
+
+            try {
+                const response = await fetch('tables/ball_mastery_waitlist?limit=1000&sort=-created_at');
+                const data = await response.json();
+
+                allRegistrations = data.data || [];
+
+                if (allRegistrations.length === 0) {
+                    loadingState.style.display = 'none';
+                    emptyState.style.display = 'block';
+                    updateStats(0, 0);
+                    return;
+                }
+
+                // Update stats
+                const today = new Date().toDateString();
+                const todayCount = allRegistrations.filter(reg => {
+                    const regDate = new Date(reg.created_at).toDateString();
+                    return regDate === today;
+                }).length;
+
+                updateStats(allRegistrations.length, todayCount);
+
+                // Populate table
+                tableBody.innerHTML = '';
+                allRegistrations.forEach((registration, index) => {
+                    const row = createTableRow(registration, index + 1);
+                    tableBody.appendChild(row);
+                });
+
+                loadingState.style.display = 'none';
+                table.style.display = 'table';
+
+            } catch (error) {
+                console.error('Error loading waitlist:', error);
+                loadingState.innerHTML = '<div style="color: #f44336;">❌ Error loading data. Please refresh.</div>';
+            }
+        }
+
+        function createTableRow(registration, index) {
+            const row = document.createElement('tr');
+            
+            const registrationDate = new Date(registration.created_at);
+            const formattedDate = registrationDate.toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            row.innerHTML = `
+                <td><strong>${index}</strong></td>
+                <td><strong>${registration.footballer_name || 'N/A'}</strong></td>
+                <td>${registration.parent_name || 'N/A'}</td>
+                <td><a href="mailto:${registration.email}" style="color: #FF6B35; text-decoration: none;">${registration.email}</a></td>
+                <td>${formattedDate}</td>
+                <td><span class="badge">Waiting</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn-small" onclick="copyEmail('${registration.email}')">📋 Copy Email</button>
+                        <button class="btn-small btn-danger" onclick="deleteRegistration('${registration.id}')">🗑️ Delete</button>
+                    </div>
+                </td>
+            `;
+
+            return row;
+        }
+
+        function updateStats(total, today) {
+            document.getElementById('totalRegistrations').textContent = total;
+            document.getElementById('todayRegistrations').textContent = today;
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const tableBody = document.getElementById('tableBody');
+            
+            tableBody.innerHTML = '';
+            
+            const filteredRegistrations = allRegistrations.filter(reg => {
+                const footballerName = (reg.footballer_name || '').toLowerCase();
+                const parentName = (reg.parent_name || '').toLowerCase();
+                const email = (reg.email || '').toLowerCase();
+                
+                return footballerName.includes(searchTerm) || 
+                       parentName.includes(searchTerm) || 
+                       email.includes(searchTerm);
+            });
+
+            filteredRegistrations.forEach((registration, index) => {
+                const row = createTableRow(registration, index + 1);
+                tableBody.appendChild(row);
+            });
+
+            if (filteredRegistrations.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 3rem; color: #9ca3af;">No results found</td></tr>';
+            }
+        }
+
+        function copyEmail(email) {
+            navigator.clipboard.writeText(email).then(() => {
+                alert('✅ Email copied: ' + email);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        async function deleteRegistration(id) {
+            if (!confirm('Are you sure you want to delete this registration?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`tables/ball_mastery_waitlist/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok || response.status === 204) {
+                    alert('✅ Registration deleted successfully');
+                    loadWaitlist();
+                } else {
+                    alert('❌ Error deleting registration');
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                alert('❌ Error deleting registration');
+            }
+        }
+
+        function exportToCSV() {
+            if (allRegistrations.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            const headers = ['#', 'Footballer Name', 'Parent Name', 'Email', 'Registration Date'];
+            const rows = allRegistrations.map((reg, index) => {
+                const date = new Date(reg.created_at).toLocaleString('en-GB');
+                return [
+                    index + 1,
+                    reg.footballer_name || 'N/A',
+                    reg.parent_name || 'N/A',
+                    reg.email || 'N/A',
+                    date
+                ];
+            });
+
+            let csvContent = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csvContent += row.map(cell => `"${cell}"`).join(',') + '\n';
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `m2-ball-mastery-waitlist-${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            alert('✅ CSV exported successfully!');
+        }
+    </script>
+</body>
+</html>
