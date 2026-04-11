@@ -635,15 +635,6 @@ function displayResults(results, playerName) {
                 </div>
             </div>
         </div>
-
-        <div class="cta-section">
-            <h3>Ready to Level Up Your Game?</h3>
-            <p>Join M2FT Performance and get personalized training tailored to ${archetype.name} players like you.</p>
-            <div class="cta-buttons">
-                <a href="free-trial.html" class="btn-cta-white">Claim Your Free Trial →</a>
-                <a href="m2-football.html" class="btn-cta-white">Explore M2 Football</a>
-            </div>
-        </div>
     `;
     
     document.getElementById('results').innerHTML = html;
