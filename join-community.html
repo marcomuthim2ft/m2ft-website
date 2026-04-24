@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join the M2FT Performance Academy - Free community for ambitious footballers. Get daily training tips, drills, and connect with players nationwide.">
+    <title>Join M2FT Performance Academy - Free Football Community</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .community-page {
+            background: linear-gradient(135deg, var(--black) 0%, var(--navy) 100%);
+            min-height: 100vh;
+        }
+
+        .community-hero {
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .community-hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: white;
+            color: var(--black);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .hero-title .highlight {
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--light-grey);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--black);
+            display: block;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.3);
+        }
+
+        .stat-label {
+            color: var(--medium-grey);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.05);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 2px solid rgba(255,107,53,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            color: var(--medium-grey);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #FF6B35;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .input-group input::placeholder {
+            color: var(--medium-grey);
+        }
+
+        .btn-join {
+            width: 100%;
+            background: linear-gradient(135deg, #FF6B35 0%, #ff8c5a 100%);
+            color: white;
+            padding: 1.2rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+        }
+
+        .btn-join:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            color: var(--medium-grey);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .benefits-section {
+            padding: 5rem 5%;
+            background: var(--black);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--medium-grey);
+            font-size: 1.1rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, var(--navy) 0%, rgba(25,40,70,0.8) 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255,107,53,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: #FF6B35;
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-description {
+            color: var(--light-grey);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .content-preview {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
+        }
+
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .content-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255,107,53,0.2);
+            text-align: center;
+        }
+
+        .content-day {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-desc {
+            color: var(--light-grey);
+            font-size: 0.9rem;
+        }
+
+
+
+        .cta-section {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #4A90E2 0%, #5BA3F5 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+        }
+
+        .btn-cta {
+            background: white;
+            color: #FF6B35;
+            padding: 1.5rem 3rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .whatsapp-button:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .stats-bar {
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-text">M2FT</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="m2-football.html">M2 Football</a></li>
+                <li><a href="m2-player-scorecard.html">Player Assessment</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="community-hero">
+        <video class="hero-background-video" autoplay muted loop playsinline webkit-playsinline>
+            <source src="https://www.dropbox.com/scl/fi/rq2po9uje577qugjc8qga/Video-09-03-2026-11-26-31.mov?rlkey=kjc4fhg4kl2ndxe6fvi6a1qqq&st=rvho4533&raw=1" type="video/quicktime">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-badge">🎁 100% FREE • NO CREDIT CARD REQUIRED</div>
+        <h1 class="hero-title">
+            Join the <span class="highlight">M2FT Performance Academy</span>
+        </h1>
+        <p class="hero-subtitle">
+            A free community for ambitious footballers. Get daily training tips, exclusive drills, and connect with players nationwide who share your passion for the game.
+        </p>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number">📱</span>
+                <span class="stat-label">WhatsApp Community</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">Daily</span>
+                <span class="stat-label">Training Tips</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Free Forever</span>
+            </div>
+        </div>
+
+        <!-- Direct WhatsApp Join Button -->
+        <div class="form-container">
+            <h3 class="form-title">🚀 Join the WhatsApp Community</h3>
+            <p class="form-subtitle">Click below to join our free WhatsApp community and get instant access to daily training tips</p>
+
+            <a href="https://chat.whatsapp.com/JR1iISSbOAz9g325m2ZQUO" target="_blank" class="whatsapp-button" style="width: 100%; justify-content: center; font-size: 1.2rem; padding: 1.5rem 2rem;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Join WhatsApp Community Now
+            </a>
+
+            <div class="trust-badges">
+                <div class="trust-badge">✅ Instant Access</div>
+                <div class="trust-badge">✅ 100% Free</div>
+                <div class="trust-badge">✅ WhatsApp Only</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You'll Get -->
+    <section class="benefits-section">
+        <div class="section-title">
+            <h2>What You'll Get Inside</h2>
+            <p>Everything you need to level up your game, completely free</p>
+        </div>
+
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">⚽</div>
+                <h3 class="benefit-title">Daily Training Tips</h3>
+                <p class="benefit-description">
+                    Get proven drills, techniques, and habits sent directly to your phone every day. From ball mastery to tactical awareness.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🎥</div>
+                <h3 class="benefit-title">Exclusive Video Drills</h3>
+                <p class="benefit-description">
+                    Watch Coach Marco demonstrate key drills. Save them, practice them, master them. New videos added weekly.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">💬</div>
+                <h3 class="benefit-title">Connect with Players</h3>
+                <p class="benefit-description">
+                    Join ambitious footballers from across the UK on WhatsApp. Share progress, ask questions, stay motivated.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🏆</div>
+                <h3 class="benefit-title">Accountability & Motivation</h3>
+                <p class="benefit-description">
+                    Weekly challenges, goal-setting frameworks, and peer support to keep you consistent and improving.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">🧠</div>
+                <h3 class="benefit-title">Mental Performance</h3>
+                <p class="benefit-description">
+                    Learn how to build confidence, handle pressure, and develop the mindset of elite players.
+                </p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">📊</div>
+                <h3 class="benefit-title">Track Your Progress</h3>
+                <p class="benefit-description">
+                    Monthly check-ins, skill assessments, and progress tracking to measure your improvements.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly Content Schedule -->
+    <section class="content-preview">
+        <div class="section-title">
+            <h2>Your Weekly Content Schedule</h2>
+            <p>Here's what you'll receive every week</p>
+        </div>
+
+        <div class="content-cards">
+            <div class="content-card">
+                <div class="content-day">💪</div>
+                <div class="content-title">Monday</div>
+                <div class="content-desc">Motivation & Goal Setting</div>
+            </div>
+
+            <div class="content-card">
+                <div class="content-day">🎯</div>
+                <div class="content-title">Tuesday</div>
+                <div class="content-desc">Tactical Tuesday - Game Intelligence</div>
+            </div>
+
+            <div class="content-card">
+                <div class="content-day">⚽</div>
+                <div class="content-title">Wednesday</div>
+                <div class="content-desc">Technical Drill of the Week</div>
+            </div>
+
+            <div class="content-card">
+                <div class="content-day">💪</div>
+                <div class="content-title">Thursday</div>
+                <div class="content-desc">Strength & Conditioning Tips</div>
+            </div>
+
+            <div class="content-card">
+                <div class="content-day">🧠</div>
+                <div class="content-title">Friday</div>
+                <div class="content-desc">Mental Performance Friday</div>
+            </div>
+
+            <div class="content-card">
+                <div class="content-day">📊</div>
+                <div class="content-title">Saturday</div>
+                <div class="content-desc">Match Day Prep & Checklist</div>
+            </div>
+
+            <div class="content-card">
+                <div class="content-day">🏆</div>
+                <div class="content-title">Sunday</div>
+                <div class="content-desc">Community Wins & Celebrations</div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Final CTA -->
+    <section class="cta-section">
+        <h2>Ready to Level Up Your Game?</h2>
+        <p>Join ambitious footballers in the M2FT Performance Academy on WhatsApp</p>
+        <a href="https://chat.whatsapp.com/JR1iISSbOAz9g325m2ZQUO" target="_blank" class="btn-cta">
+            Join Free Community Now →
+        </a>
+        <div style="margin-top: 2rem; color: rgba(255,255,255,0.8); font-size: 0.95rem;">
+            ✅ WhatsApp Community • ✅ Instant Access • ✅ 100% Free
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>M2FT</h3>
+                <p>Elite football coaching and performance training in Surrey.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="m2-football.html">M2 Football</a></li>
+                    <li><a href="m2-player-scorecard.html">Player Assessment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: Marco@officialm2ft.com</p>
+                <p>Location: Surrey, UK</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 M2FT Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Community Form Submission
+        async function submitCommunityForm(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const form = document.getElementById('communityForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                age: document.getElementById('age').value,
+                position: document.getElementById('position').value,
+                phone: document.getElementById('phone').value,
+                joined_at: new Date().toISOString(),
+                source: 'community_landing_page'
+            };
+
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Joining...';
+
+            try {
+                // Store in database (you can add this later with Table API)
+                localStorage.setItem('m2ft_community_member', JSON.stringify(formData));
+
+                // Show success message
+                form.style.display = 'none';
+                successMessage.classList.add('show');
+
+                // Update WhatsApp link (replace with your actual WhatsApp community link)
+                const whatsappLink = document.getElementById('whatsappLink');
+                whatsappLink.href = 'https://chat.whatsapp.com/YOUR_COMMUNITY_LINK_HERE';
+
+                // Send welcome email (optional - add email service later)
+                console.log('New community member:', formData);
+
+                // Track conversion
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'community_join', {
+                        'event_category': 'Community',
+                        'event_label': 'Free Community Join'
+                    });
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again or contact us directly.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join Free Community →';
+            }
+        }
+    </script>
+</body>
+</html>
