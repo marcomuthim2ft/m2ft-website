@@ -267,8 +267,8 @@ function callOpenAI(prompt) {
             resolve(response.choices[0].message.content);
           } else {
             reject(new Error('Invalid OpenAI response'));
-          }
-        } catch (error) {
+          } }
+        catch (error) {
           reject(error);
         }
       });
