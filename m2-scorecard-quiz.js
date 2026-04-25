@@ -1,5 +1,8 @@
-// M2 Player Scorecard Quiz Logic - 25 Questions with Position-Specific KPIs
-// Based on Hughes (2012) KPI Framework
+// M2 Player Scorecard Quiz - 25 Questions with Position-Specific KPIs
+// Q1: Position Selection
+// Q2-16: Universal Assessment (original 15 questions)
+// Q17-22: Position-Specific KPIs (6 questions based on Q1)
+// Q23-25: Goals & Logistics (3 questions)
 
 const quizData = {
     archetypes: {
@@ -59,351 +62,289 @@ const quizData = {
         }
     },
 
-    // Universal Questions (Everyone gets these - Questions 1-15)
-    questions: []
+    questions: [
+        // Q1: Position Selection
+        {
+            id: 1,
+            question: "What is your primary playing position?",
+            type: "multiple-choice",
+            options: [
+                { text: "Striker", archetypes: { finisher: 1 }, scores: { technical: 0, tactical: 0, physical: 0, mental: 0 }, position: "Striker" },
+                { text: "Midfielder", archetypes: { technician: 1 }, scores: { technical: 0, tactical: 0, physical: 0, mental: 0 }, position: "Midfielder" },
+                { text: "Defender", archetypes: { wall: 1 }, scores: { technical: 0, tactical: 0, physical: 0, mental: 0 }, position: "Defender" },
+                { text: "Winger", archetypes: { explosive: 1 }, scores: { technical: 0, tactical: 0, physical: 0, mental: 0 }, position: "Winger" },
+                { text: "Goalkeeper", archetypes: { wall: 1 }, scores: { technical: 0, tactical: 0, physical: 0, mental: 0 }, position: "Goalkeeper" }
+            ]
+        },
+        // Q2-16: Universal Questions (original 15)
+        {
+            id: 2,
+            question: "What's your best attribute on the pitch?",
+            type: "multiple-choice",
+            options: [
+                { text: "Ball control & technical skills", archetypes: { technician: 3, workhorse: 0, explosive: 1, leader: 0, wall: 0, finisher: 1 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 0 } },
+                { text: "Work rate & stamina", archetypes: { technician: 0, workhorse: 3, explosive: 0, leader: 1, wall: 1, finisher: 0 }, scores: { technical: 0, tactical: 5, physical: 10, mental: 5 } },
+                { text: "Speed & acceleration", archetypes: { technician: 0, workhorse: 0, explosive: 3, leader: 0, wall: 0, finisher: 2 }, scores: { technical: 0, tactical: 0, physical: 10, mental: 0 } },
+                { text: "Leadership & communication", archetypes: { technician: 0, workhorse: 1, explosive: 0, leader: 3, wall: 1, finisher: 0 }, scores: { technical: 0, tactical: 10, physical: 0, mental: 10 } },
+                { text: "Physical strength & presence", archetypes: { technician: 0, workhorse: 1, explosive: 0, leader: 1, wall: 3, finisher: 1 }, scores: { technical: 0, tactical: 0, physical: 10, mental: 5 } },
+                { text: "Finishing & goal-scoring", archetypes: { technician: 1, workhorse: 0, explosive: 1, leader: 0, wall: 0, finisher: 3 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 5 } }
+            ]
+        },
+        {
+            id: 3,
+            question: "How do you prefer to receive the ball?",
+            type: "multiple-choice",
+            options: [
+                { text: "To feet, so I can turn and create", archetypes: { technician: 3, workhorse: 0, explosive: 1, leader: 0, wall: 0, finisher: 1 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 0 } },
+                { text: "In space, so I can run onto it", archetypes: { technician: 0, workhorse: 1, explosive: 3, leader: 0, wall: 0, finisher: 2 }, scores: { technical: 5, tactical: 5, physical: 10, mental: 0 } },
+                { text: "To hold up and lay off to teammates", archetypes: { technician: 0, workhorse: 2, explosive: 0, leader: 1, wall: 3, finisher: 1 }, scores: { technical: 5, tactical: 10, physical: 5, mental: 5 } },
+                { text: "Deep, so I can dictate play", archetypes: { technician: 2, workhorse: 1, explosive: 0, leader: 3, wall: 0, finisher: 0 }, scores: { technical: 10, tactical: 10, physical: 0, mental: 10 } }
+            ]
+        },
+        {
+            id: 4,
+            question: "In a match, you're most likely to:",
+            type: "multiple-choice",
+            options: [
+                { text: "Dribble past defenders and create chances", archetypes: { technician: 3, workhorse: 0, explosive: 2, leader: 0, wall: 0, finisher: 1 }, scores: { technical: 10, tactical: 5, physical: 5, mental: 5 } },
+                { text: "Win tackles and press opponents", archetypes: { technician: 0, workhorse: 3, explosive: 1, leader: 1, wall: 2, finisher: 0 }, scores: { technical: 0, tactical: 10, physical: 10, mental: 5 } },
+                { text: "Make runs behind the defense", archetypes: { technician: 0, workhorse: 1, explosive: 3, leader: 0, wall: 0, finisher: 3 }, scores: { technical: 5, tactical: 10, physical: 10, mental: 0 } },
+                { text: "Organize teammates and read the game", archetypes: { technician: 1, workhorse: 1, explosive: 0, leader: 3, wall: 1, finisher: 0 }, scores: { technical: 0, tactical: 10, physical: 0, mental: 10 } },
+                { text: "Dominate physical battles", archetypes: { technician: 0, workhorse: 2, explosive: 0, leader: 1, wall: 3, finisher: 0 }, scores: { technical: 0, tactical: 5, physical: 10, mental: 5 } },
+                { text: "Score goals", archetypes: { technician: 1, workhorse: 0, explosive: 2, leader: 0, wall: 0, finisher: 3 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 5 } }
+            ]
+        },
+        {
+            id: 5,
+            question: "Rate your sprint speed (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value <= 5 ? 1 : 0, workhorse: value >= 5 && value <= 7 ? 1 : 0, explosive: value >= 8 ? 3 : value >= 6 ? 2 : 0, leader: 0, wall: value <= 5 ? 1 : 0, finisher: value >= 7 ? 2 : 0 },
+                scores: { technical: 0, tactical: 0, physical: value * 10, mental: 0 }
+            })
+        },
+        {
+            id: 6,
+            question: "Rate your agility and change of direction (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value >= 7 ? 2 : 0, workhorse: value >= 6 ? 1 : 0, explosive: value >= 8 ? 2 : 0, leader: 0, wall: value <= 5 ? 1 : 0, finisher: value >= 7 ? 1 : 0 },
+                scores: { technical: value * 5, tactical: 0, physical: value * 10, mental: 0 }
+            })
+        },
+        {
+            id: 7,
+            question: "Rate your stamina and endurance (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: 0, workhorse: value >= 8 ? 3 : value >= 6 ? 2 : 0, explosive: value <= 5 ? 1 : 0, leader: value >= 7 ? 1 : 0, wall: value >= 6 ? 1 : 0, finisher: 0 },
+                scores: { technical: 0, tactical: 0, physical: value * 10, mental: value * 3 }
+            })
+        },
+        {
+            id: 8,
+            question: "Rate your first touch and ball control (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value >= 8 ? 3 : value >= 6 ? 2 : 0, workhorse: 0, explosive: 0, leader: 0, wall: value <= 5 ? 1 : 0, finisher: value >= 7 ? 1 : 0 },
+                scores: { technical: value * 10, tactical: value * 3, physical: 0, mental: 0 }
+            })
+        },
+        {
+            id: 9,
+            question: "Rate your tactical awareness and positioning (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value >= 7 ? 1 : 0, workhorse: value >= 7 ? 2 : 0, explosive: 0, leader: value >= 8 ? 3 : value >= 6 ? 2 : 0, wall: value >= 7 ? 2 : 0, finisher: value >= 6 ? 1 : 0 },
+                scores: { technical: 0, tactical: value * 10, physical: 0, mental: value * 5 }
+            })
+        },
+        {
+            id: 10,
+            question: "Rate your mental composure under pressure (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value >= 7 ? 1 : 0, workhorse: value >= 6 ? 1 : 0, explosive: 0, leader: value >= 8 ? 2 : 0, wall: value >= 7 ? 2 : 0, finisher: value >= 8 ? 2 : 0 },
+                scores: { technical: 0, tactical: value * 3, physical: 0, mental: value * 10 }
+            })
+        },
+        {
+            id: 11,
+            question: "Rate your leadership and communication on the pitch (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: 0, workhorse: value >= 6 ? 1 : 0, explosive: 0, leader: value >= 8 ? 3 : value >= 6 ? 2 : 0, wall: value >= 7 ? 2 : 0, finisher: 0 },
+                scores: { technical: 0, tactical: value * 5, physical: 0, mental: value * 10 }
+            })
+        },
+        {
+            id: 12,
+            question: "Rate your work ethic and training intensity (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: 0, workhorse: value >= 8 ? 3 : value >= 6 ? 2 : 0, explosive: 0, leader: value >= 7 ? 1 : 0, wall: value >= 6 ? 1 : 0, finisher: 0 },
+                scores: { technical: 0, tactical: 0, physical: value * 3, mental: value * 10 }
+            })
+        },
+        {
+            id: 13,
+            question: "Rate your ability to learn and adapt (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value >= 7 ? 1 : 0, workhorse: value >= 6 ? 1 : 0, explosive: 0, leader: value >= 7 ? 1 : 0, wall: 0, finisher: 0 },
+                scores: { technical: value * 5, tactical: value * 5, physical: 0, mental: value * 10 }
+            })
+        },
+        {
+            id: 14,
+            question: "Rate your confidence in matches (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value >= 7 ? 1 : 0, workhorse: 0, explosive: value >= 7 ? 1 : 0, leader: value >= 8 ? 2 : 0, wall: value >= 7 ? 1 : 0, finisher: value >= 8 ? 2 : 0 },
+                scores: { technical: 0, tactical: 0, physical: 0, mental: value * 10 }
+            })
+        },
+        {
+            id: 15,
+            question: "Rate your physical strength (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value <= 5 ? 1 : 0, workhorse: value >= 6 ? 1 : 0, explosive: value >= 7 ? 1 : 0, leader: 0, wall: value >= 8 ? 3 : value >= 6 ? 2 : 0, finisher: value >= 6 ? 1 : 0 },
+                scores: { technical: 0, tactical: 0, physical: value * 10, mental: value * 3 }
+            })
+        },
+        {
+            id: 16,
+            question: "Rate your passing accuracy (1-10)",
+            type: "scale",
+            min: 1,
+            max: 10,
+            scoring: (value) => ({
+                archetypes: { technician: value >= 8 ? 3 : value >= 6 ? 2 : 0, workhorse: value >= 6 && value <= 8 ? 1 : 0, explosive: 0, leader: value >= 7 ? 2 : 0, wall: value <= 5 ? 1 : 0, finisher: value >= 6 ? 1 : 0 },
+                scores: { technical: value * 10, tactical: value * 5, physical: 0, mental: 0 }
+            })
+        }
+        // Q17-22 will be injected dynamically based on position
+        // Q23-25 final questions added at the end
+    ]
 };
 
-// Build complete questions array
-const universalQuestions = [
+// Position-specific questions (Q17-22)
+const positionQuestions = {
+    "Striker": [
+        { id: 17, question: "Rate your finishing accuracy in the box (1-10)", type: "scale", min: 1, max: 10, kpi: "finishing", scoring: (v) => ({ archetypes: { finisher: v >= 8 ? 3 : v >= 6 ? 2 : 0, explosive: v >= 7 ? 1 : 0, technician: v >= 7 ? 1 : 0 }, scores: { technical: v * 10, tactical: 0, physical: 0, mental: v * 5 } }) },
+        { id: 18, question: "Rate your aerial ability and heading (1-10)", type: "scale", min: 1, max: 10, kpi: "aerial", scoring: (v) => ({ archetypes: { wall: v >= 7 ? 2 : 0, finisher: v >= 6 ? 1 : 0 }, scores: { technical: v * 5, tactical: v * 5, physical: v * 5, mental: 0 } }) },
+        { id: 19, question: "Rate your movement off the ball and finding space (1-10)", type: "scale", min: 1, max: 10, kpi: "movement", scoring: (v) => ({ archetypes: { finisher: v >= 8 ? 2 : 0, explosive: v >= 7 ? 1 : 0, technician: v >= 7 ? 1 : 0 }, scores: { technical: 0, tactical: v * 10, physical: 0, mental: v * 5 } }) },
+        { id: 20, question: "Rate your link-up play with teammates (1-10)", type: "scale", min: 1, max: 10, kpi: "linkup", scoring: (v) => ({ archetypes: { technician: v >= 7 ? 2 : 0, finisher: v >= 6 ? 1 : 0 }, scores: { technical: v * 5, tactical: v * 10, physical: 0, mental: 0 } }) },
+        { id: 21, question: "Rate your ability to hold up the ball and shield defenders (1-10)", type: "scale", min: 1, max: 10, kpi: "holdup", scoring: (v) => ({ archetypes: { wall: v >= 7 ? 2 : 0, finisher: v >= 6 ? 1 : 0 }, scores: { technical: v * 5, tactical: v * 5, physical: v * 5, mental: v * 5 } }) },
+        { id: 22, question: "Rate your composure in front of goal (1-10)", type: "scale", min: 1, max: 10, kpi: "composure", scoring: (v) => ({ archetypes: { finisher: v >= 8 ? 3 : v >= 6 ? 2 : 0 }, scores: { technical: 0, tactical: 0, physical: 0, mental: v * 10 } }) }
+    ],
+    "Midfielder": [
+        { id: 17, question: "Rate your passing accuracy under pressure (1-10)", type: "scale", min: 1, max: 10, kpi: "passing_pressure", scoring: (v) => ({ archetypes: { technician: v >= 8 ? 3 : v >= 6 ? 2 : 0, leader: v >= 7 ? 1 : 0 }, scores: { technical: v * 10, tactical: v * 5, physical: 0, mental: v * 5 } }) },
+        { id: 18, question: "Rate your ability to dictate tempo and control the game (1-10)", type: "scale", min: 1, max: 10, kpi: "tempo_control", scoring: (v) => ({ archetypes: { technician: v >= 7 ? 2 : 0, leader: v >= 8 ? 2 : 0 }, scores: { technical: v * 5, tactical: v * 10, physical: 0, mental: v * 5 } }) },
+        { id: 19, question: "Rate your defensive work rate and tackling (1-10)", type: "scale", min: 1, max: 10, kpi: "defensive_work", scoring: (v) => ({ archetypes: { workhorse: v >= 8 ? 3 : v >= 6 ? 2 : 0, wall: v >= 7 ? 1 : 0 }, scores: { technical: 0, tactical: v * 5, physical: v * 10, mental: v * 5 } }) },
+        { id: 20, question: "Rate your ability to make progressive passes forward (1-10)", type: "scale", min: 1, max: 10, kpi: "progressive_passes", scoring: (v) => ({ archetypes: { technician: v >= 8 ? 2 : 0, leader: v >= 7 ? 1 : 0 }, scores: { technical: v * 10, tactical: v * 10, physical: 0, mental: 0 } }) },
+        { id: 21, question: "Rate your positioning to receive the ball (1-10)", type: "scale", min: 1, max: 10, kpi: "positioning", scoring: (v) => ({ archetypes: { technician: v >= 7 ? 1 : 0, leader: v >= 7 ? 1 : 0, workhorse: v >= 6 ? 1 : 0 }, scores: { technical: 0, tactical: v * 10, physical: 0, mental: v * 5 } }) },
+        { id: 22, question: "Rate your ability to cover ground and press (1-10)", type: "scale", min: 1, max: 10, kpi: "covering_ground", scoring: (v) => ({ archetypes: { workhorse: v >= 8 ? 3 : v >= 6 ? 2 : 0 }, scores: { technical: 0, tactical: v * 5, physical: v * 10, mental: v * 5 } }) }
+    ],
+    "Defender": [
+        { id: 17, question: "Rate your tackling success rate (1-10)", type: "scale", min: 1, max: 10, kpi: "tackling", scoring: (v) => ({ archetypes: { wall: v >= 8 ? 3 : v >= 6 ? 2 : 0, workhorse: v >= 7 ? 1 : 0 }, scores: { technical: v * 5, tactical: v * 5, physical: v * 5, mental: 0 } }) },
+        { id: 18, question: "Rate your aerial ability in defensive situations (1-10)", type: "scale", min: 1, max: 10, kpi: "aerial_defending", scoring: (v) => ({ archetypes: { wall: v >= 8 ? 3 : v >= 6 ? 2 : 0 }, scores: { technical: v * 5, tactical: v * 5, physical: v * 10, mental: 0 } }) },
+        { id: 19, question: "Rate your defensive positioning and anticipation (1-10)", type: "scale", min: 1, max: 10, kpi: "positioning_defending", scoring: (v) => ({ archetypes: { wall: v >= 7 ? 2 : 0, leader: v >= 7 ? 1 : 0 }, scores: { technical: 0, tactical: v * 10, physical: 0, mental: v * 5 } }) },
+        { id: 20, question: "Rate your 1v1 defending ability (1-10)", type: "scale", min: 1, max: 10, kpi: "one_v_one", scoring: (v) => ({ archetypes: { wall: v >= 8 ? 2 : 0, workhorse: v >= 7 ? 1 : 0 }, scores: { technical: v * 5, tactical: v * 5, physical: v * 5, mental: v * 5 } }) },
+        { id: 21, question: "Rate your ability to read the game and intercept passes (1-10)", type: "scale", min: 1, max: 10, kpi: "interceptions", scoring: (v) => ({ archetypes: { wall: v >= 7 ? 1 : 0, leader: v >= 7 ? 1 : 0 }, scores: { technical: 0, tactical: v * 10, physical: 0, mental: v * 5 } }) },
+        { id: 22, question: "Rate your communication and organization of the defensive line (1-10)", type: "scale", min: 1, max: 10, kpi: "defensive_communication", scoring: (v) => ({ archetypes: { leader: v >= 8 ? 3 : v >= 6 ? 2 : 0, wall: v >= 7 ? 1 : 0 }, scores: { technical: 0, tactical: v * 5, physical: 0, mental: v * 10 } }) }
+    ],
+    "Winger": [
+        { id: 17, question: "Rate your 1v1 dribbling success rate (1-10)", type: "scale", min: 1, max: 10, kpi: "dribbling_one_v_one", scoring: (v) => ({ archetypes: { technician: v >= 8 ? 3 : v >= 6 ? 2 : 0, explosive: v >= 7 ? 1 : 0 }, scores: { technical: v * 10, tactical: v * 5, physical: 0, mental: v * 5 } }) },
+        { id: 18, question: "Rate your crossing accuracy (1-10)", type: "scale", min: 1, max: 10, kpi: "crossing", scoring: (v) => ({ archetypes: { technician: v >= 8 ? 2 : 0 }, scores: { technical: v * 10, tactical: v * 5, physical: 0, mental: 0 } }) },
+        { id: 19, question: "Rate your ability to cut inside and shoot (1-10)", type: "scale", min: 1, max: 10, kpi: "cut_inside", scoring: (v) => ({ archetypes: { technician: v >= 7 ? 1 : 0, finisher: v >= 7 ? 2 : 0 }, scores: { technical: v * 10, tactical: v * 5, physical: 0, mental: 0 } }) },
+        { id: 20, question: "Rate your pace and acceleration in wide areas (1-10)", type: "scale", min: 1, max: 10, kpi: "pace_wide", scoring: (v) => ({ archetypes: { explosive: v >= 8 ? 3 : v >= 6 ? 2 : 0 }, scores: { technical: 0, tactical: 0, physical: v * 10, mental: 0 } }) },
+        { id: 21, question: "Rate your stamina to get up and down the wing (1-10)", type: "scale", min: 1, max: 10, kpi: "stamina_wing", scoring: (v) => ({ archetypes: { workhorse: v >= 8 ? 2 : 0 }, scores: { technical: 0, tactical: 0, physical: v * 10, mental: v * 3 } }) },
+        { id: 22, question: "Rate your defensive tracking back (1-10)", type: "scale", min: 1, max: 10, kpi: "tracking_back", scoring: (v) => ({ archetypes: { workhorse: v >= 7 ? 2 : 0 }, scores: { technical: 0, tactical: v * 5, physical: v * 5, mental: v * 5 } }) }
+    ],
+    "Goalkeeper": [
+        { id: 17, question: "Rate your shot-stopping ability (1-10)", type: "scale", min: 1, max: 10, kpi: "shot_stopping", scoring: (v) => ({ archetypes: { wall: v >= 8 ? 3 : v >= 6 ? 2 : 0 }, scores: { technical: v * 10, tactical: 0, physical: v * 5, mental: v * 5 } }) },
+        { id: 18, question: "Rate your distribution accuracy (passing/throwing) (1-10)", type: "scale", min: 1, max: 10, kpi: "distribution", scoring: (v) => ({ archetypes: { technician: v >= 7 ? 2 : 0 }, scores: { technical: v * 10, tactical: v * 5, physical: 0, mental: 0 } }) },
+        { id: 19, question: "Rate your command of the penalty box (1-10)", type: "scale", min: 1, max: 10, kpi: "box_command", scoring: (v) => ({ archetypes: { leader: v >= 8 ? 2 : 0, wall: v >= 7 ? 1 : 0 }, scores: { technical: 0, tactical: v * 5, physical: v * 5, mental: v * 10 } }) },
+        { id: 20, question: "Rate your 1v1 ability against strikers (1-10)", type: "scale", min: 1, max: 10, kpi: "one_v_one_gk", scoring: (v) => ({ archetypes: { wall: v >= 7 ? 1 : 0 }, scores: { technical: v * 5, tactical: v * 5, physical: 0, mental: v * 10 } }) },
+        { id: 21, question: "Rate your reflexes and reaction speed (1-10)", type: "scale", min: 1, max: 10, kpi: "reflexes", scoring: (v) => ({ archetypes: { explosive: v >= 8 ? 2 : 0, wall: v >= 7 ? 1 : 0 }, scores: { technical: v * 5, tactical: 0, physical: v * 10, mental: 0 } }) },
+        { id: 22, question: "Rate your positioning and angle coverage (1-10)", type: "scale", min: 1, max: 10, kpi: "gk_positioning", scoring: (v) => ({ archetypes: { wall: v >= 7 ? 1 : 0 }, scores: { technical: 0, tactical: v * 10, physical: 0, mental: v * 5 } }) }
+    ]
+};
+
+// Final questions (Q23-25)
+const finalQuestions = [
     {
-        id: 1,
-        question: "What's your best attribute on the pitch?",
+        id: 23,
+        question: "What do you want to improve most?",
         type: "multiple-choice",
         options: [
-            { text: "Ball control & technical skills", archetypes: { technician: 3, workhorse: 0, explosive: 1, leader: 0, wall: 0, finisher: 1 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 0 } },
-            { text: "Work rate & stamina", archetypes: { technician: 0, workhorse: 3, explosive: 0, leader: 1, wall: 1, finisher: 0 }, scores: { technical: 0, tactical: 5, physical: 10, mental: 5 } },
-            { text: "Speed & acceleration", archetypes: { technician: 0, workhorse: 0, explosive: 3, leader: 0, wall: 0, finisher: 2 }, scores: { technical: 0, tactical: 0, physical: 10, mental: 0 } },
-            { text: "Leadership & communication", archetypes: { technician: 0, workhorse: 1, explosive: 0, leader: 3, wall: 1, finisher: 0 }, scores: { technical: 0, tactical: 10, physical: 0, mental: 10 } },
-            { text: "Physical strength & presence", archetypes: { technician: 0, workhorse: 1, explosive: 0, leader: 1, wall: 3, finisher: 1 }, scores: { technical: 0, tactical: 0, physical: 10, mental: 5 } },
-            { text: "Finishing & goal-scoring", archetypes: { technician: 1, workhorse: 0, explosive: 1, leader: 0, wall: 0, finisher: 3 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 5 } }
+            { text: "Speed & Acceleration", value: "speed" },
+            { text: "Finishing & Goal-Scoring", value: "finishing" },
+            { text: "Passing & Vision", value: "passing" },
+            { text: "Defending & Tackling", value: "defending" },
+            { text: "Tactical Awareness", value: "tactical" },
+            { text: "Mental Strength & Confidence", value: "mental" }
         ]
     },
     {
-        id: 2,
-        question: "How do you prefer to receive the ball?",
+        id: 24,
+        question: "How many days per week can you train?",
         type: "multiple-choice",
         options: [
-            { text: "To feet, so I can turn and create", archetypes: { technician: 3, workhorse: 0, explosive: 1, leader: 0, wall: 0, finisher: 1 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 0 } },
-            { text: "In space, so I can run onto it", archetypes: { technician: 0, workhorse: 1, explosive: 3, leader: 0, wall: 0, finisher: 2 }, scores: { technical: 5, tactical: 5, physical: 10, mental: 0 } },
-            { text: "To hold up and lay off to teammates", archetypes: { technician: 0, workhorse: 2, explosive: 0, leader: 1, wall: 3, finisher: 1 }, scores: { technical: 5, tactical: 10, physical: 5, mental: 5 } },
-            { text: "Deep, so I can dictate play", archetypes: { technician: 2, workhorse: 1, explosive: 0, leader: 3, wall: 0, finisher: 0 }, scores: { technical: 10, tactical: 10, physical: 0, mental: 10 } }
+            { text: "2 days", value: 2 },
+            { text: "3 days", value: 3 },
+            { text: "4 days", value: 4 },
+            { text: "5 days", value: 5 },
+            { text: "6 days", value: 6 },
+            { text: "7 days", value: 7 }
         ]
     },
     {
-        id: 3,
-        question: "In a match, you're most likely to:",
+        id: 25,
+        question: "What is your current playing level?",
         type: "multiple-choice",
         options: [
-            { text: "Dribble past defenders and create chances", archetypes: { technician: 3, workhorse: 0, explosive: 2, leader: 0, wall: 0, finisher: 1 }, scores: { technical: 10, tactical: 5, physical: 5, mental: 5 } },
-            { text: "Win tackles and press opponents", archetypes: { technician: 0, workhorse: 3, explosive: 1, leader: 1, wall: 2, finisher: 0 }, scores: { technical: 0, tactical: 10, physical: 10, mental: 5 } },
-            { text: "Make runs behind the defense", archetypes: { technician: 0, workhorse: 1, explosive: 3, leader: 0, wall: 0, finisher: 3 }, scores: { technical: 5, tactical: 10, physical: 10, mental: 0 } },
-            { text: "Organize teammates and read the game", archetypes: { technician: 1, workhorse: 1, explosive: 0, leader: 3, wall: 1, finisher: 0 }, scores: { technical: 0, tactical: 10, physical: 0, mental: 10 } },
-            { text: "Dominate physical battles", archetypes: { technician: 0, workhorse: 2, explosive: 0, leader: 1, wall: 3, finisher: 0 }, scores: { technical: 0, tactical: 5, physical: 10, mental: 5 } },
-            { text: "Score goals", archetypes: { technician: 1, workhorse: 0, explosive: 2, leader: 0, wall: 0, finisher: 3 }, scores: { technical: 10, tactical: 5, physical: 0, mental: 5 } }
+            { text: "Grassroots / Recreational", value: "grassroots" },
+            { text: "Youth Academy", value: "youth_academy" },
+            { text: "School / College Team", value: "school_college" },
+            { text: "Semi-Professional", value: "semi_pro" },
+            { text: "Professional", value: "professional" },
+            { text: "Aspiring to Play Higher Level", value: "aspiring" }
         ]
-    },
-    {
-        id: 4,
-        question: "Rate your sprint speed (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value <= 5 ? 1 : 0,
-                workhorse: value >= 5 && value <= 7 ? 1 : 0,
-                explosive: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                leader: 0,
-                wall: value <= 5 ? 1 : 0,
-                finisher: value >= 7 ? 2 : 0
-            },
-            scores: {
-                technical: 0,
-                tactical: 0,
-                physical: value * 10,
-                mental: 0
-            }
-        })
-    },
-    {
-        id: 5,
-        question: "Rate your agility and change of direction (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value >= 7 ? 2 : 0,
-                workhorse: value >= 6 ? 1 : 0,
-                explosive: value >= 8 ? 2 : 0,
-                leader: 0,
-                wall: value <= 5 ? 1 : 0,
-                finisher: value >= 7 ? 1 : 0
-            },
-            scores: {
-                technical: value * 5,
-                tactical: 0,
-                physical: value * 10,
-                mental: 0
-            }
-        })
-    },
-    {
-        id: 6,
-        question: "Rate your stamina and endurance (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: 0,
-                workhorse: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                explosive: value <= 5 ? 1 : 0,
-                leader: value >= 7 ? 1 : 0,
-                wall: value >= 6 ? 1 : 0,
-                finisher: 0
-            },
-            scores: {
-                technical: 0,
-                tactical: 0,
-                physical: value * 10,
-                mental: value * 3
-            }
-        })
-    },
-    {
-        id: 7,
-        question: "Rate your first touch and ball control (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                workhorse: 0,
-                explosive: 0,
-                leader: 0,
-                wall: value <= 5 ? 1 : 0,
-                finisher: value >= 7 ? 1 : 0
-            },
-            scores: {
-                technical: value * 10,
-                tactical: value * 3,
-                physical: 0,
-                mental: 0
-            }
-        })
-    },
-    {
-        id: 8,
-        question: "Rate your tactical awareness and positioning (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value >= 7 ? 1 : 0,
-                workhorse: value >= 7 ? 2 : 0,
-                explosive: 0,
-                leader: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                wall: value >= 7 ? 2 : 0,
-                finisher: value >= 6 ? 1 : 0
-            },
-            scores: {
-                technical: 0,
-                tactical: value * 10,
-                physical: 0,
-                mental: value * 5
-            }
-        })
-    },
-    {
-        id: 9,
-        question: "Rate your mental composure under pressure (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value >= 7 ? 1 : 0,
-                workhorse: value >= 6 ? 1 : 0,
-                explosive: 0,
-                leader: value >= 8 ? 2 : 0,
-                wall: value >= 7 ? 2 : 0,
-                finisher: value >= 8 ? 2 : 0
-            },
-            scores: {
-                technical: 0,
-                tactical: value * 3,
-                physical: 0,
-                mental: value * 10
-            }
-        })
-    },
-    {
-        id: 10,
-        question: "Rate your leadership and communication on the pitch (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: 0,
-                workhorse: value >= 6 ? 1 : 0,
-                explosive: 0,
-                leader: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                wall: value >= 7 ? 2 : 0,
-                finisher: 0
-            },
-            scores: {
-                technical: 0,
-                tactical: value * 5,
-                physical: 0,
-                mental: value * 10
-            }
-        })
-    },
-    {
-        id: 11,
-        question: "Rate your work ethic and training intensity (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: 0,
-                workhorse: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                explosive: 0,
-                leader: value >= 7 ? 1 : 0,
-                wall: value >= 6 ? 1 : 0,
-                finisher: 0
-            },
-            scores: {
-                technical: 0,
-                tactical: 0,
-                physical: value * 3,
-                mental: value * 10
-            }
-        })
-    },
-    {
-        id: 12,
-        question: "Rate your ability to learn and adapt (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value >= 7 ? 1 : 0,
-                workhorse: value >= 6 ? 1 : 0,
-                explosive: 0,
-                leader: value >= 7 ? 1 : 0,
-                wall: 0,
-                finisher: 0
-            },
-            scores: {
-                technical: value * 5,
-                tactical: value * 5,
-                physical: 0,
-                mental: value * 10
-            }
-        })
-    },
-    {
-        id: 13,
-        question: "Rate your confidence in matches (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value >= 7 ? 1 : 0,
-                workhorse: 0,
-                explosive: value >= 7 ? 1 : 0,
-                leader: value >= 8 ? 2 : 0,
-                wall: value >= 7 ? 1 : 0,
-                finisher: value >= 8 ? 2 : 0
-            },
-            scores: {
-                technical: 0,
-                tactical: 0,
-                physical: 0,
-                mental: value * 10
-            }
-        })
-    },
-    {
-        id: 14,
-        question: "Rate your physical strength (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value <= 5 ? 1 : 0,
-                workhorse: value >= 6 ? 1 : 0,
-                explosive: value >= 7 ? 1 : 0,
-                leader: 0,
-                wall: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                finisher: value >= 6 ? 1 : 0
-            },
-            scores: {
-                technical: 0,
-                tactical: 0,
-                physical: value * 10,
-                mental: value * 3
-            }
-        })
-    },
-    {
-        id: 15,
-        question: "Rate your passing accuracy (1-10)",
-        type: "scale",
-        min: 1,
-        max: 10,
-        scoring: (value) => ({
-            archetypes: {
-                technician: value >= 8 ? 3 : value >= 6 ? 2 : 0,
-                workhorse: value >= 6 && value <= 8 ? 1 : 0,
-                explosive: 0,
-                leader: value >= 7 ? 2 : 0,
-                wall: value <= 5 ? 1 : 0,
-                finisher: value >= 6 ? 1 : 0
-            },
-            scores: {
-                technical: value * 10,
-                tactical: value * 5,
-                physical: 0,
-                mental: 0
-            }
-        })
     }
 ];
-
-// Add universal questions to the main array
-quizData.questions = [...universalQuestions];
-
-// Position-specific questions will be added dynamically
-let selectedPosition = null;
-let positionKPIs = {};
 
 // Quiz state
 let currentQuestion = 0;
 let answers = {};
-let archetypeScores = {
-    technician: 0,
-    workhorse: 0,
-    explosive: 0,
-    leader: 0,
-    wall: 0,
-    finisher: 0
-};
-let categoryScores = {
-    technical: 0,
-    tactical: 0,
-    physical: 0,
-    mental: 0
-};
+let selectedPosition = null;
+let positionKPIs = {};
+let archetypeScores = { technician: 0, workhorse: 0, explosive: 0, leader: 0, wall: 0, finisher: 0 };
+let categoryScores = { technical: 0, tactical: 0, physical: 0, mental: 0 };
 
 function startQuiz() {
     document.getElementById('landing').style.display = 'none';
@@ -455,6 +396,15 @@ function renderQuestion() {
 
 function selectAnswer(index) {
     answers[currentQuestion] = index;
+    
+    // If Q1, capture position
+    if (currentQuestion === 0) {
+        selectedPosition = quizData.questions[0].options[index].position;
+        
+        // Inject position-specific questions (Q17-22)
+        const posQuestions = positionQuestions[selectedPosition];
+        quizData.questions = quizData.questions.slice(0, 17).concat(posQuestions).concat(finalQuestions);
+    }
     
     // Visual feedback
     const options = document.querySelectorAll('.answer-option');
@@ -509,9 +459,9 @@ function updateButtons() {
 }
 
 function calculateResults() {
-    // Reset scores
     archetypeScores = { technician: 0, workhorse: 0, explosive: 0, leader: 0, wall: 0, finisher: 0 };
     categoryScores = { technical: 0, tactical: 0, physical: 0, mental: 0 };
+    positionKPIs = {};
     
     let scoreCounts = { technical: 0, tactical: 0, physical: 0, mental: 0 };
     
@@ -521,37 +471,42 @@ function calculateResults() {
         if (question.type === 'multiple-choice') {
             const option = question.options[answer];
             
-            // Add to archetype scores
-            Object.keys(option.archetypes).forEach(key => {
-                archetypeScores[key] += option.archetypes[key];
-            });
+            if (option && option.archetypes) {
+                Object.keys(option.archetypes).forEach(key => {
+                    archetypeScores[key] += option.archetypes[key];
+                });
+            }
             
-            // Add to category scores
-            Object.keys(option.scores).forEach(key => {
-                if (option.scores[key] > 0) {
-                    categoryScores[key] += option.scores[key];
-                    scoreCounts[key]++;
-                }
-            });
+            if (option && option.scores) {
+                Object.keys(option.scores).forEach(key => {
+                    if (option.scores[key] > 0) {
+                        categoryScores[key] += option.scores[key];
+                        scoreCounts[key]++;
+                    }
+                });
+            }
         } else if (question.type === 'scale') {
             const result = question.scoring(answer);
             
-            // Add to archetype scores
             Object.keys(result.archetypes).forEach(key => {
                 archetypeScores[key] += result.archetypes[key];
             });
             
-            // Add to category scores
             Object.keys(result.scores).forEach(key => {
                 if (result.scores[key] > 0) {
                     categoryScores[key] += result.scores[key];
                     scoreCounts[key]++;
                 }
             });
+            
+            // Capture KPI scores
+            if (question.kpi) {
+                positionKPIs[question.kpi] = answer;
+            }
         }
     });
     
-    // Average the category scores and normalize to 60-95 range
+    // Average the category scores
     Object.keys(categoryScores).forEach(key => {
         if (scoreCounts[key] > 0) {
             let avgScore = categoryScores[key] / scoreCounts[key];
@@ -572,37 +527,28 @@ function calculateResults() {
         }
     });
     
-    // Calculate overall score
     const overallScore = Math.round(
         (categoryScores.technical + categoryScores.tactical + categoryScores.physical + categoryScores.mental) / 4
     );
     
-    return {
-        archetype: dominantArchetype,
-        overallScore,
-        categoryScores
-    };
+    return { archetype: dominantArchetype, overallScore, categoryScores };
 }
 
 async function submitEmailAndShowResults() {
     const name = document.getElementById('playerName').value.trim();
     const email = document.getElementById('playerEmail').value.trim();
     const age = document.getElementById('playerAge').value;
-    const position = document.getElementById('playerPosition').value;
     
-    if (!name || !email || !age || !position) {
+    if (!name || !email || !age) {
         alert('Please fill in all fields');
         return;
     }
     
-    selectedPosition = position;
     const results = calculateResults();
-    
-    // Show results
-    displayResults(results, name);
+    displayResults(results, name, email, age);
 }
 
-function displayResults(results, playerName) {
+function displayResults(results, playerName, playerEmail, playerAge) {
     document.getElementById('emailGate').style.display = 'none';
     document.getElementById('results').classList.add('active');
     
@@ -680,25 +626,65 @@ function displayResults(results, playerName) {
             <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
             <h3 style="font-size: 2.2rem; color: white; margin-bottom: 1rem;">Ready for Your Personalized Training Plan?</h3>
             <p style="font-size: 1.2rem; color: rgba(255,255,255,0.95); margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                Based on your answers, we've created a custom 4-week training plan designed specifically for <strong>${archetype.name}</strong> players like you.
+                Based on your answers, we've created a custom 4-week training plan designed specifically for <strong>${selectedPosition}</strong> players like you.
             </p>
             <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; text-align: left; color: white;">
                     <div>✓ 4-week progressive program</div>
                     <div>✓ Daily session breakdowns</div>
-                    <div>✓ Tailored to your position</div>
+                    <div>✓ Tailored to ${selectedPosition}</div>
                     <div>✓ Position-specific drills</div>
                 </div>
             </div>
-            <button onclick="alert('Training plan generator coming soon!')" style="background: white; color: #FF6B35; border: none; padding: 1.5rem 3rem; border-radius: 8px; font-size: 1.3rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+            <button onclick="generateTrainingPlan('${playerName}', '${playerEmail}', ${playerAge}, '${selectedPosition}', '${archetype.name}', ${JSON.stringify(results.categoryScores).replace(/"/g, '&quot;')}, ${JSON.stringify(positionKPIs).replace(/"/g, '&quot;')})" id="generatePlanBtn" style="background: white; color: #FF6B35; border: none; padding: 1.5rem 3rem; border-radius: 8px; font-size: 1.3rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
                 📥 Get My FREE Training Plan
             </button>
             <div style="margin-top: 1rem; font-size: 0.95rem; color: rgba(255,255,255,0.9);">
-                Instant download • No payment required
+                Instant generation • No payment required
             </div>
         </div>
     `;
     
     document.getElementById('results').innerHTML = html;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function generateTrainingPlan(name, email, age, position, archetype, scores, kpis) {
+    const btn = document.getElementById('generatePlanBtn');
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Generating Your Plan...';
+    
+    try {
+        const response = await fetch('/.netlify/functions/generate-training-plan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name,
+                email,
+                age,
+                position,
+                archetype,
+                playing_level: quizData.questions[24].options[answers[24]].text,
+                training_days_per_week: quizData.questions[23].options[answers[23]].value,
+                training_goals: [quizData.questions[22].options[answers[22]].text],
+                equipment_access: [],
+                scores,
+                position_kpis: kpis
+            })
+        });
+        
+        if (response.ok) {
+            btn.innerHTML = '✅ Plan Generated!';
+            btn.style.background = '#4CAF50';
+            alert(`🎉 Success! Your personalized 4-week training plan has been generated. Check your email at ${email}!`);
+        } else {
+            throw new Error('Failed to generate plan');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        btn.innerHTML = '❌ Error - Try Again';
+        btn.disabled = false;
+        alert('⚠️ There was an error generating your plan. Please try again or contact marco@officialm2ft.com');
+    }
 }
