@@ -1,4 +1,90 @@
-const https = require('https');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Step 3 Code</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #FF6B35;
+            margin-bottom: 1rem;
+        }
+        .instructions {
+            background: #16213e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #FF6B35;
+        }
+        .code-container {
+            position: relative;
+            background: #0f1419;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .copy-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .copy-button:hover {
+            background: #ff8c5a;
+            transform: translateY(-2px);
+        }
+        .copy-button.copied {
+            background: #4CAF50;
+        }
+        pre {
+            margin: 0;
+            padding-top: 3rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #a9b7c6;
+        }
+        code {
+            color: #a9b7c6;
+        }
+    </style>
+</head>
+<body>
+    <h1>📋 Step 3: Copy This Code</h1>
+    
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <ol>
+            <li><strong>Click the "COPY CODE" button</strong> below</li>
+            <li>Go to GitHub: <code>netlify/functions/generate-training-plan.js</code></li>
+            <li><strong>Edit the file</strong> (click the pencil icon)</li>
+            <li><strong>Select ALL existing code</strong> (Ctrl+A / Cmd+A)</li>
+            <li><strong>Delete it</strong></li>
+            <li><strong>Paste this code</strong> (Ctrl+V / Cmd+V)</li>
+            <li><strong>Commit changes</strong></li>
+        </ol>
+    </div>
+
+    <div class="code-container">
+        <button class="copy-button" onclick="copyCode()">COPY CODE</button>
+        <pre><code id="codeBlock">const https = require('https');
 
 exports.handler = async function(event, context) {
   // Only allow POST requests
@@ -29,7 +115,7 @@ exports.handler = async function(event, context) {
     let positionKPIsSection = '';
     
     if (position_kpis && Object.keys(position_kpis).length > 0) {
-      positionKPIsSection = `\nPOSITION-SPECIFIC KPIs (${position} - Hughes 2012 Framework):`;
+      positionKPIsSection = `\\nPOSITION-SPECIFIC KPIs (${position} - Hughes 2012 Framework):`;
       
       if (position === 'Striker') {
         positionKPIsSection += `
@@ -76,7 +162,7 @@ exports.handler = async function(event, context) {
 
     // Build equipment access section
     const equipmentSection = equipment_access && equipment_access.length > 0 
-      ? `\nEQUIPMENT ACCESS:\n${equipment_access.map(eq => `  • ${eq}`).join('\n')}`
+      ? `\\nEQUIPMENT ACCESS:\\n${equipment_access.map(eq => \`  • ${eq}\`).join('\\n')}`
       : '';
 
     // Identify weak KPIs (below 6/10)
@@ -90,11 +176,11 @@ exports.handler = async function(event, context) {
     }
 
     const weakKPIsSection = weakKPIs.length > 0 
-      ? `\nPRIORITY DEVELOPMENT AREAS:\n${weakKPIs.map(kpi => `  • ${kpi.replace(/_/g, ' ')} (${position_kpis[kpi]}/10 - NEEDS IMPROVEMENT)`).join('\n')}`
+      ? \`\\nPRIORITY DEVELOPMENT AREAS:\\n${weakKPIs.map(kpi => \`  • ${kpi.replace(/_/g, ' ')} (${position_kpis[kpi]}/10 - NEEDS IMPROVEMENT)\`).join('\\n')}\`
       : '';
 
     // Construct the enhanced prompt
-    const prompt = `You are Marco Muthi, MSc Performance Football Coach with experience at Chelsea FC Foundation, Aldershot Town, and LionHeart Football. You specialize in evidence-based training using the Hughes (2012) KPI framework for position-specific development.
+    const prompt = \`You are Marco Muthi, MSc Performance Football Coach with experience at Chelsea FC Foundation, Aldershot Town, and LionHeart Football. You specialize in evidence-based training using the Hughes (2012) KPI framework for position-specific development.
 
 Create a detailed, professional 4-week training plan for:
 
@@ -136,17 +222,17 @@ FORMAT REQUIREMENTS:
 - **Progressive overload**: Clear progression markers week-by-week
 - **Recovery protocols**: Age-appropriate rest, nutrition, sleep guidance for ${age}-year-olds
 - **Progress tracking**: Measurable KPIs to test weekly
-- **Weak KPI focus**: ${weakKPIs.length > 0 ? `Prioritize improving ${weakKPIs.join(', ')}` : 'Maintain strengths and develop all-round game'}
+- **Weak KPI focus**: ${weakKPIs.length > 0 ? \`Prioritize improving ${weakKPIs.join(', ')}\` : 'Maintain strengths and develop all-round game'}
 
 WEEKLY STRUCTURE:
 **Week 1: Foundation & KPI Assessment**
 - Objective: Establish baseline, build movement quality, introduce position-specific drills
-- Focus: ${weakKPIs.length > 0 ? `Begin addressing ${weakKPIs[0]}` : 'Technical fundamentals'}
+- Focus: ${weakKPIs.length > 0 ? \`Begin addressing ${weakKPIs[0]}\` : 'Technical fundamentals'}
 - Load: 60-70% intensity
 
 **Week 2: Skill Development & Refinement**
 - Objective: Develop weak KPIs with high-repetition drills, refine technique
-- Focus: ${weakKPIs.length > 0 ? `Target ${weakKPIs.slice(0, 2).join(' and ')}` : 'Position-specific skills'}
+- Focus: ${weakKPIs.length > 0 ? \`Target ${weakKPIs.slice(0, 2).join(' and ')}\` : 'Position-specific skills'}
 - Load: 70-80% intensity
 
 **Week 3: Integration Under Pressure**
@@ -156,20 +242,20 @@ WEEKLY STRUCTURE:
 
 **Week 4: Game Application & Re-Testing**
 - Objective: Match-realistic scenarios, re-test KPIs, peak performance
-- Focus: ${training_goals && training_goals.length > 0 ? `Demonstrate improvement in ${training_goals[0]}` : 'Overall game performance'}
+- Focus: ${training_goals && training_goals.length > 0 ? \`Demonstrate improvement in ${training_goals[0]}\` : 'Overall game performance'}
 - Load: 85-95% intensity (with taper before match)
 
 SPECIFIC INSTRUCTIONS:
 1. **Address their goals**: ${training_goals && training_goals.length > 0 ? training_goals.join(', ') : 'Overall development'}
 2. **Use their equipment**: ${equipment_access && equipment_access.length > 0 ? equipment_access.join(', ') : 'Minimal equipment'}
-3. **Target weak KPIs**: ${weakKPIs.length > 0 ? `Dedicate 60% of training to ${weakKPIs.slice(0, 3).join(', ')}` : 'Maintain current standards'}
+3. **Target weak KPIs**: ${weakKPIs.length > 0 ? \`Dedicate 60% of training to ${weakKPIs.slice(0, 3).join(', ')}\` : 'Maintain current standards'}
 4. **Include numbers**: Exact sets, reps, rest times, distances
 5. **Coaching cues**: 2-3 key technical points per drill
 6. **Motivation**: Write as if speaking directly to ${name}, age ${age}
 
 OUTPUT LENGTH: 4000-6000 words (detailed, professional, actionable)
 
-Make this feel like a **£200 personalized plan** from an MSc-qualified coach. Be specific, evidence-based, and motivating!`;
+Make this feel like a **£200 personalized plan** from an MSc-qualified coach. Be specific, evidence-based, and motivating!\`;
 
     // Call OpenAI API
     const openAIResponse = await callOpenAI(prompt);
@@ -248,7 +334,7 @@ function callOpenAI(prompt) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': \`Bearer ${apiKey}\`,
         'Content-Length': Buffer.byteLength(postData)
       }
     };
@@ -281,4 +367,38 @@ function callOpenAI(prompt) {
     req.write(postData);
     req.end();
   });
-}
+}</code></pre>
+    </div>
+
+    <script>
+        function copyCode() {
+            const codeBlock = document.getElementById('codeBlock');
+            const button = document.querySelector('.copy-button');
+            
+            // Create a temporary textarea
+            const textarea = document.createElement('textarea');
+            textarea.value = codeBlock.textContent;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            
+            // Select and copy
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            
+            // Remove textarea
+            document.body.removeChild(textarea);
+            
+            // Update button
+            button.textContent = '✅ COPIED!';
+            button.classList.add('copied');
+            
+            setTimeout(() => {
+                button.textContent = 'COPY CODE';
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
