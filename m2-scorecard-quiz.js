@@ -1,8 +1,10 @@
-// M2 Player Scorecard Quiz - 25 Questions with Position-Specific KPIs
-// Q1: Position Selection
-// Q2-16: Universal Assessment (original 15 questions)
-// Q17-22: Position-Specific KPIs (6 questions based on Q1)
-// Q23-25: Goals & Logistics (3 questions)
+// M2 Player Scorecard Quiz - OPTIMIZED VERSION
+// Performance improvements:
+// 1. Cached DOM elements
+// 2. Delegated event handlers
+// 3. Debounced range input
+// 4. Efficient DOM updates
+// 5. Removed inline JSON.stringify
 
 const quizData = {
     archetypes: {
@@ -246,8 +248,6 @@ const quizData = {
                 scores: { technical: value * 10, tactical: value * 5, physical: 0, mental: 0 }
             })
         }
-        // Q17-22 will be injected dynamically based on position
-        // Q23-25 final questions added at the end
     ]
 };
 
@@ -338,46 +338,87 @@ const finalQuestions = [
     }
 ];
 
-// Quiz state
-let currentQuestion = 0;
-let answers = {};
-let selectedPosition = null;
-let positionKPIs = {};
-let archetypeScores = { technician: 0, workhorse: 0, explosive: 0, leader: 0, wall: 0, finisher: 0 };
-let categoryScores = { technical: 0, tactical: 0, physical: 0, mental: 0 };
+// OPTIMIZED: Quiz state with cached DOM elements
+class QuizState {
+    constructor() {
+        this.currentQuestion = 0;
+        this.answers = {};
+        this.selectedPosition = null;
+        this.positionKPIs = {};
+        this.archetypeScores = { technician: 0, workhorse: 0, explosive: 0, leader: 0, wall: 0, finisher: 0 };
+        this.categoryScores = { technical: 0, tactical: 0, physical: 0, mental: 0 };
+        
+        // Cached DOM elements
+        this.elements = {
+            landing: null,
+            quiz: null,
+            emailGate: null,
+            results: null,
+            quizQuestions: null,
+            progressBar: null,
+            progressText: null,
+            btnBack: null,
+            btnNext: null
+        };
+        
+        this.debounceTimeout = null;
+    }
+    
+    cacheElements() {
+        this.elements.landing = document.getElementById('landing');
+        this.elements.quiz = document.getElementById('quiz');
+        this.elements.emailGate = document.getElementById('emailGate');
+        this.elements.results = document.getElementById('results');
+        this.elements.quizQuestions = document.getElementById('quizQuestions');
+        this.elements.progressBar = document.getElementById('progressBar');
+        this.elements.progressText = document.getElementById('progressText');
+        this.elements.btnBack = document.getElementById('btnBack');
+        this.elements.btnNext = document.getElementById('btnNext');
+    }
+    
+    // Debounced range input handler
+    debouncedRangeUpdate(value, callback) {
+        clearTimeout(this.debounceTimeout);
+        this.debounceTimeout = setTimeout(() => {
+            callback(value);
+        }, 50); // 50ms debounce
+    }
+}
+
+const quizState = new QuizState();
 
 function startQuiz() {
-    document.getElementById('landing').style.display = 'none';
-    document.getElementById('quiz').style.display = 'block';
+    quizState.cacheElements();
+    quizState.elements.landing.style.display = 'none';
+    quizState.elements.quiz.style.display = 'block';
     renderQuestion();
 }
 
+// OPTIMIZED: Use template literals more efficiently and less DOM manipulation
 function renderQuestion() {
-    const question = quizData.questions[currentQuestion];
-    const container = document.getElementById('quizQuestions');
+    const question = quizData.questions[quizState.currentQuestion];
+    const container = quizState.elements.quizQuestions;
     
-    let html = `<div class="quiz-step active">
-        <div class="question-card">
-            <h2 class="question-title">${question.question}</h2>`;
+    let optionsHTML = '';
     
     if (question.type === 'multiple-choice') {
-        html += '<div class="answer-options">';
+        optionsHTML = '<div class="answer-options">';
         question.options.forEach((option, index) => {
-            const selected = answers[currentQuestion] === index ? 'selected' : '';
-            html += `
-                <div class="answer-option ${selected}" onclick="selectAnswer(${index})">
+            const selected = quizState.answers[quizState.currentQuestion] === index ? 'selected' : '';
+            optionsHTML += `
+                <div class="answer-option ${selected}" data-index="${index}">
                     <input type="radio" name="q${question.id}" id="q${question.id}_${index}" value="${index}">
                     <label class="answer-label" for="q${question.id}_${index}">${option.text}</label>
                 </div>
             `;
         });
-        html += '</div>';
+        optionsHTML += '</div>';
     } else if (question.type === 'scale') {
-        const value = answers[currentQuestion] || 5;
-        html += `
+        const value = quizState.answers[quizState.currentQuestion] || 5;
+        optionsHTML = `
             <div class="range-input-container">
                 <input type="range" class="range-input" min="${question.min}" max="${question.max}" value="${value}" 
-                    oninput="updateRangeValue(this.value)" id="rangeInput${question.id}">
+                    id="rangeInput${question.id}">
                 <div class="range-value" id="rangeValue${question.id}">${value}</div>
                 <div class="range-labels">
                     <span>Beginner</span>
@@ -387,100 +428,122 @@ function renderQuestion() {
         `;
     }
     
-    html += '</div></div>';
-    container.innerHTML = html;
+    container.innerHTML = `<div class="quiz-step active">
+        <div class="question-card">
+            <h2 class="question-title">${question.question}</h2>
+            ${optionsHTML}
+        </div>
+    </div>`;
+    
+    // OPTIMIZED: Add event listeners after render
+    if (question.type === 'scale') {
+        const rangeInput = document.getElementById(`rangeInput${question.id}`);
+        const rangeValue = document.getElementById(`rangeValue${question.id}`);
+        
+        rangeInput.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            rangeValue.textContent = value;
+            
+            // Immediate visual feedback
+            quizState.debouncedRangeUpdate(value, (val) => {
+                quizState.answers[quizState.currentQuestion] = val;
+                quizState.elements.btnNext.disabled = false;
+            });
+        });
+    }
     
     updateProgress();
     updateButtons();
 }
 
+// OPTIMIZED: Event delegation for answer selection
+document.addEventListener('DOMContentLoaded', () => {
+    const quizQuestions = document.getElementById('quizQuestions');
+    
+    if (quizQuestions) {
+        quizQuestions.addEventListener('click', (e) => {
+            const answerOption = e.target.closest('.answer-option');
+            if (answerOption && answerOption.dataset.index !== undefined) {
+                const index = parseInt(answerOption.dataset.index);
+                selectAnswer(index);
+            }
+        });
+    }
+});
+
 function selectAnswer(index) {
-    answers[currentQuestion] = index;
+    quizState.answers[quizState.currentQuestion] = index;
     
     // If Q1, capture position
-    if (currentQuestion === 0) {
-        selectedPosition = quizData.questions[0].options[index].position;
+    if (quizState.currentQuestion === 0) {
+        quizState.selectedPosition = quizData.questions[0].options[index].position;
         
         // Inject position-specific questions (Q17-22)
-        const posQuestions = positionQuestions[selectedPosition];
+        const posQuestions = positionQuestions[quizState.selectedPosition];
         quizData.questions = quizData.questions.slice(0, 17).concat(posQuestions).concat(finalQuestions);
     }
     
-    // Visual feedback
+    // OPTIMIZED: Visual feedback with querySelectorAll called once
     const options = document.querySelectorAll('.answer-option');
     options.forEach((opt, i) => {
-        if (i === index) {
-            opt.classList.add('selected');
-        } else {
-            opt.classList.remove('selected');
-        }
+        opt.classList.toggle('selected', i === index);
     });
     
-    document.getElementById('btnNext').disabled = false;
-}
-
-function updateRangeValue(value) {
-    const question = quizData.questions[currentQuestion];
-    document.getElementById(`rangeValue${question.id}`).textContent = value;
-    answers[currentQuestion] = parseInt(value);
-    document.getElementById('btnNext').disabled = false;
+    quizState.elements.btnNext.disabled = false;
 }
 
 function nextQuestion() {
-    if (currentQuestion < quizData.questions.length - 1) {
-        currentQuestion++;
+    if (quizState.currentQuestion < quizData.questions.length - 1) {
+        quizState.currentQuestion++;
         renderQuestion();
     } else {
         // Quiz complete - show email gate
-        document.getElementById('quiz').style.display = 'none';
-        document.getElementById('emailGate').style.display = 'block';
+        quizState.elements.quiz.style.display = 'none';
+        quizState.elements.emailGate.style.display = 'block';
     }
 }
 
 function previousQuestion() {
-    if (currentQuestion > 0) {
-        currentQuestion--;
+    if (quizState.currentQuestion > 0) {
+        quizState.currentQuestion--;
         renderQuestion();
     }
 }
 
 function updateProgress() {
-    const progress = ((currentQuestion + 1) / 25) * 100;
-    document.getElementById('progressBar').style.width = progress + '%';
-    document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of 25`;
+    const progress = ((quizState.currentQuestion + 1) / 25) * 100;
+    quizState.elements.progressBar.style.width = progress + '%';
+    quizState.elements.progressText.textContent = `Question ${quizState.currentQuestion + 1} of 25`;
 }
 
 function updateButtons() {
-    const btnBack = document.getElementById('btnBack');
-    const btnNext = document.getElementById('btnNext');
-    
-    btnBack.style.display = currentQuestion > 0 ? 'block' : 'none';
-    btnNext.disabled = answers[currentQuestion] === undefined;
+    quizState.elements.btnBack.style.display = quizState.currentQuestion > 0 ? 'block' : 'none';
+    quizState.elements.btnNext.disabled = quizState.answers[quizState.currentQuestion] === undefined;
 }
 
 function calculateResults() {
-    archetypeScores = { technician: 0, workhorse: 0, explosive: 0, leader: 0, wall: 0, finisher: 0 };
-    categoryScores = { technical: 0, tactical: 0, physical: 0, mental: 0 };
-    positionKPIs = {};
+    quizState.archetypeScores = { technician: 0, workhorse: 0, explosive: 0, leader: 0, wall: 0, finisher: 0 };
+    quizState.categoryScores = { technical: 0, tactical: 0, physical: 0, mental: 0 };
+    quizState.positionKPIs = {};
     
     let scoreCounts = { technical: 0, tactical: 0, physical: 0, mental: 0 };
     
     quizData.questions.forEach((question, index) => {
-        const answer = answers[index];
+        const answer = quizState.answers[index];
         
         if (question.type === 'multiple-choice') {
             const option = question.options[answer];
             
             if (option && option.archetypes) {
                 Object.keys(option.archetypes).forEach(key => {
-                    archetypeScores[key] += option.archetypes[key];
+                    quizState.archetypeScores[key] += option.archetypes[key];
                 });
             }
             
             if (option && option.scores) {
                 Object.keys(option.scores).forEach(key => {
                     if (option.scores[key] > 0) {
-                        categoryScores[key] += option.scores[key];
+                        quizState.categoryScores[key] += option.scores[key];
                         scoreCounts[key]++;
                     }
                 });
@@ -489,49 +552,49 @@ function calculateResults() {
             const result = question.scoring(answer);
             
             Object.keys(result.archetypes).forEach(key => {
-                archetypeScores[key] += result.archetypes[key];
+                quizState.archetypeScores[key] += result.archetypes[key];
             });
             
             Object.keys(result.scores).forEach(key => {
                 if (result.scores[key] > 0) {
-                    categoryScores[key] += result.scores[key];
+                    quizState.categoryScores[key] += result.scores[key];
                     scoreCounts[key]++;
                 }
             });
             
             // Capture KPI scores
             if (question.kpi) {
-                positionKPIs[question.kpi] = answer;
+                quizState.positionKPIs[question.kpi] = answer;
             }
         }
     });
     
     // Average the category scores
-    Object.keys(categoryScores).forEach(key => {
+    Object.keys(quizState.categoryScores).forEach(key => {
         if (scoreCounts[key] > 0) {
-            let avgScore = categoryScores[key] / scoreCounts[key];
-            categoryScores[key] = Math.round(60 + (avgScore * 0.35));
-            categoryScores[key] = Math.min(95, Math.max(60, categoryScores[key]));
+            let avgScore = quizState.categoryScores[key] / scoreCounts[key];
+            quizState.categoryScores[key] = Math.round(60 + (avgScore * 0.35));
+            quizState.categoryScores[key] = Math.min(95, Math.max(60, quizState.categoryScores[key]));
         } else {
-            categoryScores[key] = 65;
+            quizState.categoryScores[key] = 65;
         }
     });
     
     // Find dominant archetype
     let dominantArchetype = 'technician';
     let highestScore = 0;
-    Object.keys(archetypeScores).forEach(key => {
-        if (archetypeScores[key] > highestScore) {
-            highestScore = archetypeScores[key];
+    Object.keys(quizState.archetypeScores).forEach(key => {
+        if (quizState.archetypeScores[key] > highestScore) {
+            highestScore = quizState.archetypeScores[key];
             dominantArchetype = key;
         }
     });
     
     const overallScore = Math.round(
-        (categoryScores.technical + categoryScores.tactical + categoryScores.physical + categoryScores.mental) / 4
+        (quizState.categoryScores.technical + quizState.categoryScores.tactical + quizState.categoryScores.physical + quizState.categoryScores.mental) / 4
     );
     
-    return { archetype: dominantArchetype, overallScore, categoryScores };
+    return { archetype: dominantArchetype, overallScore, categoryScores: quizState.categoryScores };
 }
 
 async function submitEmailAndShowResults() {
@@ -548,11 +611,25 @@ async function submitEmailAndShowResults() {
     displayResults(results, name, email, age);
 }
 
+// OPTIMIZED: Store player data separately instead of in HTML attributes
+let currentPlayerData = null;
+
 function displayResults(results, playerName, playerEmail, playerAge) {
-    document.getElementById('emailGate').style.display = 'none';
-    document.getElementById('results').classList.add('active');
+    quizState.elements.emailGate.style.display = 'none';
+    quizState.elements.results.classList.add('active');
     
     const archetype = quizData.archetypes[results.archetype];
+    
+    // Store player data for later use
+    currentPlayerData = {
+        name: playerName,
+        email: playerEmail,
+        age: playerAge,
+        position: quizState.selectedPosition,
+        archetype: archetype.name,
+        scores: results.categoryScores,
+        kpis: quizState.positionKPIs
+    };
     
     const html = `
         <div class="archetype-reveal">
@@ -626,17 +703,17 @@ function displayResults(results, playerName, playerEmail, playerAge) {
             <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
             <h3 style="font-size: 2.2rem; color: white; margin-bottom: 1rem;">Ready for Your Personalized Training Plan?</h3>
             <p style="font-size: 1.2rem; color: rgba(255,255,255,0.95); margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                Based on your answers, we've created a custom 2-week training plan designed specifically for <strong>${selectedPosition}</strong> players like you.
+                Based on your answers, we've created a custom 2-week training plan designed specifically for <strong>${quizState.selectedPosition}</strong> players like you.
             </p>
             <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; text-align: left; color: white;">
                     <div>✓ 2-week progressive program</div>
                     <div>✓ Daily session breakdowns</div>
-                    <div>✓ Tailored to ${selectedPosition}</div>
+                    <div>✓ Tailored to ${quizState.selectedPosition}</div>
                     <div>✓ Position-specific drills</div>
                 </div>
             </div>
-            <button onclick="generateTrainingPlan('${playerName}', '${playerEmail}', ${playerAge}, '${selectedPosition}', '${archetype.name}', ${JSON.stringify(results.categoryScores).replace(/"/g, '&quot;')}, ${JSON.stringify(positionKPIs).replace(/"/g, '&quot;')})" id="generatePlanBtn" style="background: white; color: #FF6B35; border: none; padding: 1.5rem 3rem; border-radius: 8px; font-size: 1.3rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+            <button id="generatePlanBtn" style="background: white; color: #FF6B35; border: none; padding: 1.5rem 3rem; border-radius: 8px; font-size: 1.3rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
                 📥 Get My FREE Training Plan
             </button>
             <div style="margin-top: 1rem; font-size: 0.95rem; color: rgba(255,255,255,0.9);">
@@ -645,11 +722,23 @@ function displayResults(results, playerName, playerEmail, playerAge) {
         </div>
     `;
     
-    document.getElementById('results').innerHTML = html;
+    quizState.elements.results.innerHTML = html;
+    
+    // OPTIMIZED: Add event listener to button after creation
+    document.getElementById('generatePlanBtn').addEventListener('click', () => {
+        generateTrainingPlan();
+    });
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-async function generateTrainingPlan(name, email, age, position, archetype, scores, kpis) {
+// OPTIMIZED: Use stored data instead of passing parameters
+async function generateTrainingPlan() {
+    if (!currentPlayerData) {
+        alert('Player data not found. Please retake the quiz.');
+        return;
+    }
+    
     const btn = document.getElementById('generatePlanBtn');
     btn.disabled = true;
     btn.innerHTML = '⏳ Generating Your Plan... (this takes 45-60 seconds)';
@@ -663,17 +752,17 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                name,
-                email,
-                age,
-                position,
-                archetype,
-                playing_level: quizData.questions[24].options[answers[24]].text,
-                training_days_per_week: quizData.questions[23].options[answers[23]].value,
-                training_goals: [quizData.questions[22].options[answers[22]].text],
+                name: currentPlayerData.name,
+                email: currentPlayerData.email,
+                age: currentPlayerData.age,
+                position: currentPlayerData.position,
+                archetype: currentPlayerData.archetype,
+                playing_level: quizData.questions[24].options[quizState.answers[24]].text,
+                training_days_per_week: quizData.questions[23].options[quizState.answers[23]].value,
+                training_goals: [quizData.questions[22].options[quizState.answers[22]].text],
                 equipment_access: [],
-                scores,
-                position_kpis: kpis
+                scores: currentPlayerData.scores,
+                position_kpis: currentPlayerData.kpis
             }),
             signal: controller.signal
         });
@@ -688,11 +777,12 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
             btn.style.background = '#4CAF50';
             
             // Auto-download PDF immediately
-            await downloadPDF(name, position, archetype, scores, kpis, planContent, age);
+            await downloadPDF(planContent);
             
             // Change button after download
             btn.innerHTML = '✅ Downloaded! Click to Download Again';
-            btn.onclick = () => downloadPDF(name, position, archetype, scores, kpis, planContent, age);
+            btn.disabled = false;
+            btn.onclick = () => downloadPDF(planContent);
             
         } else {
             throw new Error('Failed to generate plan');
@@ -713,19 +803,21 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
     }
 }
 
-function downloadPDF(name, position, archetype, scores, kpis, planContent, age) {
+function downloadPDF(planContent) {
     // Load jsPDF from CDN if not already loaded
     if (typeof window.jspdf === 'undefined') {
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-        script.onload = () => generatePDFDocument(name, position, archetype, scores, kpis, planContent, age);
+        script.onload = () => generatePDFDocument(planContent);
         document.head.appendChild(script);
     } else {
-        generatePDFDocument(name, position, archetype, scores, kpis, planContent, age);
+        generatePDFDocument(planContent);
     }
 }
 
-function generatePDFDocument(name, position, archetype, scores, kpis, planContent, age) {
+function generatePDFDocument(planContent) {
+    if (!currentPlayerData) return;
+    
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
@@ -758,25 +850,25 @@ function generatePDFDocument(name, position, archetype, scores, kpis, planConten
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${name}`, margin + 10, yPos + 12);
+    doc.text(`${currentPlayerData.name}`, margin + 10, yPos + 12);
     
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text(`Age: ${age} | Position: ${position} | Player Type: ${archetype}`, margin + 10, yPos + 22);
+    doc.text(`Age: ${currentPlayerData.age} | Position: ${currentPlayerData.position} | Player Type: ${currentPlayerData.archetype}`, margin + 10, yPos + 22);
     
     // Scores
     doc.setFontSize(9);
-    doc.text(`Technical: ${scores.technical}/100  |  Tactical: ${scores.tactical}/100  |  Physical: ${scores.physical}/100  |  Mental: ${scores.mental}/100`, 
+    doc.text(`Technical: ${currentPlayerData.scores.technical}/100  |  Tactical: ${currentPlayerData.scores.tactical}/100  |  Physical: ${currentPlayerData.scores.physical}/100  |  Mental: ${currentPlayerData.scores.mental}/100`, 
              margin + 10, yPos + 32);
     
     yPos += 55;
     
     // Position-Specific KPIs Section
-    if (kpis && Object.keys(kpis).length > 0) {
+    if (currentPlayerData.kpis && Object.keys(currentPlayerData.kpis).length > 0) {
         doc.setTextColor(0, 0, 0);
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
-        doc.text(`${position} KPIs (Hughes 2012 Framework)`, margin, yPos);
+        doc.text(`${currentPlayerData.position} KPIs (Hughes 2012 Framework)`, margin, yPos);
         
         yPos += 8;
         doc.setFontSize(9);
@@ -795,7 +887,7 @@ function generatePDFDocument(name, position, archetype, scores, kpis, planConten
         };
         
         let kpiText = '';
-        Object.entries(kpis).forEach(([key, value]) => {
+        Object.entries(currentPlayerData.kpis).forEach(([key, value]) => {
             const label = kpiNames[key] || key;
             kpiText += `${label}: ${value}/10  `;
         });
@@ -844,5 +936,5 @@ function generatePDFDocument(name, position, archetype, scores, kpis, planConten
     }
     
     // Save the PDF
-    doc.save(`M2FT_Training_Plan_${name.replace(/\s+/g, '_')}.pdf`);
+    doc.save(`M2FT_Training_Plan_${currentPlayerData.name.replace(/\s+/g, '_')}.pdf`);
 }
