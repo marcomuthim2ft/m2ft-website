@@ -674,9 +674,13 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
         });
         
         if (response.ok) {
-            btn.innerHTML = '✅ Plan Generated!';
+            const data = await response.json();
+            const planContent = data.plan.plan_content;
+            
+            btn.innerHTML = '📥 Download Your Plan';
             btn.style.background = '#4CAF50';
-            alert(`🎉 Success! Your personalized 2-week training plan has been generated. Check your email at ${email}!`);
+            btn.onclick = () => downloadPDF(name, position, archetype, scores, kpis, planContent, age);
+            
         } else {
             throw new Error('Failed to generate plan');
         }
@@ -687,4 +691,138 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
         btn.disabled = false;
         alert('⚠️ There was an error generating your plan. Please try again or contact marco@officialm2ft.com');
     }
+}
+
+function downloadPDF(name, position, archetype, scores, kpis, planContent, age) {
+    // Load jsPDF from CDN if not already loaded
+    if (typeof window.jspdf === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        script.onload = () => generatePDFDocument(name, position, archetype, scores, kpis, planContent, age);
+        document.head.appendChild(script);
+    } else {
+        generatePDFDocument(name, position, archetype, scores, kpis, planContent, age);
+    }
+}
+
+function generatePDFDocument(name, position, archetype, scores, kpis, planContent, age) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 20;
+    const maxWidth = pageWidth - (margin * 2);
+    
+    let yPos = margin;
+    
+    // Header - M2FT Logo & Title
+    doc.setFillColor(25, 40, 70); // M2FT Navy
+    doc.rect(0, 0, pageWidth, 40, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(28);
+    doc.setFont('helvetica', 'bold');
+    doc.text('M2FT PERFORMANCE', pageWidth / 2, 20, { align: 'center' });
+    
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'normal');
+    doc.text('2-Week Personalized Training Plan', pageWidth / 2, 30, { align: 'center' });
+    
+    yPos = 50;
+    
+    // Player Info Box
+    doc.setFillColor(255, 107, 53); // Orange
+    doc.roundedRect(margin, yPos, maxWidth, 45, 3, 3, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${name}`, margin + 10, yPos + 12);
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Age: ${age} | Position: ${position} | Player Type: ${archetype}`, margin + 10, yPos + 22);
+    
+    // Scores
+    doc.setFontSize(9);
+    doc.text(`Technical: ${scores.technical}/100  |  Tactical: ${scores.tactical}/100  |  Physical: ${scores.physical}/100  |  Mental: ${scores.mental}/100`, 
+             margin + 10, yPos + 32);
+    
+    yPos += 55;
+    
+    // Position-Specific KPIs Section
+    if (kpis && Object.keys(kpis).length > 0) {
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.text(`${position} KPIs (Hughes 2012 Framework)`, margin, yPos);
+        
+        yPos += 8;
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        
+        const kpiNames = {
+            finishing: 'Finishing', aerial: 'Aerial', movement: 'Movement', linkup: 'Link-Up', holdup: 'Hold-Up', composure: 'Composure',
+            passing_pressure: 'Passing Under Pressure', tempo_control: 'Tempo Control', defensive_work: 'Defensive Work',
+            progressive_passes: 'Progressive Passes', positioning: 'Positioning', covering_ground: 'Covering Ground',
+            tackling: 'Tackling', aerial_defending: 'Aerial Defending', positioning_defending: 'Positioning',
+            one_v_one: '1v1 Defending', interceptions: 'Interceptions', defensive_communication: 'Communication',
+            dribbling_one_v_one: '1v1 Dribbling', crossing: 'Crossing', cut_inside: 'Cut Inside', pace_wide: 'Pace',
+            stamina_wing: 'Stamina', tracking_back: 'Tracking Back',
+            shot_stopping: 'Shot-Stopping', distribution: 'Distribution', box_command: 'Box Command',
+            one_v_one_gk: '1v1 vs Strikers', reflexes: 'Reflexes', gk_positioning: 'Positioning'
+        };
+        
+        let kpiText = '';
+        Object.entries(kpis).forEach(([key, value]) => {
+            const label = kpiNames[key] || key;
+            kpiText += `${label}: ${value}/10  `;
+        });
+        
+        const kpiLines = doc.splitTextToSize(kpiText, maxWidth);
+        doc.text(kpiLines, margin, yPos);
+        yPos += (kpiLines.length * 5) + 5;
+    }
+    
+    // Divider
+    doc.setDrawColor(25, 40, 70);
+    doc.setLineWidth(0.5);
+    doc.line(margin, yPos, pageWidth - margin, yPos);
+    yPos += 10;
+    
+    // Training Plan Content
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('YOUR 2-WEEK TRAINING PLAN', margin, yPos);
+    yPos += 10;
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    
+    // Split content into lines that fit
+    const lines = doc.splitTextToSize(planContent, maxWidth);
+    
+    lines.forEach((line) => {
+        if (yPos > pageHeight - 30) {
+            doc.addPage();
+            yPos = margin;
+        }
+        doc.text(line, margin, yPos);
+        yPos += 5;
+    });
+    
+    // Footer on last page
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(128, 128, 128);
+        doc.text(`M2FT Performance | Page ${i} of ${totalPages}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+        doc.text('marco@officialm2ft.com | m2ftperformance.com', pageWidth / 2, pageHeight - 5, { align: 'center' });
+    }
+    
+    // Save the PDF
+    doc.save(`M2FT_Training_Plan_${name.replace(/\s+/g, '_')}.pdf`);
 }
