@@ -96,7 +96,7 @@ exports.handler = async function(event, context) {
     // Construct the enhanced prompt
     const prompt = `You are Marco Muthi, MSc Performance Football Coach with experience at Chelsea FC Foundation, Aldershot Town, and LionHeart Football. You specialize in evidence-based training using the Hughes (2012) KPI framework for position-specific development.
 
-Create a detailed, professional 4-week training plan for:
+Create a detailed, professional 2-week training plan for:
 
 PLAYER PROFILE:
 - Name: ${name}
@@ -127,7 +127,7 @@ Apply these MSc-level principles:
 7. **Equipment-based**: Only use available equipment: ${equipment_access && equipment_access.length > 0 ? equipment_access.join(', ') : 'Basic equipment'}
 
 FORMAT REQUIREMENTS:
-- **4-week progressive program** with clear weekly objectives
+- **2-week progressive program** with clear weekly objectives
 - **${training_days_per_week} training days per week** schedule
 - **Session breakdowns**: Warm-up, Main Drills (with sets/reps/durations), Cool-down
 - **Position-specific exercises** for ${position} players based on Hughes KPIs
@@ -142,22 +142,12 @@ WEEKLY STRUCTURE:
 **Week 1: Foundation & KPI Assessment**
 - Objective: Establish baseline, build movement quality, introduce position-specific drills
 - Focus: ${weakKPIs.length > 0 ? `Begin addressing ${weakKPIs[0]}` : 'Technical fundamentals'}
-- Load: 60-70% intensity
+- Load: 60-75% intensity
 
-**Week 2: Skill Development & Refinement**
-- Objective: Develop weak KPIs with high-repetition drills, refine technique
-- Focus: ${weakKPIs.length > 0 ? `Target ${weakKPIs.slice(0, 2).join(' and ')}` : 'Position-specific skills'}
-- Load: 70-80% intensity
-
-**Week 3: Integration Under Pressure**
-- Objective: Apply skills in small-sided games and opposed scenarios
-- Focus: Decision-making under fatigue, tactical application
-- Load: 80-90% intensity
-
-**Week 4: Game Application & Re-Testing**
-- Objective: Match-realistic scenarios, re-test KPIs, peak performance
-- Focus: ${training_goals && training_goals.length > 0 ? `Demonstrate improvement in ${training_goals[0]}` : 'Overall game performance'}
-- Load: 85-95% intensity (with taper before match)
+**Week 2: Integration & Game Application**
+- Objective: Apply skills in match-realistic scenarios, develop weak KPIs, test improvements
+- Focus: ${weakKPIs.length > 0 ? `Target ${weakKPIs.slice(0, 2).join(' and ')}` : 'Position-specific skills in game situations'}
+- Load: 75-90% intensity (with taper before match)
 
 SPECIFIC INSTRUCTIONS:
 1. **Address their goals**: ${training_goals && training_goals.length > 0 ? training_goals.join(', ') : 'Overall development'}
@@ -167,9 +157,9 @@ SPECIFIC INSTRUCTIONS:
 5. **Coaching cues**: 2-3 key technical points per drill
 6. **Motivation**: Write as if speaking directly to ${name}, age ${age}
 
-OUTPUT LENGTH: 4000-6000 words (detailed, professional, actionable)
+OUTPUT LENGTH: 2000-3000 words (detailed, professional, actionable)
 
-Make this feel like a **£200 personalized plan** from an MSc-qualified coach. Be specific, evidence-based, and motivating!`;
+Make this feel like a **£100 personalized 2-week plan** from an MSc-qualified coach. Be specific, evidence-based, and motivating!`;
 
     // Call OpenAI API
     const openAIResponse = await callOpenAI(prompt);
@@ -238,7 +228,7 @@ function callOpenAI(prompt) {
         }
       ],
       temperature: 0.7,
-      max_tokens: 4000
+      max_tokens: 2000
     });
 
     const options = {
