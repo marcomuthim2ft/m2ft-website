@@ -126,17 +126,55 @@ Apply these MSc-level principles:
 6. **Progressive overload**: Increase intensity/complexity weekly by 10-15%
 7. **Equipment-based**: Only use available equipment: ${equipment_access && equipment_access.length > 0 ? equipment_access.join(', ') : 'Basic equipment'}
 
-FORMAT REQUIREMENTS:
-- **2-week progressive program** with clear weekly objectives
-- **${training_days_per_week} training days per week** schedule
-- **Session breakdowns**: Warm-up, Main Drills (with sets/reps/durations), Cool-down
-- **Position-specific exercises** for ${position} players based on Hughes KPIs
-- **Archetype-specific tips** for ${archetype} players
-- **Drill names**: Use specific, recognizable drill names (e.g., "Rondo 4v2", "Brazilian Passing Square")
-- **Progressive overload**: Clear progression markers week-by-week
-- **Recovery protocols**: Age-appropriate rest, nutrition, sleep guidance for ${age}-year-olds
-- **Progress tracking**: Measurable KPIs to test weekly
-- **Weak KPI focus**: ${weakKPIs.length > 0 ? `Prioritize improving ${weakKPIs.join(', ')}` : 'Maintain strengths and develop all-round game'}
+FORMAT REQUIREMENTS - CRITICAL:
+This must be a DRILL-BY-DRILL training plan with step-by-step instructions for each session.
+
+For EACH training day, provide:
+1. **Warm-Up Drills** (10-15 min)
+   - Drill name
+   - Equipment needed
+   - Step-by-step setup instructions
+   - How to perform it
+   - Coaching points
+   
+2. **Main Technical Drills** (30-40 min)
+   - 3-4 specific drills per session
+   - For EACH drill include:
+     * Drill Name (e.g., "Finisher's Touch", "Triangle Passing Progression")
+     * Setup: Exact cone/marker placement, distances, equipment
+     * Instructions: Step 1, Step 2, Step 3 (how to do it)
+     * Sets x Reps x Duration (e.g., "3 sets x 8 reps, 90 sec rest")
+     * Coaching Cues: 2-3 technical points to focus on
+     * Progressions: How to make it harder as they improve
+     
+3. **Cool-Down** (5-10 min)
+   - Specific stretches/recovery drills
+   
+EXAMPLE FORMAT:
+**DAY 1 - FINISHING DEVELOPMENT**
+
+WARM-UP (12 min):
+Drill 1: Dynamic Movement Circuit
+- Setup: Place 5 cones in a line, 5 yards apart
+- Instructions:
+  1. High knees through cones (there and back)
+  2. Butt kicks through cones
+  3. Side shuffles (both directions)
+- Duration: 2 rounds, 60 sec rest between
+- Coaching Cues: Stay on toes, arms pumping
+
+MAIN DRILLS (35 min):
+Drill 1: One-Touch Finishing
+- Setup: 6 cones in semi-circle 12 yards from goal, partner at each cone with ball
+- Instructions:
+  1. Start at center cone
+  2. Sprint to cone 1, receive pass, one-touch finish
+  3. Return to center, repeat at each cone
+- Sets/Reps: 3 sets x 6 shots (1 at each cone), 2 min rest
+- Coaching Cues: Plant foot beside ball, strike through center, follow through to target
+- Progression: Increase distance to 15 yards, add goalkeeper
+
+**CRUCIAL**: Every single drill must have this level of detail. ${training_days_per_week} days per week for 2 weeks = ${training_days_per_week * 2} total sessions. Write out EVERY drill for EVERY session.
 
 WEEKLY STRUCTURE:
 **Week 1: Foundation & KPI Assessment**
@@ -150,14 +188,15 @@ WEEKLY STRUCTURE:
 - Load: 75-90% intensity (with taper before match)
 
 SPECIFIC INSTRUCTIONS:
-1. **Address their goals**: ${training_goals && training_goals.length > 0 ? training_goals.join(', ') : 'Overall development'}
-2. **Use their equipment**: ${equipment_access && equipment_access.length > 0 ? equipment_access.join(', ') : 'Minimal equipment'}
-3. **Target weak KPIs**: ${weakKPIs.length > 0 ? `Dedicate 60% of training to ${weakKPIs.slice(0, 3).join(', ')}` : 'Maintain current standards'}
-4. **Include numbers**: Exact sets, reps, rest times, distances
-5. **Coaching cues**: 2-3 key technical points per drill
-6. **Motivation**: Write as if speaking directly to ${name}, age ${age}
+1. **NO theory or philosophy** - only drills and instructions
+2. **Address their goals**: ${training_goals && training_goals.length > 0 ? training_goals.join(', ') : 'Overall development'}
+3. **Target weak KPIs**: ${weakKPIs.length > 0 ? `60% of drills focus on ${weakKPIs.slice(0, 3).join(', ')}` : 'All-round development'}
+4. **Use only**: Ball, cones/markers (assume basic equipment available)
+5. **Age-appropriate**: Drills suitable for ${age}-year-old
+6. **Position-specific**: Every drill tailored for ${position} players
 
-OUTPUT LENGTH: 2000-3000 words (detailed, professional, actionable)
+OUTPUT LENGTH: 3000-4000 words (highly detailed drill instructions)
+OUTPUT STYLE: Instructional manual, not a philosophy document
 
 Make this feel like a **£100 personalized 2-week plan** from an MSc-qualified coach. Be specific, evidence-based, and motivating!`;
 
@@ -228,7 +267,7 @@ function callOpenAI(prompt) {
         }
       ],
       temperature: 0.7,
-      max_tokens: 2000
+      max_tokens: 3000
     });
 
     const options = {
