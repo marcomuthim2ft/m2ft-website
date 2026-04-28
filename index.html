@@ -3,436 +3,844 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    <meta name="description" content="M2FT - Elite football coaching and performance training in Surrey. Train like a pro with Marco Muthi, MSc Performance Coach.">
-    <title>M2FT | Train Like a Pro. Perform Like One.</title>
-    <link rel="stylesheet" href="style.css">
+    <title>M2FT Growth Strategy 2026 | Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Slide Backgrounds */
+        .slide-1 { background: linear-gradient(135deg, #0D1B2A 0%, #1B263B 100%); }
+        .slide-2 { background: linear-gradient(135deg, #1B263B 0%, #0D1B2A 100%); }
+        .slide-3 { background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 100%); }
+        .slide-4 { background: linear-gradient(135deg, #0D1B2A 0%, #0A0A0A 100%); }
+        .slide-5 { background: linear-gradient(135deg, #1B263B 0%, #0A0A0A 100%); }
+        .slide-6 { background: linear-gradient(135deg, #0A0A0A 0%, #1B263B 100%); }
+        .slide-7 { background: linear-gradient(135deg, #0D1B2A 0%, #1B263B 100%); }
+        .slide-8 { background: linear-gradient(135deg, #1B263B 0%, #0D1B2A 100%); }
+        .slide-9 { background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 100%); }
+        .slide-10 { background: linear-gradient(135deg, #0D1B2A 0%, #0A0A0A 100%); }
+        .slide-11 { background: linear-gradient(135deg, #1B263B 0%, #0A0A0A 100%); }
+        .slide-12 { background: linear-gradient(135deg, #0A0A0A 0%, #1B263B 100%); }
+
+        /* Title Slide */
+        .title-slide {
+            text-align: center;
+        }
+
+        .title-slide h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #FFFFFF, #FF6B35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title-slide .subtitle {
+            font-size: 1.8rem;
+            color: #CCCCCC;
+            margin-bottom: 3rem;
+        }
+
+        .title-slide .date {
+            font-size: 1.2rem;
+            color: #999999;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: #FFFFFF;
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #FF6B35;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #CCCCCC;
+            margin-bottom: 1rem;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .card h4 {
+            color: #FF6B35;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin: 1rem 0;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            padding: 0.5rem 0;
+            color: #CCCCCC;
+            font-size: 1rem;
+        }
+
+        .card li:before {
+            content: "✓ ";
+            color: #FF6B35;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid #FF6B35;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h4 {
+            color: #FF6B35;
+        }
+
+        /* Stats */
+        .stat-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 3rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #FF6B35;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #CCCCCC;
+            margin-top: 0.5rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #FF6B35;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #FF6B35;
+            border: 3px solid #0A0A0A;
+        }
+
+        .timeline-item h4 {
+            color: #FF6B35;
+        }
+
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #FF6B35;
+            border-color: #FF6B35;
+            transform: scale(1.1);
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            font-size: 1rem;
+            color: #999999;
+            z-index: 1000;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(255, 107, 53, 0.1);
+            color: #FF6B35;
+            font-weight: 700;
+        }
+
+        td {
+            color: #CCCCCC;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: #FF6B35;
+            color: #0A0A0A;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Logo */
+        .logo {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            z-index: 1000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title-slide h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-row {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .slide {
+                padding: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="logo">M2FT</div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="m2-football.html">M2 Football</a></li>
-                <li><a href="m2-fitness.html">M2 Fitness</a></li>
-                <li><a href="holiday-camps.html">Holiday Camps</a></li>
-                <li><a href="school-partnerships.html">School Partnerships</a></li>
-                <li><a href="trainers.html">Trainers</a></li>
-                <li><a href="contact.html" class="btn-primary">Book Now</a></li>
-            </ul>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <div class="logo">M2FT</div>
+    <div class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">12</span></div>
 
-    <!-- Hero Section with Background Video -->
-    <section class="hero hero-video">
-        <video class="hero-background-video" autoplay muted loop playsinline>
-            <source src="https://www.dropbox.com/scl/fi/rq2po9uje577qugjc8qga/Video-09-03-2026-11-26-31.mov?rlkey=kjc4fhg4kl2ndxe6fvi6a1qqq&st=rvho4533&raw=1" type="video/quicktime">
-            Your browser does not support the video tag.
-        </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>REDEFINED PERFORMANCE.</h1>
-                <p>Science-backed football coaching and performance training in Surrey. 1-to-1, online, and group programmes designed to build stronger, faster, better athletes.</p>
-                <div class="hero-cta">
-                    <a href="contact.html" class="btn-primary">Book a Session</a>
-                    <a href="https://m2ft.mypthub.net/" target="_blank" class="btn-secondary">Access PT App</a>
-                </div>
-                <div class="hero-badges">
-                    <div class="badge-item">FA Qualified</div>
-                    <div class="badge-item">MSc Performance Coaching</div>
-                    <div class="badge-item">Former Professional Academy Player</div>
-                    <div class="badge-item">Chelsea FC Foundation</div>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="images/marco-coaching hero page.jpeg" alt="Marco Muthi Coaching" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-number">30+</div>
-                <div class="stat-label">Individual 1-to-1 Players</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">6</div>
-                <div class="stat-label">Teams Weekly</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">MSc</div>
-                <div class="stat-label">Performance Coaching</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">10+</div>
-                <div class="stat-label">Years Experience</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- M2 FOOTBALL SECTION -->
-    <section class="services-split" style="padding-bottom: 1rem;">
-        <div class="split-container" style="grid-template-columns: 1fr;">
-            <!-- M2 Football -->
-            <div class="split-item football" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <h3>M2 FOOTBALL</h3>
-                <p>Elite football coaching for players at every level</p>
-                <ul style="display: inline-block; text-align: left;">
-                    <li>1-to-1 & small-group training</li>
-                    <li>Position-specific programmes</li>
-                    <li>Holiday camps for ages 4-13</li>
-                    <li>Grassroots team coaching</li>
-                    <li>Online football programmes</li>
-                </ul>
-                <a href="m2-football.html" class="btn-secondary" style="margin-top: 2rem; display: inline-block;">Explore Football</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pro Players Slider -->
-    <section class="pro-players-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Professional Footballers</h2>
-                <p>Pro footballers who have trained with M2FT</p>
-            </div>
-            <div class="pro-players-slider">
-                <div class="pro-slider-container">
-                    <div class="pro-slider-track">
-                        <!-- Player 1: Rio Cardines -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Rio-Cardines.jpeg" alt="Rio Cardines">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Rio Cardines</h3>
-                                <p class="pro-player-club">Crystal Palace FC</p>
-                                <div class="pro-player-quote">
-                                    "Highly recommend if you want to improve your ability and stay sharp"
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 2: Harry Lee -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Harry-Lee.jpeg" alt="Harry Lee">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Harry Lee</h3>
-                                <p class="pro-player-club">Salisbury FC</p>
-                                <div class="pro-player-quote">
-                                    "Really great guy and coach, worked on really individual and specific things, great energy and quality to the sessions"
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 3: Jamu Iluya -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Jamu-Iluya.jpg" alt="Jamu Iluya">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Jamu Iluya</h3>
-                                <p class="pro-player-club">FC Lehrte, Germany</p>
-                                <div class="pro-player-quote">
-                                    "He is great with giving slight queues that improve your game significantly with the slightest adjustment. The earlier you are able to get work in with him in your career, the farther you will be able to propel yourself down the road."
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 4: Mohamed Dabre -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Mohamed -Dabre.jpeg" alt="Mohamed Dabre">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Mohamed Dabre</h3>
-                                <p class="pro-player-club">Salisbury FC - First Team</p>
-                                <div class="pro-player-quote">
-                                    "Trained with M2FT to develop my game and reach the professional level"
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 5: Jack Low -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Jack-Low.jpeg" alt="Jack Low">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Jack Low</h3>
-                                <p class="pro-player-club">Former Crystal Palace Academy / Fitness Influencer</p>
-                                <div class="pro-player-quote">
-                                    ⭐⭐⭐⭐⭐
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 6: Kelvin Hernandez -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Kelvin-Hernandez.jpeg" alt="Kelvin Hernandez">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Kelvin Hernandez</h3>
-                                <p class="pro-player-club">Holmesdale FC - Semi-Professional</p>
-                                <div class="pro-player-quote">
-                                    "Marco is an amazing trainer. I've been working with him for the last couple of months and there honestly hasn't been a single time where I haven't enjoyed my session. You can see Marco is very passionate about his coaching and will always give 100% to make you better as a player. If you love football and want to get working with an amazing and fun coach contact him instantly to get sessions underway I promise no regrets."
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 7: Jabari Ofosu-Hernandez -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Jabari-Ofosu-Hernandez.jpeg" alt="Jabari Ofosu-Hernandez">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Jabari Ofosu-Hernandez</h3>
-                                <p class="pro-player-club">Bath University Performance Squad - Centreback</p>
-                                <div class="pro-player-quote">
-                                    "M2FT conduct amazing 1 on 1 sessions. The attention to detail during sessions enables you to develop quickly & effectively."
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 8: Omari Mrisho -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Omari-Mrisho.jpeg" alt="Omari Mrisho">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Omari Mrisho</h3>
-                                <p class="pro-player-club">Huddersfield Town FC - Wingback</p>
-                                <div class="pro-player-quote">
-                                    "Enjoyed the session and hopes to come back for more elite-level training"
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Player 9: Amaran Subramaniam -->
-                        <div class="pro-player-card">
-                            <div class="pro-player-image">
-                                <img src="images/Amaran-Subramaniam.jpeg" alt="Amaran Subramaniam">
-                            </div>
-                            <div class="pro-player-info">
-                                <h3>Amaran Subramaniam</h3>
-                                <p class="pro-player-club">Semi-Professional - Striker</p>
-                                <div class="pro-player-quote">
-                                    "Been training with Marco for a while now and he's a top coach. Great understanding of what he does and gets the best out of his clients"
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="pro-slider-btn pro-prev">‹</button>
-                <button class="pro-slider-btn pro-next">›</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- M2 FITNESS SECTION -->
-    <section class="services-split" style="padding-bottom: 1rem; padding-top: 4rem;">
-        <div class="split-container" style="grid-template-columns: 1fr;">
-            <!-- M2 Fitness -->
-            <div class="split-item fitness" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <h3>M2 FITNESS</h3>
-                <p>Performance training & fitness classes for all abilities</p>
-                <ul style="display: inline-block; text-align: left;">
-                    <li>1-to-1 personal training</li>
-                    <li>Small-group sessions</li>
-                    <li>Fitness classes 4x per week</li>
-                    <li>Strength & conditioning</li>
-                    <li>Free M2FT app membership</li>
-                </ul>
-                <a href="m2-fitness.html" class="btn-secondary" style="margin-top: 2rem; display: inline-block;">Explore Fitness</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pro Player Testimonials -->
-    <section class="testimonials" style="display: none;">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Professional Players</h2>
-                <p>Hear from the athletes who train with M2FT</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">
-                        "He is great with giving slight cues that improve your game significantly with the slightest adjustment. The earlier you are able to get work in with him in your career, the farther you will be able to propel yourself down the road."
-                    </div>
-                    <div class="testimonial-author">Jamu Iluya</div>
-                    <div class="testimonial-role">Footballer at STK Eilvese, Germany</div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">
-                        "Marco's enthusiasm for his work is exemplary, his knowledge in his field is outstanding and he always delivers his sessions clearly and with such detail!"
-                    </div>
-                    <div class="testimonial-author">Jack J.</div>
-                    <div class="testimonial-role">Coach at Fulham Academy F.C.</div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">
-                        "Marco is a young, impressionable and energetic personality with wisdom well beyond his years. His enthusiasm and diligence will stand him and his athletes in good stead for many years to come."
-                    </div>
-                    <div class="testimonial-author">Humphrey A (JR)</div>
-                    <div class="testimonial-role">Director of Lionheart Football LTD</div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 4rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.5rem;">Players Who Have Trained With M2FT</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto;">
-                    <div style="background-color: var(--black); padding: 1.5rem; border-radius: 8px; text-align: center;">
-                        <div style="font-weight: 600; font-size: 1.1rem;">Rio Cardines</div>
-                        <div style="color: var(--medium-grey); font-size: 0.9rem;">Crystal Palace FC</div>
-                    </div>
-                    <div style="background-color: var(--black); padding: 1.5rem; border-radius: 8px; text-align: center;">
-                        <div style="font-weight: 600; font-size: 1.1rem;">Omari Mrisho</div>
-                        <div style="color: var(--medium-grey); font-size: 0.9rem;">Huddersfield Town FC</div>
-                    </div>
-                    <div style="background-color: var(--black); padding: 1.5rem; border-radius: 8px; text-align: center;">
-                        <div style="font-weight: 600; font-size: 1.1rem;">Harry Lee</div>
-                        <div style="color: var(--medium-grey); font-size: 0.9rem;">Brighton FC</div>
-                    </div>
-                    <div style="background-color: var(--black); padding: 1.5rem; border-radius: 8px; text-align: center;">
-                        <div style="font-weight: 600; font-size: 1.1rem;">Kelvin H.</div>
-                        <div style="color: var(--medium-grey); font-size: 0.9rem;">Beckenham Town FC</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Credentials Strip -->
-    <div class="credentials">
-        <div class="credentials-list">
-            <div class="credential-item">MSc Performance Football Coaching — St Mary's University</div>
-            <div class="credential-item">BSc Sport & Exercise Science — University of Bath</div>
-            <div class="credential-item">FA Qualified Coach</div>
-            <div class="credential-item">Chelsea FC Foundation</div>
-            <div class="credential-item">Aldershot Town FC</div>
-            <div class="credential-item">LionHeart Football Academy Lead</div>
-        </div>
-    </div>
-
-    <!-- Google Reviews Section -->
-    <section style="background-color: var(--black); padding: 5rem 5%; text-align: center;">
-        <div class="container">
-            <h2 style="margin-bottom: 1rem;">What Our Clients Say</h2>
-            <p style="color: var(--medium-grey); margin-bottom: 3rem;">Real reviews from Google Business</p>
-            <div style="max-width: 1000px; margin: 0 auto;">
-                <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
-                <div class="elfsight-app-f1312446-b277-4ed2-b89d-39d87a782f9f"></div>
-            </div>
-            <div style="margin-top: 2rem;">
-                <a href="https://share.google/C391VVsSOJXYNza8n" target="_blank" class="btn-secondary" style="display: inline-block;">Leave a Review on Google</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- M2FT App Section -->
-    <section class="app-section" id="app">
-        <div class="container">
-            <div class="app-content">
-                <div class="app-text">
-                    <h2>Train Anywhere. Anytime.</h2>
-                    <p>The M2FT PT App brings professional coaching to your fingertips. Access expert training programmes, position-specific drills, and nutrition guidance — all designed by Marco Muthi.</p>
-                    <ul class="app-features">
-                        <li>Position-specific football programmes</li>
-                        <li>Strength & conditioning workouts</li>
-                        <li>Nutrition and recovery guidance</li>
-                        <li>Video demonstrations</li>
-                        <li>Track your progress</li>
-                        <li>Free & premium memberships available</li>
-                    </ul>
-                    <div class="app-badges">
-                        <a href="https://apps.apple.com/gb/app/m2ft-pt-app/id6749760282" target="_blank" class="app-badge">
-                            📱 App Store
-                        </a>
-                        <a href="https://play.google.com/store/apps/details?id=com.mypthub.theptapp&pcampaignid=web_share" target="_blank" class="app-badge">
-                            📱 Google Play
-                        </a>
-                    </div>
-                </div>
-                <div class="app-image">
-                    <img src="images/M2FT-PT-App -Screenshot.jpeg" alt="M2FT PT App Screenshot" style="width: 100%; max-width: 400px; height: auto; margin: 0 auto; display: block; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>M2FT</h3>
-                <p>Elite football coaching and performance training in Surrey. Train like a pro with Marco Muthi, MSc Performance Coach.</p>
-                <div style="margin-top: 2rem;">
-                    <a href="mailto:Marco@officialm2ft.com" style="color: var(--medium-grey);">Marco@officialm2ft.com</a>
-                </div>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Services</h4>
-                <ul>
-                    <li><a href="m2-football.html">M2 Football</a></li>
-                    <li><a href="m2-fitness.html">M2 Fitness</a></li>
-                    <li><a href="holiday-camps.html">Holiday Camps</a></li>
-                    <li><a href="trainers.html">Our Trainers</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="trainers.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h4>M2 Football</h4>
-                <ul>
-                    <li><a href="https://www.instagram.com/m2football" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.facebook.com/share/1829VR5wNt/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.youtube.com/@m2ftfootball" target="_blank">YouTube</a></li>
-                    <li><a href="https://www.tiktok.com/@m2ftfootball" target="_blank">TikTok</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h4>M2 Fitness</h4>
-                <ul>
-                    <li><a href="https://www.instagram.com/m2ft_fitness" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.facebook.com/share/1NRaPvtmwN/?mibextid=wwXIfr" target="_blank">Facebook</a></li>
-                    <li><a href="https://youtube.com/@m2ftfitness" target="_blank">YouTube</a></li>
-                    <li><a href="https://www.tiktok.com/@m2ftfitness" target="_blank">TikTok</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="presentation-container">
         
-        <div class="footer-bottom">
-            <div>© 2025 M2FT Ltd. All rights reserved. | <a href="privacy-policy.html" style="color: var(--white); text-decoration: underline;">Privacy Policy</a> | <a href="terms-conditions.html" style="color: var(--white); text-decoration: underline;">Terms & Conditions</a></div>
+        <!-- SLIDE 1: Title -->
+        <div class="slide slide-1 active">
+            <div class="slide-content title-slide">
+                <h1>M2FT GROWTH STRATEGY</h1>
+                <p class="subtitle">Your Complete Business Development Plan</p>
+                <p class="date">2026</p>
+            </div>
         </div>
-    </footer>
 
-    <script src="script.js"></script>
+        <!-- SLIDE 2: Overview -->
+        <div class="slide slide-2">
+            <div class="slide-content">
+                <h2>📊 Growth Pillars</h2>
+                <div class="grid-3" style="margin-top: 3rem;">
+                    <div class="card">
+                        <h3 style="font-size: 3rem; margin-bottom: 1rem;">💪</h3>
+                        <h4>M2 Fitness</h4>
+                        <p>Online classes, PT, and fitness quiz</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 3rem; margin-bottom: 1rem;">⚽</h3>
+                        <h4>M2 Football</h4>
+                        <p>Nescot Elite Centre & online training</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 3rem; margin-bottom: 1rem;">🤝</h3>
+                        <h4>Partnerships</h4>
+                        <p>Schools & academy collaborations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: M2 Shred -->
+        <div class="slide slide-3">
+            <div class="slide-content">
+                <span class="badge">LAUNCH PRIORITY #1</span>
+                <h2>🔥 M2 SHRED</h2>
+                <p style="font-size: 1.5rem; margin-bottom: 2rem;">Your Sunday Core Reset</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Class Details</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Duration:</strong> 40 minutes</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Schedule:</strong> Every Sunday at 10:00 AM</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Equipment:</strong> Mat + resistance band</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Led by:</strong> Coach Marco & Kam</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Platform:</strong> M2FT PT App</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Pricing</h4>
+                        <div class="card">
+                            <p class="price">£8 per class</p>
+                            <p style="text-align: center; color: #999;">OR</p>
+                            <p class="price">£30/month</p>
+                            <p style="text-align: center; font-size: 0.9rem;">Unlimited access</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>🎁 Early Bird Offer</h4>
+                    <p>First 20 sign-ups get 50% OFF first month = £15!</p>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">Target Attendees</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">£640</div>
+                        <div class="stat-label">Monthly Revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Online Ball Mastery -->
+        <div class="slide slide-4">
+            <div class="slide-content">
+                <h2>⚽ Online Ball Mastery Class</h2>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Class Overview</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Duration:</strong> 35 minutes</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Schedule:</strong> Once per week (Wednesdays 6:00 PM recommended)</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Equipment:</strong> Football + training space</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Led by:</strong> Coach Marco</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Open to:</strong> All ages, all abilities</li>
+                        </ul>
+                        
+                        <div class="card" style="margin-top: 2rem;">
+                            <p class="price">£5 per class</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Target Audience</h4>
+                        <div class="card">
+                            <ul>
+                                <li>Young players (ages 8-16)</li>
+                                <li>Players who can't afford 1-to-1</li>
+                                <li>Remote players (outside Surrey)</li>
+                                <li>International players wanting UK coaching</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="stat-row" style="margin-top: 2rem;">
+                            <div class="stat">
+                                <div class="stat-number">30</div>
+                                <div class="stat-label">Target Attendees</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">£600</div>
+                                <div class="stat-label">Monthly Revenue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: In-Person Fitness Classes -->
+        <div class="slide slide-5">
+            <div class="slide-content">
+                <h2>💪 In-Person Fitness Classes</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 2rem;">Currently running 4x per week – goal is to fill capacity (20+ per class)</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Pricing Structure</h4>
+                        <div class="card">
+                            <ul>
+                                <li>Drop-in: £12 per class</li>
+                                <li>4-week block: £40 (£10/class)</li>
+                                <li>8-week block: £72 (£9/class)</li>
+                                <li>12-week block: £96 (£8/class)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Marketing Actions</h4>
+                        <div class="card">
+                            <ul>
+                                <li>Facebook Ads poster</li>
+                                <li>Flyers at local gyms & cafes</li>
+                                <li>Free trial class promotion</li>
+                                <li>"Bring a Friend Free" offer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-row" style="margin-top: 3rem;">
+                    <div class="stat">
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">Target per Class</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">£2,000</div>
+                        <div class="stat-label">Monthly Revenue Goal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- SLIDE 7: Nescot Elite Development Centre -->
+        <div class="slide slide-7">
+            <div class="slide-content">
+                <span class="badge">NEW INITIATIVE</span>
+                <h2>🏆 Nescot Elite Development Centre</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 2rem;">U15s Football Development Programme</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Programme Details</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Location:</strong> Nescot Sports Ground</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Age Group:</strong> U15s</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Max Players:</strong> 15</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Format:</strong> Invite-only trials</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Duration:</strong> 90 minutes per session</li>
+                            <li style="padding: 0.5rem 0; color: #CCCCCC;"><strong>Commitment:</strong> 12-week blocks</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Pricing & Revenue</h4>
+                        <div class="card">
+                            <p class="price">£15 per session</p>
+                            <p style="text-align: center; margin: 1rem 0;">OR</p>
+                            <p class="price">£180 per block</p>
+                            <p style="text-align: center; font-size: 0.9rem;">(12 sessions)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-row" style="margin-top: 2rem;">
+                    <div class="stat">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Players</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">£225</div>
+                        <div class="stat-label">Per Session</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">£2,700</div>
+                        <div class="stat-label">Per 12-Week Block</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: School Partnerships -->
+        <div class="slide slide-8">
+            <div class="slide-content">
+                <h2>🏫 School Partnerships</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 2rem;">Goal: Sign 3-5 new schools in the next 6 months</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Services Offered</h4>
+                        <div class="card">
+                            <ul>
+                                <li>Lunchtime football clubs</li>
+                                <li>Afterschool clubs (football/fitness)</li>
+                                <li>School team performance training</li>
+                                <li>Staff fitness classes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Target Schools</h4>
+                        <div class="card">
+                            <ul>
+                                <li>Primary schools (ages 4-11)</li>
+                                <li>Secondary schools (ages 11-18)</li>
+                                <li>Independent/private schools</li>
+                                <li>Within 10-mile radius of Nescot</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>Outreach Strategy</h4>
+                    <p>1. Email personalized templates to Head of PE / Deputy Head<br>
+                    2. Phone call follow-up<br>
+                    3. Offer free trial session<br>
+                    4. In-person meeting/pitch</p>
+                </div>
+
+                <div class="stat-row">
+                    <div class="stat">
+                        <div class="stat-number">3-5</div>
+                        <div class="stat-label">New Schools (6 months)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">£1,200</div>
+                        <div class="stat-label">Monthly Revenue (2 schools)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Mark Tiller Partnership -->
+        <div class="slide slide-9">
+            <div class="slide-content">
+                <h2>🤝 Mark Tiller Partnership</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 2rem;">Explore academy merger or collaboration</p>
+                
+                <div class="grid-3">
+                    <div class="card">
+                        <h4>Option A</h4>
+                        <p><strong>Full Merger</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">Combine into one new academy brand</p>
+                    </div>
+                    <div class="card">
+                        <h4>Option B</h4>
+                        <p><strong>Partnership</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">M2FT + Tiller Academy collaborate on programmes</p>
+                    </div>
+                    <div class="card">
+                        <h4>Option C</h4>
+                        <p><strong>Feeder Club</strong></p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">M2FT becomes pathway to Tiller Academy</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>Why This Makes Sense</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✓ Combined coaching expertise & resources</li>
+                        <li style="padding: 0.5rem 0;">✓ Larger player pool</li>
+                        <li style="padding: 0.5rem 0;">✓ Shared facility costs</li>
+                        <li style="padding: 0.5rem 0;">✓ Stronger brand presence in Surrey</li>
+                        <li style="padding: 0.5rem 0;">✓ Clear player pathway: Grassroots → Elite → Semi-Pro</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Monthly Action Plan -->
+        <div class="slide slide-10">
+            <div class="slide-content">
+                <h2>📅 Priority Action Plan</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Month 1: Quick Wins</h4>
+                        <ul style="list-style: none; padding: 0; margin-left: 1rem;">
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Launch M2 Shred promo</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Create Facebook Ad for fitness classes</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Set Nescot trial dates</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Design online fitness quiz</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Begin school outreach (5 schools/week)</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Request meeting with Mark Tiller</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Month 2: Scale & Systemize</h4>
+                        <ul style="list-style: none; padding: 0; margin-left: 1rem;">
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Launch Online Ball Mastery Class</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Finalize Elite Development Centre squad</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Sign first school partnership</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Launch online PT with quiz funnel</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Announce Tiller partnership (if agreed)</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Month 3: Optimize & Grow</h4>
+                        <ul style="list-style: none; padding: 0; margin-left: 1rem;">
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Review metrics & double down on what works</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Hire additional coach if demand is high</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Expand to U13s or U17s at Nescot</li>
+                            <li style="padding: 0.3rem 0; color: #CCCCCC;">• Launch corporate fitness partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Revenue Projections -->
+        <div class="slide slide-11">
+            <div class="slide-content">
+                <h2>💰 Revenue Projections</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #CCCCCC;">Conservative monthly income estimates</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Revenue Stream</th>
+                            <th>Monthly Income</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>M2 Shred Online Class</td>
+                            <td>£640</td>
+                        </tr>
+                        <tr>
+                            <td>Online Ball Mastery Class</td>
+                            <td>£600</td>
+                        </tr>
+                        <tr>
+                            <td>In-Person Fitness Classes</td>
+                            <td>£2,000</td>
+                        </tr>
+                        <tr>
+                            <td>Personal Training (in-person)</td>
+                            <td>£3,000</td>
+                        </tr>
+                        <tr>
+                            <td>Online PT Clients (5 clients)</td>
+                            <td>£1,000</td>
+                        </tr>
+                        <tr>
+                            <td>Nescot Elite Development Centre</td>
+                            <td>£900</td>
+                        </tr>
+                        <tr>
+                            <td>Grassroots Teams (6 teams)</td>
+                            <td>£1,680</td>
+                        </tr>
+                        <tr>
+                            <td>School Partnerships (2 schools)</td>
+                            <td>£1,200</td>
+                        </tr>
+                        <tr style="border-top: 2px solid #FF6B35;">
+                            <td><strong>TOTAL MONTHLY</strong></td>
+                            <td><strong style="color: #FF6B35; font-size: 1.5rem;">£11,020</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="stat-row" style="margin-top: 2rem;">
+                    <div class="stat">
+                        <div class="stat-number">£132K</div>
+                        <div class="stat-label">Annual Projection</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Next Steps -->
+        <div class="slide slide-12">
+            <div class="slide-content title-slide">
+                <h2 style="margin-bottom: 2rem;">Let's Build This Together 🚀</h2>
+                
+                <div class="highlight-box" style="text-align: left; max-width: 800px; margin: 2rem auto;">
+                    <h4 style="text-align: center; margin-bottom: 1.5rem;">Next Steps</h4>
+                    <ol style="font-size: 1.2rem; color: #CCCCCC; line-height: 2;">
+                        <li>Review this strategy</li>
+                        <li>Prioritize which initiatives to launch first</li>
+                        <li>Set specific launch dates</li>
+                        <li>Create marketing materials</li>
+                        <li>Execute, track, and optimize</li>
+                    </ol>
+                </div>
+
+                <p style="font-size: 1.5rem; margin-top: 3rem; color: #FF6B35;">One step at a time. You've got this! 💪⚽🔥</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prev-btn">←</button>
+        <button class="nav-btn" id="next-btn">→</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentSlideElement = document.getElementById('current-slide');
+        const totalSlidesElement = document.getElementById('total-slides');
+
+        totalSlidesElement.textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            currentSlideElement.textContent = index + 1;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
 </body>
 </html>
