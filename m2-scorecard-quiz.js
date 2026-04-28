@@ -626,11 +626,11 @@ function displayResults(results, playerName, playerEmail, playerAge) {
             <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
             <h3 style="font-size: 2.2rem; color: white; margin-bottom: 1rem;">Ready for Your Personalized Training Plan?</h3>
             <p style="font-size: 1.2rem; color: rgba(255,255,255,0.95); margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                Based on your answers, we've created a custom 4-week training plan designed specifically for <strong>${selectedPosition}</strong> players like you.
+                Based on your answers, we've created a custom 2-week training plan designed specifically for <strong>${selectedPosition}</strong> players like you.
             </p>
             <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; text-align: left; color: white;">
-                    <div>✓ 4-week progressive program</div>
+                    <div>✓ 2-week progressive program</div>
                     <div>✓ Daily session breakdowns</div>
                     <div>✓ Tailored to ${selectedPosition}</div>
                     <div>✓ Position-specific drills</div>
@@ -676,7 +676,7 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
         if (response.ok) {
             btn.innerHTML = '✅ Plan Generated!';
             btn.style.background = '#4CAF50';
-            alert(`🎉 Success! Your personalized 4-week training plan has been generated. Check your email at ${email}!`);
+            alert(`🎉 Success! Your personalized 2-week training plan has been generated. Check your email at ${email}!`);
         } else {
             throw new Error('Failed to generate plan');
         }
