@@ -677,8 +677,14 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
             const data = await response.json();
             const planContent = data.plan.plan_content;
             
-            btn.innerHTML = '📥 Download Your Plan';
+            btn.innerHTML = '📥 Downloading...';
             btn.style.background = '#4CAF50';
+            
+            // Auto-download PDF immediately
+            await downloadPDF(name, position, archetype, scores, kpis, planContent, age);
+            
+            // Change button after download
+            btn.innerHTML = '✅ Downloaded! Click to Download Again';
             btn.onclick = () => downloadPDF(name, position, archetype, scores, kpis, planContent, age);
             
         } else {
