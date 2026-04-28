@@ -652,9 +652,13 @@ function displayResults(results, playerName, playerEmail, playerAge) {
 async function generateTrainingPlan(name, email, age, position, archetype, scores, kpis) {
     const btn = document.getElementById('generatePlanBtn');
     btn.disabled = true;
-    btn.innerHTML = '⏳ Generating Your Plan...';
+    btn.innerHTML = '⏳ Generating Your Plan... (this takes 45-60 seconds)';
     
     try {
+        // Create abort controller for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 90000); // 90 second timeout
+        
         const response = await fetch('/.netlify/functions/generate-training-plan', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -670,8 +674,11 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
                 equipment_access: [],
                 scores,
                 position_kpis: kpis
-            })
+            }),
+            signal: controller.signal
         });
+        
+        clearTimeout(timeoutId);
         
         if (response.ok) {
             const data = await response.json();
@@ -693,9 +700,16 @@ async function generateTrainingPlan(name, email, age, position, archetype, score
         
     } catch (error) {
         console.error('Error:', error);
-        btn.innerHTML = '❌ Error - Try Again';
-        btn.disabled = false;
-        alert('⚠️ There was an error generating your plan. Please try again or contact marco@officialm2ft.com');
+        
+        if (error.name === 'AbortError') {
+            btn.innerHTML = '⏰ Timeout - Try Again';
+            btn.disabled = false;
+            alert('⏰ The request took too long. This usually means OpenAI is busy. Please wait 30 seconds and try again!');
+        } else {
+            btn.innerHTML = '❌ Error - Try Again';
+            btn.disabled = false;
+            alert('⚠️ There was an error generating your plan. Please try again or contact marco@officialm2ft.com');
+        }
     }
 }
 
