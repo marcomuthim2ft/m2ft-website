@@ -195,8 +195,8 @@ SPECIFIC INSTRUCTIONS:
 5. **Age-appropriate**: Drills suitable for ${age}-year-old
 6. **Position-specific**: Every drill tailored for ${position} players
 
-OUTPUT LENGTH: 3000-4000 words (highly detailed drill instructions)
-OUTPUT STYLE: Instructional manual, not a philosophy document
+OUTPUT LENGTH: 2000-2500 words (concise but detailed drill instructions)
+OUTPUT STYLE: Drill-by-drill instructional manual. Each drill must have: name, setup, instructions, sets/reps, coaching cues. NO philosophy or background.
 
 Make this feel like a **£100 personalized 2-week plan** from an MSc-qualified coach. Be specific, evidence-based, and motivating!`;
 
@@ -267,7 +267,7 @@ function callOpenAI(prompt) {
         }
       ],
       temperature: 0.7,
-      max_tokens: 3000
+      max_tokens: 2000
     });
 
     const options = {
