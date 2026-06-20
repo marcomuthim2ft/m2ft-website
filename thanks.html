@@ -28,6 +28,7 @@
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -173,8 +174,8 @@
     .subtext,
     .muted,
     .footer-text,
-    .pill-note,
-    .small-note {
+    .small-note,
+    .timeline-text {
       color: var(--light);
       opacity: 0.92;
     }
@@ -183,7 +184,8 @@
     .section-card,
     .insight-card,
     .score-card,
-    .message-box {
+    .message-box,
+    .timeline-card {
       background: var(--panel-2);
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -242,6 +244,10 @@
 
     .grid.two {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .section-card {
@@ -316,6 +322,27 @@
       background: linear-gradient(90deg, #ff6b35, #ffd166);
     }
 
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .timeline-card {
+      padding: 16px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .timeline-step {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffb299;
+      margin-bottom: 8px;
+    }
+
     .cta-row {
       display: flex;
       flex-wrap: wrap;
@@ -359,7 +386,9 @@
     @media (max-width: 980px) {
       .hero-content,
       .grid.two,
-      .scores {
+      .grid.three,
+      .scores,
+      .timeline {
         grid-template-columns: 1fr;
       }
     }
@@ -374,7 +403,8 @@
       .hero-content { padding: 48px 0; }
       .hero-card,
       .section-card,
-      .message-box { padding: 20px; }
+      .message-box,
+      .timeline-card { padding: 20px; }
       .btn { width: 100%; }
     }
   </style>
@@ -405,6 +435,7 @@
           <span class="eyebrow">Thank You</span>
           <h1>Your assessment has been submitted.</h1>
           <p class="lead" id="heroMessage">Thank you for submitting your answers. Your programme will take 1–2 days to be created and then it will be sent to your inbox. Please check your spam folder as well if you do not see it in your main inbox.</p>
+
           <div class="pill-row">
             <div class="pill"><strong>Delivery:</strong> 1–2 days</div>
             <div class="pill"><strong>Inbox check:</strong> Main + spam</div>
@@ -413,8 +444,9 @@
         </div>
 
         <div class="hero-card">
-          <h2>Your mini player summary</h2>
-          <ul>
+          <span class="eyebrow">Instant Coach Snapshot</span>
+          <h2 id="playerTypeHeading">Your mini player summary</h2>
+          <ul id="heroBullets">
             <li>Immediate snapshot of your current strengths</li>
             <li>Main areas that appear to need the most attention</li>
             <li>Key themes likely to be built into your programme</li>
@@ -427,9 +459,37 @@
     <section class="report">
       <div class="container">
         <div class="message-box">
-          <span class="eyebrow">What happens next</span>
+          <span class="eyebrow">Coach Read</span>
           <h2 id="playerNameHeading">We’ve got your submission.</h2>
           <p class="subtext" id="nextStepText">Your personalised programme will now be reviewed and built around your schedule, training environment, position, and improvement needs.</p>
+          <p class="subtext" id="coachReadText" style="margin-top:12px;"></p>
+        </div>
+
+        <div class="section-card" style="margin-bottom:18px;">
+          <span class="eyebrow">What Happens Next</span>
+          <h2>Your next 48 hours</h2>
+          <div class="timeline">
+            <div class="timeline-card">
+              <div class="timeline-step">Step 1</div>
+              <h3>Assessment received</h3>
+              <div class="timeline-text">Your answers are now in and ready for review.</div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-step">Step 2</div>
+              <h3>Coach review</h3>
+              <div class="timeline-text">Your profile, schedule, goals, and limitations are checked together.</div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-step">Step 3</div>
+              <h3>Programme build</h3>
+              <div class="timeline-text">Your sessions are structured around your real week and environment.</div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-step">Step 4</div>
+              <h3>Inbox delivery</h3>
+              <div class="timeline-text">Your programme should arrive within 1–2 days. Check spam too.</div>
+            </div>
+          </div>
         </div>
 
         <div class="grid two">
@@ -448,12 +508,19 @@
           </div>
         </div>
 
-        <div class="grid" style="margin-top:18px;">
+        <div class="grid two" style="margin-top:18px;">
           <div class="section-card">
             <span class="eyebrow">Programme Focus</span>
             <h2>What your programme will likely focus on</h2>
             <div id="focusTags" class="tag-row"></div>
             <div class="insight-list" id="focusInsights"></div>
+          </div>
+
+          <div class="section-card">
+            <span class="eyebrow">Player Profile</span>
+            <h2>How your answers read</h2>
+            <div id="profileTags" class="tag-row"></div>
+            <div class="insight-list" id="profileInsights"></div>
           </div>
         </div>
 
@@ -505,6 +572,49 @@
       'Confidence': 'confidence'
     };
 
+    const positionLensMap = {
+      'Goalkeeper': {
+        title: 'Goalkeeper profile',
+        themes: ['handling consistency', 'set position quality', 'explosive reactions'],
+        focus: ['footwork', 'handling quality', 'distribution detail', 'explosive movement']
+      },
+      'Defender': {
+        title: 'Defensive profile',
+        themes: ['duel reliability', 'body shape', 'recovery ability'],
+        focus: ['defensive footwork', 'recovery speed', 'duel strength', 'composure in build-up']
+      },
+      'Fullback': {
+        title: 'Modern fullback profile',
+        themes: ['repeat runs', 'recovery speed', 'delivery quality'],
+        focus: ['acceleration', 'recovery runs', 'crossing / delivery', '1v1 defending']
+      },
+      'Midfielder': {
+        title: 'Midfield profile',
+        themes: ['receiving quality', 'passing detail', 'repeat movement'],
+        focus: ['first touch', 'scanning habits', 'passing range', 'engine / repeat effort']
+      },
+      'Attacking Midfielder': {
+        title: 'Creative attacking midfield profile',
+        themes: ['tight-space quality', 'decision making', 'end product'],
+        focus: ['turning under pressure', 'decision making', 'final-third passing', 'composure']
+      },
+      'Winger': {
+        title: 'Wide attacking profile',
+        themes: ['1v1 threat', 'explosive actions', 'end product'],
+        focus: ['acceleration', 'dribbling', 'finishing / final ball', 'repeat sprint ability']
+      },
+      'Forward': {
+        title: 'Forward profile',
+        themes: ['movement timing', 'finishing detail', 'physical presence'],
+        focus: ['finishing', 'explosive movement', 'hold-up ability', 'confidence in front of goal']
+      },
+      'Striker': {
+        title: 'Striker profile',
+        themes: ['box movement', 'finishing sharpness', 'aggressive actions'],
+        focus: ['finishing', 'attacking movement', 'acceleration', 'physical duels']
+      }
+    };
+
     const focusMap = {
       'Become faster': ['Acceleration mechanics', 'Speed exposure', 'Change of direction work'],
       'Improve fitness': ['Aerobic conditioning', 'Repeat sprint ability', 'Recovery structure'],
@@ -518,9 +628,22 @@
       'Return from injury': ['Progressive return to play', 'Movement confidence', 'Load management']
     };
 
-    function sentenceCase(text) {
-      if (!text) return '';
-      return text.charAt(0).toUpperCase() + text.slice(1);
+    function text(v) {
+      return (v || '').toString().trim();
+    }
+
+    function lower(v) {
+      return text(v).toLowerCase();
+    }
+
+    function sentenceCase(value) {
+      if (!value) return '';
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    function includesAny(value, terms) {
+      const source = lower(value);
+      return terms.some(term => source.includes(term));
     }
 
     function createTag(containerId, text, cls) {
@@ -550,130 +673,346 @@
       document.getElementById('scoresGrid').appendChild(card);
     }
 
-    function parseTop3(text) {
-      if (!text) return [];
-      return text
+    function parseTop3(textValue) {
+      if (!textValue) return [];
+      return textValue
         .split(/\n|,|;|\//)
         .map(item => item.trim())
         .filter(Boolean)
-        .slice(0, 4);
+        .slice(0, 5);
+    }
+
+    function getPositionLens(position) {
+      return positionLensMap[position] || {
+        title: 'Football profile',
+        themes: ['technical growth', 'physical growth', 'decision making'],
+        focus: ['technical detail', 'physical development', 'consistency']
+      };
+    }
+
+    function getLoadProfile(teamSessions, matchesPerWeek, extraDays) {
+      const team = Number(teamSessions || 0);
+      const matches = Number(matchesPerWeek || 0);
+      const extra = Number(extraDays || 0);
+      const total = team + matches + extra;
+
+      if (total >= 6) {
+        return {
+          label: 'High weekly load',
+          note: 'The programme will likely need to prioritise quality, recovery, and sharpness rather than just adding extra volume.'
+        };
+      }
+
+      if (total >= 4) {
+        return {
+          label: 'Moderate weekly load',
+          note: 'There is enough football in the week already, so extra work should be targeted and purposeful.'
+        };
+      }
+
+      return {
+        label: 'Lower weekly load',
+        note: 'There may be room to build extra technical and physical work more aggressively, depending on recovery and age.'
+      };
+    }
+
+    function getArchetype(position, strongest, data) {
+      const labels = strongest.map(item => item.label);
+      const has = label => labels.includes(label);
+
+      if ((position === 'Winger' || position === 'Forward' || position === 'Striker') && has('Speed') && has('Dribbling')) {
+        return 'Direct attacking runner';
+      }
+
+      if ((position === 'Midfielder' || position === 'Attacking Midfielder') && (has('Passing') || has('First Touch'))) {
+        return 'Ball-progressing midfield type';
+      }
+
+      if ((position === 'Defender' || position === 'Fullback') && (has('Speed') || has('Strength'))) {
+        return 'Aggressive recovery defender';
+      }
+
+      if (position === 'Goalkeeper') {
+        return 'Reactive goalkeeper profile';
+      }
+
+      if (has('Confidence') && has('Dribbling')) {
+        return 'Front-foot technical player';
+      }
+
+      if (has('Stamina') && has('Agility / Change of Direction')) {
+        return 'High-output movement profile';
+      }
+
+      if (text(data.strongestAreaText)) {
+        return sentenceCase(text(data.strongestAreaText));
+      }
+
+      return 'Developing all-round player';
+    }
+
+    function getContradictions(data, ratings) {
+      const notes = [];
+
+      if ((ratings['Dribbling'] || 0) >= 7 && includesAny(data.weakestAreaText, ['1v1', 'dribbl', 'confidence', 'beat players'])) {
+        notes.push('Your dribbling score suggests technical ability is there, but your written answers hint that confidence or execution in real 1v1 moments may still need work.');
+      }
+
+      if ((ratings['Speed'] || 0) >= 7 && lower(data.mainGoal) === 'become faster') {
+        notes.push('You already rate your speed reasonably well, so the bigger opportunity may be improving acceleration mechanics, repeat speed, and how often you can produce pace in matches.');
+      }
+
+      if ((ratings['Confidence'] || 0) <= 4) {
+        const technicalAvg = (
+          (ratings['First Touch'] || 0) +
+          (ratings['Passing'] || 0) +
+          (ratings['Dribbling'] || 0) +
+          (ratings['Shooting / Finishing'] || 0)
+        ) / 4;
+
+        if (technicalAvg >= 6) {
+          notes.push('Your technical ratings look stronger than your confidence rating, which could mean belief, match assertiveness, or consistency under pressure is lagging behind your actual ability.');
+        }
+      }
+
+      if ((ratings['Strength'] || 0) <= 4 && (data.gymAccess === 'Yes' || data.gymAccess === 'Sometimes')) {
+        notes.push('You have at least some gym access, so physical development looks like a realistic area to attack rather than a limitation.');
+      }
+
+      return notes;
+    }
+
+    function getEnvironmentSummary(data) {
+      const parts = [];
+
+      if (data.wallAccess === 'Yes') parts.push('wall-based first-touch and passing work');
+      if (data.goalAccess === 'Yes') parts.push('finishing and end-product work');
+      if (data.gymAccess === 'Yes') parts.push('gym-based strength and athletic development');
+      if (data.gymAccess === 'Sometimes') parts.push('flexible gym work when access is available');
+      if (data.gymAccess === 'No') parts.push('bodyweight, band, and football-based physical work');
+
+      if (text(data.sessionTime)) {
+        parts.push(`sessions shaped around ${data.sessionTime.toLowerCase()}`);
+      }
+
+      return parts;
+    }
+
+    function getPrimaryWeaknessWords(data, weakest) {
+      const result = new Set();
+
+      weakest.forEach(item => {
+        result.add(sentenceCase(friendlyNameMap[item.label] || item.label.toLowerCase()));
+      });
+
+      parseTop3(data.top3).forEach(item => result.add(sentenceCase(item)));
+
+      if (text(data.weakestAreaText)) {
+        result.add(sentenceCase(text(data.weakestAreaText)));
+      }
+
+      return Array.from(result).slice(0, 6);
     }
 
     if (!data || !data.ratings) {
       document.getElementById('playerNameHeading').textContent = 'Thanks — your submission is in.';
       document.getElementById('nextStepText').textContent = defaultMessage;
+      document.getElementById('coachReadText').textContent = 'Once the assessment is submitted from the live page, this screen will build a smarter player summary from the answers provided.';
 
-      createInsight('strengthInsights', 'Summary available after assessment submit', 'Once the form is completed from the live assessment page, this section can display a quick strengths and weaknesses summary based on the submitted answers.', 'strength');
+      createInsight('strengthInsights', 'Summary available after assessment submit', 'Once the form is completed from the live assessment page, this section can display a smarter strengths and weaknesses summary based on the submitted answers.', 'strength');
       createInsight('weaknessInsights', 'No stored assessment found', 'Open the assessment page, submit the form, and the thank-you page will build the mini player report automatically.', 'weakness');
       createInsight('focusInsights', 'Coach review still applies', 'Your full programme should still be manually reviewed and built around the player, even when the instant summary is shown here.', 'focus');
+      createInsight('profileInsights', 'Player profile appears after submit', 'The position-aware and schedule-aware summary is shown after a real assessment submission.', 'focus');
     } else {
-      const name = data.fullName || 'Player';
-      const ratingsArray = Object.entries(data.ratings)
+      const name = text(data.fullName) || 'Player';
+      const position = text(data.primaryPosition) || 'Player';
+      const ratings = data.ratings || {};
+
+      const ratingsArray = Object.entries(ratings)
         .map(([label, value]) => ({ label, value: Number(value) || 0 }))
         .sort((a, b) => b.value - a.value);
 
       const strongest = ratingsArray.slice(0, 3);
       const weakest = [...ratingsArray].sort((a, b) => a.value - b.value).slice(0, 3);
-      const weakestLabels = weakest.map(item => item.label);
+
+      const positionLens = getPositionLens(position);
+      const loadProfile = getLoadProfile(data.teamSessions, data.matchesPerWeek, data.extraDays);
+      const archetype = getArchetype(position, strongest, data);
+      const contradictions = getContradictions(data, ratings);
+      const environmentSummary = getEnvironmentSummary(data);
+      const mainWeaknessWords = getPrimaryWeaknessWords(data, weakest);
 
       document.getElementById('playerNameHeading').textContent = `${name}, we’ve got your submission.`;
-      document.getElementById('nextStepText').textContent = `${defaultMessage} Below is a quick snapshot based on the answers submitted today.`;
-      document.getElementById('heroMessage').textContent = `${defaultMessage}`;
+      document.getElementById('nextStepText').textContent = `${defaultMessage} Below is a smarter first-pass snapshot based on your answers today.`;
+      document.getElementById('heroMessage').textContent = defaultMessage;
+      document.getElementById('playerTypeHeading').textContent = archetype;
+
+      const coachReadParts = [];
+
+      coachReadParts.push(`At first glance, your answers read like a ${lower(positionLens.title)} with potential around ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')}.`);
+
+      if (text(data.mainGoal)) {
+        coachReadParts.push(`Your main stated objective is to ${lower(data.mainGoal)}, so the programme will likely be pushed towards that outcome rather than generic work.`);
+      }
+
+      coachReadParts.push(loadProfile.note);
+
+      document.getElementById('coachReadText').textContent = coachReadParts.join(' ');
 
       strongest.forEach(item => createTag('strengthTags', `${item.label} (${item.value}/10)`, 'green'));
       weakest.forEach(item => createTag('weaknessTags', `${item.label} (${item.value}/10)`, 'orange'));
 
+      createTag('profileTags', archetype, 'yellow');
+      createTag('profileTags', positionLens.title, 'yellow');
+      createTag('profileTags', loadProfile.label, 'yellow');
+      if (text(data.level)) createTag('profileTags', data.level, 'yellow');
+
       createInsight(
         'strengthInsights',
         'Best-rated attributes',
-        `Your highest self-rated areas are ${strongest.map(item => `${friendlyNameMap[item.label] || item.label.toLowerCase()} (${item.value}/10)`).join(', ')}. These are likely areas we can continue to sharpen while building around your existing strengths.`,
+        `Your highest self-rated areas are ${strongest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ')}. These look like the main qualities already giving you some edge.`,
         'strength'
       );
 
-      if (data.strongestAreaText) {
+      if (text(data.strongestAreaText)) {
         createInsight(
           'strengthInsights',
           'Player-identified strength',
-          `You also highlighted “${data.strongestAreaText}” as one of your stronger areas, which gives extra direction on how your programme can keep that edge improving rather than letting it plateau.`,
+          `You also described “${text(data.strongestAreaText)}” as one of your stronger areas, which is useful because it shows where you personally feel most secure in your game.`,
           'strength'
         );
       }
 
       createInsight(
+        'strengthInsights',
+        'Position lens',
+        `For a ${lower(position)}, the strongest upside often comes from improving ${positionLens.themes.join(', ')}. Your better ratings suggest there is already a base to build from in that direction.`,
+        'strength'
+      );
+
+      createInsight(
         'weaknessInsights',
         'Lowest-rated attributes',
-        `Your current lowest self-ratings are ${weakest.map(item => `${friendlyNameMap[item.label] || item.label.toLowerCase()} (${item.value}/10)`).join(', ')}. These will likely be some of the first areas we target inside the programme.`,
+        `Your current lowest self-ratings are ${weakest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ')}. These are likely to become early attention areas inside the programme.`,
         'weakness'
       );
 
-      if (data.weakestAreaText) {
+      if (text(data.weakestAreaText)) {
         createInsight(
           'weaknessInsights',
           'Player-identified weakness',
-          `You specifically said the part of your game needing the most improvement is: “${data.weakestAreaText}”. That will be a major reference point when your sessions are built.`,
+          `You specifically said the part of your game needing the most improvement is: “${text(data.weakestAreaText)}”. That matters because written answers often show the issue the player feels most in matches, not just in ratings.`,
+          'weakness'
+        );
+      }
+
+      if (contradictions.length) {
+        contradictions.forEach(note => {
+          createInsight(
+            'weaknessInsights',
+            'Coach interpretation',
+            note,
+            'weakness'
+          );
+        });
+      } else {
+        createInsight(
+          'weaknessInsights',
+          'Answer consistency',
+          'Your ratings and written answers broadly point in the same direction, which makes the first coaching priorities easier to identify.',
           'weakness'
         );
       }
 
       const focusItems = new Set();
+
       (focusMap[data.mainGoal] || []).forEach(item => focusItems.add(item));
-      weakestLabels.forEach(label => {
-        const friendly = sentenceCase(friendlyNameMap[label] || label.toLowerCase());
-        focusItems.add(friendly);
-      });
-      parseTop3(data.top3).forEach(item => focusItems.add(sentenceCase(item)));
+      positionLens.focus.forEach(item => focusItems.add(item));
+      mainWeaknessWords.forEach(item => focusItems.add(item));
 
-      if (data.primaryPosition) {
-        focusItems.add(`${data.primaryPosition} specific work`);
-      }
-      if (data.teamSessions || data.matchesPerWeek) {
-        focusItems.add('Weekly load balance');
-      }
-      if (data.gymAccess === 'Yes' || data.gymAccess === 'Sometimes') {
-        focusItems.add('Strength and athletic development');
-      }
-      if (data.wallAccess === 'Yes') {
-        focusItems.add('Wall passing / receiving work');
-      }
-      if (data.goalAccess === 'Yes') {
-        focusItems.add('Finishing and end-product work');
-      }
+      if (data.wallAccess === 'Yes') focusItems.add('Wall passing / receiving work');
+      if (data.goalAccess === 'Yes') focusItems.add('Finishing and end-product work');
+      if (data.gymAccess === 'Yes' || data.gymAccess === 'Sometimes') focusItems.add('Strength and athletic development');
+      if (data.gymAccess === 'No') focusItems.add('Football-specific physical work without gym');
+      if (text(data.sessionTime)) focusItems.add(`${data.sessionTime} session structure`);
+      if (text(data.primaryPosition)) focusItems.add(`${data.primaryPosition} specific detail`);
 
-      const finalFocus = Array.from(focusItems).slice(0, 6);
+      const finalFocus = Array.from(focusItems).slice(0, 7);
       finalFocus.forEach(item => createTag('focusTags', item, 'yellow'));
 
       createInsight(
         'focusInsights',
         'Likely first programme themes',
-        `Based on your main goal, self-ratings, and stated priorities, the programme will likely place extra attention on ${finalFocus.slice(0, 4).join(', ')}.`,
+        `Based on your goal, self-ratings, position, and written priorities, the programme will likely place early attention on ${finalFocus.slice(0, 4).join(', ')}.`,
         'focus'
       );
 
-      if (data.sessionTime || data.extraDays) {
+      if (environmentSummary.length) {
         createInsight(
           'focusInsights',
-          'Built around your week',
-          `Your plan can be matched to the time you said you have available (${data.sessionTime || 'time not stated'}) across ${data.extraDays || 'your available'} extra training day(s), while still respecting team sessions and matches.`,
+          'Built around your environment',
+          `Your answers suggest the plan can realistically include ${environmentSummary.join(', ')} rather than forcing sessions that do not fit your current setup.`,
           'focus'
         );
       }
 
-      if (data.injuries || data.restrictions || data.avoid) {
+      createInsight(
+        'focusInsights',
+        'Built around your week',
+        loadProfile.note,
+        'focus'
+      );
+
+      if (
+        (text(data.injuries) && lower(data.injuries) !== 'none') ||
+        (text(data.restrictions) && lower(data.restrictions) !== 'none') ||
+        (text(data.avoid) && lower(data.avoid) !== 'none')
+      ) {
         const cautionBits = [];
-        if (data.injuries && data.injuries.toLowerCase() !== 'none') cautionBits.push(`injuries: ${data.injuries}`);
-        if (data.restrictions && data.restrictions.toLowerCase() !== 'none') cautionBits.push(`restrictions: ${data.restrictions}`);
-        if (data.avoid && data.avoid.toLowerCase() !== 'none') cautionBits.push(`avoid: ${data.avoid}`);
-        if (cautionBits.length) {
-          createInsight(
-            'focusInsights',
-            'Physical considerations',
-            `Your coach review should take into account ${cautionBits.join(' | ')} so the plan remains realistic and appropriate.`,
-            'focus'
-          );
-        }
+        if (text(data.injuries) && lower(data.injuries) !== 'none') cautionBits.push(`injuries: ${text(data.injuries)}`);
+        if (text(data.restrictions) && lower(data.restrictions) !== 'none') cautionBits.push(`restrictions: ${text(data.restrictions)}`);
+        if (text(data.avoid) && lower(data.avoid) !== 'none') cautionBits.push(`avoid: ${text(data.avoid)}`);
+
+        createInsight(
+          'focusInsights',
+          'Physical considerations',
+          `Your coach review should take into account ${cautionBits.join(' | ')} so the programme stays realistic and appropriate.`,
+          'focus'
+        );
+      }
+
+      createInsight(
+        'profileInsights',
+        'Player type',
+        `At the moment, your answers read most like a “${archetype}”. That does not lock you into one label, but it does help shape the first style of work we would prioritise.`,
+        'focus'
+      );
+
+      createInsight(
+        'profileInsights',
+        'Main development direction',
+        `The biggest opportunity looks like combining your stronger qualities in ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')} with improvement work around ${mainWeaknessWords.slice(0, 3).join(', ')}.`,
+        'focus'
+      );
+
+      if (text(data.success)) {
+        createInsight(
+          'profileInsights',
+          'Your success measure',
+          `You said success over the next 4 weeks would look like: “${text(data.success)}”. That is useful because the programme should aim at outcomes you can actually feel and recognise, not just random drills.`,
+          'focus'
+        );
       }
 
       ratingsArray.forEach(item => createScore(item.label, item.value));
+
+      const heroBullets = document.getElementById('heroBullets');
+      heroBullets.innerHTML = `
+        <li><strong>Profile type:</strong> ${archetype}</li>
+        <li><strong>Strongest current edge:</strong> ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')}</li>
+        <li><strong>Main growth zone:</strong> ${mainWeaknessWords.slice(0, 2).join(', ') || 'overall consistency'}</li>
+        <li><strong>Programme direction:</strong> ${finalFocus.slice(0, 3).join(', ')}</li>
+      `;
     }
   </script>
 </body>
