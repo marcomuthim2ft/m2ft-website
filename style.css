@@ -955,3 +955,67 @@ footer {
         font-size: 1.2rem;
     }
 }
+
+
+/* ===== 2026 HOMEPAGE UPDATE ===== */
+.hero-content {
+    grid-template-columns: 1fr;
+    max-width: 900px;
+    justify-items: center;
+    text-align: center;
+}
+
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-text p {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cta {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-badges {
+    justify-content: center;
+}
+
+.hero-image {
+    display: none;
+}
+
+.credentials {
+    padding: 2.2rem 5%;
+}
+
+.pro-players-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.services-duo {
+    padding-top: 1rem;
+}
+
+.duo-layout {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.duo-layout .split-item {
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 1024px) {
+    .duo-layout {
+        grid-template-columns: 1fr !important;
+    }
+}
