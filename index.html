@@ -366,6 +366,735 @@
         </div>
     </section>
 
+    <!-- M2FT PRICING + FAQ SECTION -->
+    <section id="programme-upgrades" class="m2ft-upgrades-shell">
+      <style>
+        .m2ft-upgrades-shell {
+          --bg: #081321;
+          --panel: #0d1b2d;
+          --panel-2: #10233a;
+          --panel-3: #0b1727;
+          --line: rgba(160, 230, 226, 0.18);
+          --line-strong: rgba(160, 230, 226, 0.34);
+          --text: #ffffff;
+          --muted: #bfd0de;
+          --soft: #8ea7bb;
+          --teal: #9fe7df;
+          --teal-strong: #7ddbd1;
+          --teal-dark: #5ccfc2;
+          --white-btn: #ffffff;
+          --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+          --radius-xl: 28px;
+          --radius-lg: 22px;
+          --radius-md: 16px;
+          --radius-sm: 12px;
+          --max: 1380px;
+          position: relative;
+          background: linear-gradient(180deg, #0a1625 0%, #09111d 100%);
+          padding: 92px 24px 96px;
+          overflow: hidden;
+        }
+
+        .m2ft-upgrades-shell * {
+          box-sizing: border-box;
+        }
+
+        .m2ft-upgrades-shell::before {
+          content: "";
+          position: absolute;
+          top: -180px;
+          left: -140px;
+          width: 420px;
+          height: 420px;
+          background: radial-gradient(circle, rgba(159, 231, 223, 0.10) 0%, rgba(159, 231, 223, 0) 72%);
+          pointer-events: none;
+        }
+
+        .m2ft-upgrades-shell::after {
+          content: "";
+          position: absolute;
+          right: -160px;
+          bottom: -180px;
+          width: 460px;
+          height: 460px;
+          background: radial-gradient(circle, rgba(125, 219, 209, 0.08) 0%, rgba(125, 219, 209, 0) 72%);
+          pointer-events: none;
+        }
+
+        .m2ft-upgrades-wrap {
+          max-width: var(--max);
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        }
+
+        .m2ft-upgrades-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.85fr);
+          gap: 34px;
+          align-items: stretch;
+        }
+
+        .m2ft-pricing-panel,
+        .m2ft-faq-panel {
+          background: linear-gradient(180deg, rgba(14, 28, 45, 0.98) 0%, rgba(8, 18, 31, 0.98) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: var(--radius-xl);
+          box-shadow: var(--shadow);
+          padding: 36px;
+        }
+
+        .m2ft-section-chip {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 18px;
+          border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.09);
+          background: rgba(255,255,255,0.03);
+          color: var(--teal);
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          margin-bottom: 20px;
+        }
+
+        .m2ft-pricing-head {
+          max-width: 860px;
+          margin-bottom: 34px;
+        }
+
+        .m2ft-pricing-title,
+        .m2ft-faq-title {
+          margin: 0;
+          color: var(--text);
+          font-size: clamp(2.1rem, 4vw, 3.45rem);
+          line-height: 0.98;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          text-transform: uppercase;
+        }
+
+        .m2ft-pricing-sub,
+        .m2ft-faq-sub {
+          margin: 18px 0 0;
+          color: var(--muted);
+          font-size: 1.05rem;
+          line-height: 1.8;
+          max-width: 720px;
+        }
+
+        .m2ft-pricing-cards {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 24px;
+          align-items: stretch;
+        }
+
+        .m2ft-price-card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          min-height: 100%;
+          padding: 28px 26px 26px;
+          border-radius: 24px;
+          background: linear-gradient(180deg, rgba(17, 35, 58, 1) 0%, rgba(12, 24, 40, 1) 100%);
+          border: 1px solid rgba(159, 231, 223, 0.10);
+          box-shadow: 0 14px 36px rgba(0,0,0,0.22);
+          transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .m2ft-price-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(159, 231, 223, 0.24);
+          box-shadow: 0 20px 44px rgba(0,0,0,0.28);
+        }
+
+        .m2ft-price-card.featured {
+          border-color: rgba(159, 231, 223, 0.38);
+          box-shadow: 0 0 0 1px rgba(159, 231, 223, 0.16), 0 18px 44px rgba(0,0,0,0.28);
+          background: linear-gradient(180deg, rgba(18, 39, 63, 1) 0%, rgba(11, 24, 40, 1) 100%);
+        }
+
+        .m2ft-popular-badge {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(159, 231, 223, 0.14);
+          border: 1px solid rgba(159, 231, 223, 0.28);
+          color: #dffdfa;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+
+        .m2ft-plan-name {
+          color: var(--text);
+          font-size: 2rem;
+          font-weight: 850;
+          line-height: 1.02;
+          letter-spacing: -0.03em;
+          margin: 0 0 14px;
+          max-width: 220px;
+        }
+
+        .m2ft-price {
+          color: var(--text);
+          font-size: 3.2rem;
+          font-weight: 900;
+          line-height: 1;
+          margin: 0 0 18px;
+          letter-spacing: -0.05em;
+        }
+
+        .m2ft-card-copy {
+          color: var(--muted);
+          font-size: 1rem;
+          line-height: 1.8;
+          margin: 0 0 22px;
+        }
+
+        .m2ft-card-copy strong {
+          color: var(--text);
+          font-weight: 800;
+        }
+
+        .m2ft-feature-list {
+          list-style: none;
+          padding: 0;
+          margin: 0 0 26px;
+          display: grid;
+          gap: 12px;
+        }
+
+        .m2ft-feature-list li {
+          position: relative;
+          padding-left: 22px;
+          color: #d7e4ee;
+          line-height: 1.65;
+          font-size: 0.98rem;
+        }
+
+        .m2ft-feature-list li::before {
+          content: "✓";
+          position: absolute;
+          left: 0;
+          top: 0;
+          color: var(--teal);
+          font-weight: 900;
+        }
+
+        .m2ft-bestfor {
+          margin-top: auto;
+          padding-top: 18px;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          color: var(--soft);
+          line-height: 1.7;
+          font-size: 0.95rem;
+        }
+
+        .m2ft-bestfor strong {
+          color: var(--text);
+          font-weight: 800;
+        }
+
+        .m2ft-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 54px;
+          padding: 14px 20px;
+          border-radius: 14px;
+          font-size: 0.98rem;
+          font-weight: 800;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          margin-top: 22px;
+          text-align: center;
+          width: 100%;
+        }
+
+        .m2ft-btn-primary {
+          background: linear-gradient(180deg, var(--teal) 0%, var(--teal-strong) 100%);
+          color: #06202a;
+          border: 1px solid rgba(159, 231, 223, 0.55);
+          box-shadow: 0 10px 24px rgba(125, 219, 209, 0.20);
+        }
+
+        .m2ft-btn-primary:hover {
+          background: linear-gradient(180deg, #baf3ed 0%, #8ae3d8 100%);
+          transform: translateY(-1px);
+          box-shadow: 0 14px 28px rgba(125, 219, 209, 0.24);
+        }
+
+        .m2ft-btn-secondary {
+          background: transparent;
+          color: var(--text);
+          border: 1px solid rgba(255,255,255,0.16);
+        }
+
+        .m2ft-btn-secondary:hover {
+          border-color: rgba(159, 231, 223, 0.38);
+          color: var(--teal);
+          background: rgba(255,255,255,0.02);
+          transform: translateY(-1px);
+        }
+
+        .m2ft-pricing-footer {
+          margin-top: 30px;
+          padding: 26px 28px;
+          border-radius: 22px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.015) 100%);
+          border: 1px solid rgba(255,255,255,0.07);
+          text-align: center;
+        }
+
+        .m2ft-pricing-footer p {
+          margin: 0 0 18px;
+          color: var(--muted);
+          line-height: 1.8;
+          font-size: 1rem;
+        }
+
+        .m2ft-pricing-footer strong {
+          color: var(--text);
+        }
+
+        .m2ft-pricing-footer .m2ft-btn {
+          max-width: 340px;
+          margin: 0 auto;
+        }
+
+        .m2ft-faq-panel {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .m2ft-faq-head {
+          margin-bottom: 22px;
+        }
+
+        .m2ft-faq-items {
+          display: grid;
+          gap: 14px;
+        }
+
+        .m2ft-faq-item {
+          border-radius: 18px;
+          border: 1px solid rgba(255,255,255,0.07);
+          background: linear-gradient(180deg, rgba(16, 35, 58, 0.96) 0%, rgba(11, 24, 40, 0.96) 100%);
+          overflow: hidden;
+        }
+
+        .m2ft-faq-question {
+          width: 100%;
+          border: 0;
+          background: transparent;
+          color: var(--text);
+          padding: 22px 22px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+          text-align: left;
+          cursor: pointer;
+          font-size: 1rem;
+          line-height: 1.55;
+          font-weight: 800;
+        }
+
+        .m2ft-faq-question span:first-child {
+          flex: 1;
+          max-width: 90%;
+        }
+
+        .m2ft-faq-icon {
+          width: 36px;
+          height: 36px;
+          min-width: 36px;
+          border-radius: 999px;
+          border: 1px solid rgba(159, 231, 223, 0.22);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--teal);
+          font-size: 1.15rem;
+          font-weight: 800;
+          transition: all 0.2s ease;
+        }
+
+        .m2ft-faq-item.active .m2ft-faq-icon {
+          background: rgba(159, 231, 223, 0.10);
+          transform: rotate(45deg);
+        }
+
+        .m2ft-faq-answer {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.28s ease;
+        }
+
+        .m2ft-faq-answer-inner {
+          padding: 0 22px 22px;
+          color: var(--muted);
+          line-height: 1.8;
+          font-size: 0.98rem;
+        }
+
+        .m2ft-faq-cta {
+          margin-top: 22px;
+          padding: 26px 24px;
+          border-radius: 22px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.018) 100%);
+          border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .m2ft-faq-cta p {
+          margin: 0 0 18px;
+          color: var(--muted);
+          line-height: 1.8;
+          font-size: 0.98rem;
+        }
+
+        .m2ft-faq-cta-buttons {
+          display: grid;
+          gap: 12px;
+        }
+
+        @media (max-width: 1260px) {
+          .m2ft-upgrades-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .m2ft-faq-panel {
+            order: 2;
+          }
+
+          .m2ft-pricing-panel {
+            order: 1;
+          }
+        }
+
+        @media (max-width: 980px) {
+          .m2ft-upgrades-shell {
+            padding: 74px 18px 78px;
+          }
+
+          .m2ft-pricing-panel,
+          .m2ft-faq-panel {
+            padding: 26px;
+          }
+
+          .m2ft-pricing-cards {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          .m2ft-plan-name {
+            max-width: none;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .m2ft-upgrades-shell {
+            padding: 64px 14px 66px;
+          }
+
+          .m2ft-pricing-panel,
+          .m2ft-faq-panel {
+            padding: 20px;
+            border-radius: 22px;
+          }
+
+          .m2ft-section-chip {
+            margin-bottom: 16px;
+          }
+
+          .m2ft-pricing-title,
+          .m2ft-faq-title {
+            font-size: 2.15rem;
+          }
+
+          .m2ft-pricing-sub,
+          .m2ft-faq-sub {
+            font-size: 0.98rem;
+            line-height: 1.75;
+          }
+
+          .m2ft-price-card {
+            padding: 24px 20px 22px;
+            border-radius: 20px;
+          }
+
+          .m2ft-price {
+            font-size: 2.7rem;
+          }
+
+          .m2ft-faq-question {
+            padding: 18px 18px;
+          }
+
+          .m2ft-faq-answer-inner {
+            padding: 0 18px 18px;
+          }
+
+          .m2ft-pricing-footer,
+          .m2ft-faq-cta {
+            padding: 22px 18px;
+            border-radius: 18px;
+          }
+        }
+      </style>
+
+      <div class="m2ft-upgrades-wrap">
+        <div class="m2ft-upgrades-grid">
+
+          <!-- LEFT: PRICING -->
+          <div class="m2ft-pricing-panel">
+            <div class="m2ft-pricing-head">
+              <div class="m2ft-section-chip">Programme Upgrades</div>
+              <h2 class="m2ft-pricing-title">Choose Your Programme Upgrade</h2>
+              <p class="m2ft-pricing-sub">
+                Start with a personalised 4-week programme, then upgrade for a more premium experience with cleaner presentation, video support, and optional coach input.
+              </p>
+            </div>
+
+            <div class="m2ft-pricing-cards">
+              <!-- CARD 1 -->
+              <div class="m2ft-price-card">
+                <h3 class="m2ft-plan-name">M2FT Pro Programme</h3>
+                <div class="m2ft-price">£39</div>
+                <p class="m2ft-card-copy">
+                  For players who want a more polished, personalised programme experience without video support or direct coach contact.
+                </p>
+
+                <ul class="m2ft-feature-list">
+                  <li>Personalised 4-week training programme</li>
+                  <li>Premium M2FT report layout</li>
+                  <li>Clearer structure and cleaner presentation</li>
+                  <li>Strengths, priorities, and programme focus included</li>
+                  <li>Designed to feel more premium than the free version</li>
+                </ul>
+
+                <div class="m2ft-bestfor">
+                  <strong>Best for:</strong> players who want a stronger presentation and a more premium player experience.
+                </div>
+
+                <a href="/assessment" class="m2ft-btn m2ft-btn-primary">Upgrade to Pro Programme</a>
+              </div>
+
+              <!-- CARD 2 -->
+              <div class="m2ft-price-card featured">
+                <div class="m2ft-popular-badge">Most Popular</div>
+                <h3 class="m2ft-plan-name">Pro Programme + Video</h3>
+                <div class="m2ft-price">£79</div>
+                <p class="m2ft-card-copy">
+                  For players who want to <strong>see exactly how the work should look and feel</strong>, not just read it.
+                </p>
+
+                <ul class="m2ft-feature-list">
+                  <li>Everything included in the Pro Programme</li>
+                  <li>6–10 selected drill videos matched to your programme</li>
+                  <li>Position-specific and goal-specific video support</li>
+                  <li>Better drill understanding and clearer execution</li>
+                  <li>Stronger learning experience across the 4 weeks</li>
+                </ul>
+
+                <div class="m2ft-bestfor">
+                  <strong>Best for:</strong> players who want the strongest balance of structure, clarity, and value.
+                </div>
+
+                <a href="/assessment" class="m2ft-btn m2ft-btn-primary">Get Programme + Video</a>
+              </div>
+
+              <!-- CARD 3 -->
+              <div class="m2ft-price-card">
+                <h3 class="m2ft-plan-name">Coach Assisted Progression</h3>
+                <div class="m2ft-price">£129</div>
+                <p class="m2ft-card-copy">
+                  For players who want a higher-touch experience with added coach input and a more guided progression path.
+                </p>
+
+                <ul class="m2ft-feature-list">
+                  <li>Everything included in Programme + Video</li>
+                  <li>Priority turnaround</li>
+                  <li>One coach support touchpoint</li>
+                  <li>One follow-up adjustment if needed</li>
+                  <li>Most premium option for a coach-led feel</li>
+                </ul>
+
+                <div class="m2ft-bestfor">
+                  <strong>Best for:</strong> players who want reassurance, accountability, and extra support.
+                </div>
+
+                <a href="/contact" class="m2ft-btn m2ft-btn-primary">Apply for Coach Assisted Support</a>
+              </div>
+            </div>
+
+            <div class="m2ft-pricing-footer">
+              <p>
+                <strong>Not sure where to start?</strong> Begin with the free 4-week programme, then upgrade when you want a more premium format, video support, or coach input.
+              </p>
+              <a href="/assessment" class="m2ft-btn m2ft-btn-secondary">Start With The Free Programme</a>
+            </div>
+          </div>
+
+          <!-- RIGHT: FAQ -->
+          <div class="m2ft-faq-panel">
+            <div>
+              <div class="m2ft-faq-head">
+                <div class="m2ft-section-chip">Frequently Asked Questions</div>
+                <h2 class="m2ft-faq-title">Everything You Need To Know</h2>
+                <p class="m2ft-faq-sub">
+                  If you are unsure which option is right for you, start here. These are the questions players and parents ask most before choosing a programme.
+                </p>
+              </div>
+
+              <div class="m2ft-faq-items">
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>What is the difference between the free programme and the paid options?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      The free programme gives you a personalised 4-week plan in a simpler format. The paid options give you a more premium presentation, cleaner structure, added video support, and optional coach input depending on the package you choose.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>What do I get in the Pro Programme?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      You get a personalised 4-week programme presented in a more polished M2FT format, with clearer structure, stronger presentation, and a more premium player experience than the free version.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>How does the video package work?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      The Programme + Video package includes selected drill videos matched to your position, goals, and training focus. It helps you understand exactly how the work should look so you can apply the programme more effectively.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>What does Coach Assisted Progression include?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      This is the highest-level package. It includes the premium programme, video support, priority turnaround, one coach support touchpoint, and one follow-up adjustment if needed.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>How long does it take to receive my programme?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      Most programmes are typically delivered within 1–2 days after the assessment is submitted, depending on demand and the package selected.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>Can I still complete the programme if I do not have full gym access?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      Yes. Your programme is built around your actual training environment, equipment access, and weekly schedule. If you do not have a gym, the work can still be adapted to what you do have.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>What happens after the first 4 weeks?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      After completing your first block, you can come back for a progression programme based on what you completed, what improved, and what needs to be pushed further next.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="m2ft-faq-item">
+                  <button class="m2ft-faq-question" type="button">
+                    <span>Which package should I choose?</span>
+                    <span class="m2ft-faq-icon">+</span>
+                  </button>
+                  <div class="m2ft-faq-answer">
+                    <div class="m2ft-faq-answer-inner">
+                      If you want a cleaner premium version of the programme, choose Pro Programme. If you want help seeing and applying the drills, choose Programme + Video. If you want extra support and a more coach-led feel, choose Coach Assisted Progression.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="m2ft-faq-cta">
+              <p>
+                Still not sure which option fits you best? Start with the free 4-week programme, or get in touch if you want a more premium coach-led experience.
+              </p>
+              <div class="m2ft-faq-cta-buttons">
+                <a href="/assessment" class="m2ft-btn m2ft-btn-primary">Start With The Free Programme</a>
+                <a href="/contact" class="m2ft-btn m2ft-btn-secondary">Ask A Question</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const faqItems = document.querySelectorAll('.m2ft-faq-item');
+
+          faqItems.forEach((item) => {
+            const button = item.querySelector('.m2ft-faq-question');
+            const answer = item.querySelector('.m2ft-faq-answer');
+
+            button.addEventListener('click', function () {
+              const isActive = item.classList.contains('active');
+
+              faqItems.forEach((otherItem) => {
+                otherItem.classList.remove('active');
+                const otherAnswer = otherItem.querySelector('.m2ft-faq-answer');
+                otherAnswer.style.maxHeight = null;
+              });
+
+              if (!isActive) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+              }
+            });
+          });
+        })();
+      </script>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -376,684 +1105,6 @@
                     <a href="mailto:Marco@officialm2ft.com" style="color: var(--medium-grey);">Marco@officialm2ft.com</a>
                 </div>
             </div>
-            <!-- M2FT PRICING + FAQ SECTION -->
-<style>
-  .pricing-section {
-    background: #0A0A0A;
-    padding: 90px 5%;
-    color: #FFFFFF;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .pricing-section .pricing-header {
-    max-width: 820px;
-    margin: 0 auto 50px;
-    text-align: center;
-  }
-
-  .pricing-section .pricing-eyebrow {
-    display: inline-block;
-    margin-bottom: 14px;
-    padding: 8px 14px;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 999px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #CCCCCC;
-    background: rgba(255,255,255,0.03);
-  }
-
-  .pricing-section .pricing-header h2 {
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    margin-bottom: 16px;
-    line-height: 1.1;
-    color: #FFFFFF;
-  }
-
-  .pricing-section .pricing-header p {
-    color: #CCCCCC;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    max-width: 1300px;
-    margin: 0 auto;
-    align-items: stretch;
-  }
-
-  .pricing-card {
-    position: relative;
-    background: #0D1B2A;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 14px 34px rgba(0,0,0,0.22);
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .pricing-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255,107,53,0.4);
-    box-shadow: 0 20px 46px rgba(0,0,0,0.3);
-  }
-
-  .pricing-card.featured {
-    border: 1px solid #FF6B35;
-    box-shadow: 0 18px 42px rgba(255,107,53,0.16);
-    transform: scale(1.02);
-  }
-
-  .pricing-card.featured:hover {
-    transform: scale(1.02) translateY(-6px);
-  }
-
-  .pricing-badge {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: #FF6B35;
-    color: #0A0A0A;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 8px 12px;
-    border-radius: 999px;
-  }
-
-  .pricing-top h3 {
-    font-size: 1.45rem;
-    margin: 0 0 12px;
-    color: #FFFFFF;
-  }
-
-  .pricing-card .price {
-    font-size: 2.5rem;
-    font-weight: 900;
-    line-height: 1;
-    margin-bottom: 14px;
-    color: #FFFFFF;
-  }
-
-  .pricing-tagline {
-    font-size: 1rem;
-    color: #E8E8E8;
-    margin: 0 0 20px;
-    line-height: 1.6;
-  }
-
-  .pricing-card > p {
-    color: #CCCCCC;
-    line-height: 1.7;
-    margin-bottom: 20px;
-  }
-
-  .pricing-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 24px;
-  }
-
-  .pricing-card ul li {
-    position: relative;
-    padding-left: 28px;
-    margin-bottom: 14px;
-    color: #E8E8E8;
-    line-height: 1.6;
-  }
-
-  .pricing-card ul li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #FF6B35;
-    font-weight: 900;
-  }
-
-  .pricing-bestfor {
-    margin-top: auto;
-    margin-bottom: 24px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    color: #CCCCCC;
-    line-height: 1.7;
-    font-size: 0.96rem;
-  }
-
-  .pricing-bestfor strong {
-    color: #FFFFFF;
-  }
-
-  .pricing-btn,
-  .pricing-secondary-btn,
-  .faq-btn-primary,
-  .faq-btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 52px;
-    padding: 14px 22px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 0.98rem;
-    text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .pricing-btn,
-  .faq-btn-primary {
-    background: #FF6B35;
-    color: #0A0A0A;
-    border: 2px solid #FF6B35;
-  }
-
-  .pricing-btn:hover,
-  .faq-btn-primary:hover {
-    background: transparent;
-    color: #FFFFFF;
-    border-color: #FF6B35;
-  }
-
-  .pricing-card.featured .pricing-btn {
-    box-shadow: 0 10px 24px rgba(255,107,53,0.22);
-  }
-
-  .pricing-footer-note {
-    max-width: 900px;
-    margin: 42px auto 0;
-    text-align: center;
-  }
-
-  .pricing-footer-note p {
-    color: #CCCCCC;
-    margin-bottom: 18px;
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  .pricing-footer-note strong {
-    color: #FFFFFF;
-  }
-
-  .pricing-secondary-btn,
-  .faq-btn-secondary {
-    background: transparent;
-    color: #FFFFFF;
-    border: 2px solid rgba(255,255,255,0.16);
-  }
-
-  .pricing-secondary-btn:hover,
-  .faq-btn-secondary:hover {
-    border-color: #FF6B35;
-    color: #FFFFFF;
-  }
-
-  .faq-section {
-    background: #0A0A0A;
-    padding: 0 5% 90px;
-    color: #FFFFFF;
-  }
-
-  .faq-wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .faq-header {
-    text-align: center;
-    margin-bottom: 42px;
-  }
-
-  .faq-eyebrow {
-    display: inline-block;
-    margin-bottom: 14px;
-    padding: 8px 14px;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 999px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #CCCCCC;
-    background: rgba(255,255,255,0.03);
-  }
-
-  .faq-header h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 14px;
-    line-height: 1.1;
-    color: #FFFFFF;
-  }
-
-  .faq-header p {
-    max-width: 760px;
-    margin: 0 auto;
-    color: #CCCCCC;
-    font-size: 1.02rem;
-    line-height: 1.7;
-  }
-
-  .faq-list {
-    display: grid;
-    gap: 16px;
-  }
-
-  .faq-item {
-    background: #0D1B2A;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
-    overflow: hidden;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .faq-item:hover {
-    border-color: rgba(255,107,53,0.35);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-  }
-
-  .faq-question {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: #FFFFFF;
-    padding: 22px 24px;
-    text-align: left;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.5;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-  }
-
-  .faq-question span {
-    flex: 1;
-  }
-
-  .faq-icon {
-    width: 34px;
-    height: 34px;
-    min-width: 34px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.12);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: #FF6B35;
-    background: rgba(255,255,255,0.03);
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
-
-  .faq-item.active .faq-icon {
-    transform: rotate(45deg);
-    background: rgba(255,107,53,0.10);
-  }
-
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.28s ease;
-  }
-
-  .faq-answer-inner {
-    padding: 0 24px 24px;
-    color: #CCCCCC;
-    line-height: 1.75;
-    font-size: 0.98rem;
-  }
-
-  .faq-answer-inner strong {
-    color: #FFFFFF;
-  }
-
-  .faq-bottom-cta {
-    margin-top: 34px;
-    text-align: center;
-    padding: 28px;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
-    background: #0D1B2A;
-  }
-
-  .faq-bottom-cta p {
-    margin: 0 0 18px;
-    color: #CCCCCC;
-    line-height: 1.7;
-  }
-
-  @media (max-width: 1100px) {
-    .pricing-grid {
-      grid-template-columns: 1fr;
-      max-width: 760px;
-    }
-
-    .pricing-card.featured {
-      transform: none;
-    }
-
-    .pricing-card.featured:hover {
-      transform: translateY(-6px);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .pricing-section {
-      padding: 70px 5%;
-    }
-
-    .faq-section {
-      padding: 0 5% 70px;
-    }
-
-    .pricing-card {
-      padding: 28px 22px;
-    }
-
-    .pricing-badge {
-      position: static;
-      display: inline-block;
-      margin-bottom: 16px;
-    }
-
-    .pricing-card .price {
-      font-size: 2.2rem;
-    }
-
-    .faq-question {
-      padding: 18px 18px;
-      font-size: 0.96rem;
-      align-items: flex-start;
-    }
-
-    .faq-answer-inner {
-      padding: 0 18px 20px;
-      font-size: 0.95rem;
-    }
-
-    .faq-bottom-cta {
-      padding: 22px 18px;
-    }
-
-    .faq-btn-primary,
-    .faq-btn-secondary,
-    .pricing-btn,
-    .pricing-secondary-btn {
-      width: 100%;
-    }
-  }
-</style>
-
-<section class="pricing-section" id="pricing">
-  <div class="pricing-header">
-    <span class="pricing-eyebrow">Programme Upgrades</span>
-    <h2>Choose Your Programme Upgrade</h2>
-    <p>
-      Start with a personalised 4-week programme, then upgrade for a more premium experience
-      with enhanced visuals, video support, and optional coach input.
-    </p>
-  </div>
-
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <div class="pricing-top">
-        <h3>M2FT Pro Programme</h3>
-        <div class="price">£39</div>
-        <p class="pricing-tagline">
-          For players who want a more premium, personalised programme experience.
-        </p>
-      </div>
-
-      <p>
-        Get your 4-week programme presented in a more polished M2FT report format, with
-        clearer structure, stronger presentation, and a more premium player experience.
-      </p>
-
-      <ul>
-        <li>Personalised 4-week training programme</li>
-        <li>Premium M2FT report layout</li>
-        <li>Player strengths and development focus summary</li>
-        <li>Clear session-by-session structure</li>
-        <li>Branded visual presentation</li>
-        <li>Designed to feel more professional and easier to follow</li>
-      </ul>
-
-      <div class="pricing-bestfor">
-        <strong>Best for:</strong> Players who want more than a basic programme, but do not need video support or direct coach contact.
-      </div>
-
-      <a class="pricing-btn" href="/assessment?package=pro">Upgrade to Pro Programme</a>
-    </div>
-
-    <div class="pricing-card featured">
-      <div class="pricing-badge">Most Popular</div>
-
-      <div class="pricing-top">
-        <h3>M2FT Pro Programme + Video</h3>
-        <div class="price">£79</div>
-        <p class="pricing-tagline">
-          For players who want to see exactly how the work should look and feel.
-        </p>
-      </div>
-
-      <p>
-        Everything included in the Pro Programme, plus position-specific and goal-specific
-        video support to help you apply the programme properly.
-      </p>
-
-      <ul>
-        <li>Everything in the Pro Programme</li>
-        <li>6–10 selected drill videos matched to your programme</li>
-        <li>Video support based on your position and development needs</li>
-        <li>Clearer understanding of how to perform key drills</li>
-        <li>Stronger overall learning experience</li>
-      </ul>
-
-      <div class="pricing-bestfor">
-        <strong>Best for:</strong> Players who want the most complete balance of structure, clarity, and value.
-      </div>
-
-      <a class="pricing-btn" href="/assessment?package=video">Get Programme + Video</a>
-    </div>
-
-    <div class="pricing-card">
-      <div class="pricing-top">
-        <h3>M2FT Coach Assisted Progression</h3>
-        <div class="price">£129</div>
-        <p class="pricing-tagline">
-          For players who want a higher-touch experience with added coach input.
-        </p>
-      </div>
-
-      <p>
-        This is the most complete option — combining premium programme design, video support,
-        and an extra level of coach guidance.
-      </p>
-
-      <ul>
-        <li>Everything in Programme + Video</li>
-        <li>Priority turnaround</li>
-        <li>One coach support touchpoint</li>
-        <li>One follow-up adjustment if needed</li>
-        <li>More personalised progression support</li>
-      </ul>
-
-      <div class="pricing-bestfor">
-        <strong>Best for:</strong> Players who want extra reassurance, accountability, and a more coach-led experience.
-      </div>
-
-      <a class="pricing-btn" href="/contact?package=coach-assisted">Apply for Coach Assisted Support</a>
-    </div>
-  </div>
-
-  <div class="pricing-footer-note">
-    <p>
-      <strong>Not sure where to start?</strong> Begin with the free 4-week programme, then upgrade when you want a more premium format, video support, or coach input.
-    </p>
-    <a class="pricing-secondary-btn" href="/assessment">Start With The Free Programme</a>
-  </div>
-</section>
-
-<section class="faq-section" id="faq">
-  <div class="faq-wrap">
-    <div class="faq-header">
-      <span class="faq-eyebrow">Frequently Asked Questions</span>
-      <h2>Everything You Need To Know</h2>
-      <p>
-        If you’re unsure which option is right for you, start here. These are the most common
-        questions players and parents ask before choosing a programme.
-      </p>
-    </div>
-
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>What is the difference between the free programme and the paid options?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            The <strong>free 4-week programme</strong> gives you a personalised written training plan built around your assessment.
-            The paid options upgrade the experience with a more premium report format, improved presentation, video support, and optional coach input depending on the package you choose.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>What do I get in the Pro Programme?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            The <strong>M2FT Pro Programme</strong> gives you a more premium version of your plan, including a stronger visual layout, clearer player summary, and a more professional report-style structure that is easier to follow and more valuable to keep.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>How does the video package work?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            The <strong>Programme + Video</strong> option includes selected drill clips matched to your position, goals, and main training focus.
-            This helps you understand how the work should look, how to apply it properly, and what key details to focus on during each session.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>What does Coach Assisted Progression include?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            This is the highest-support option. It includes everything in the <strong>Programme + Video</strong> package, plus added coach input, priority turnaround, and one follow-up adjustment if needed.
-            It is designed for players who want a more coach-led experience and extra reassurance.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>How long does it take to receive my programme?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            Programmes are typically delivered within <strong>1–2 days</strong> after your assessment is submitted.
-            If you choose a higher package with more support, your delivery still aims to stay fast while allowing time for proper review and programme build.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>Can I complete the programme with limited equipment?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            Yes. Your programme is built around your current setup, including your available space, equipment, gym access, wall access, and goal access.
-            The aim is to make your work realistic and repeatable, not ideal on paper but impossible in real life.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>Can I come back after 4 weeks for a progression programme?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            Yes. After completing your block, you can return and complete a progress review so the next programme can be built around what improved, what still needs work, and what should now progress.
-            This is the best way to turn a one-off plan into an ongoing development pathway.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" type="button">
-          <span>Which package should I choose if I am not sure?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            If you want the best balance of value, clarity, and player experience, the strongest option for most people is <strong>M2FT Pro Programme + Video</strong>.
-            If you want the simplest entry point, start with the free programme first and upgrade later.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="faq-bottom-cta">
-      <p>
-        Still not sure which option fits you best? Start with the free 4-week programme, or get in touch if you want a more premium coach-led experience.
-      </p>
-      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
-        <a class="faq-btn-primary" href="/assessment">Start With The Free Programme</a>
-        <a class="faq-btn-secondary" href="/contact">Ask A Question</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-  document.querySelectorAll('.faq-question').forEach((button) => {
-    button.addEventListener('click', () => {
-      const item = button.parentElement;
-      const answer = item.querySelector('.faq-answer');
-      const isActive = item.classList.contains('active');
-
-      document.querySelectorAll('.faq-item').forEach((faqItem) => {
-        faqItem.classList.remove('active');
-        faqItem.querySelector('.faq-answer').style.maxHeight = null;
-      });
-
-      if (!isActive) {
-        item.classList.add('active');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-      }
-    });
-  });
-</script>
             <div class="footer-links">
                 <h4>Services</h4>
                 <ul>
