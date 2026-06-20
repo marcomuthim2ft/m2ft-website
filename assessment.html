@@ -3,26 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M2FT Performance | Player Assessment</title>
-  <meta name="description" content="Complete your M2FT player assessment and receive a personalised football development programme." />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="description" content="Complete your M2FT Player Assessment and receive a personalised football development programme." />
+  <title>M2FT | Player Assessment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
+      --black: #0a0a0a;
       --navy: #0d1b2a;
       --blue: #1b263b;
-      --text: #ffffff;
-      --muted: #c9c9c9;
-      --muted-2: #8f8f8f;
+      --white: #ffffff;
+      --light: #e8e8e8;
+      --muted: #bdbdbd;
       --line: rgba(255,255,255,0.10);
-      --panel: rgba(255,255,255,0.05);
+      --panel: rgba(7, 12, 20, 0.72);
+      --panel-2: rgba(255,255,255,0.05);
       --accent: #ff6b35;
       --accent-soft: rgba(255,107,53,0.12);
-      --shadow: 0 18px 44px rgba(0,0,0,0.35);
+      --shadow: 0 20px 48px rgba(0,0,0,0.35);
       --radius: 18px;
-      --max: 1120px;
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; }
@@ -30,29 +32,27 @@
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: var(--text);
+      color: var(--white);
       line-height: 1.6;
-      background:
-        radial-gradient(circle at top right, rgba(255,107,53,0.12), transparent 28%),
-        linear-gradient(135deg, var(--navy) 0%, var(--blue) 42%, var(--bg) 100%);
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 45%, var(--black) 100%);
     }
 
-    a { color: inherit; }
+    a { color: inherit; text-decoration: none; }
     .container { width: min(var(--max), calc(100% - 24px)); margin: 0 auto; }
 
-    .header {
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 10;
-      background: rgba(10,10,10,0.84);
+      z-index: 20;
+      background: rgba(10,10,10,0.82);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .header-inner {
+    .topbar-inner {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
       padding: 16px 0;
     }
@@ -64,11 +64,11 @@
     }
 
     .brand-mark {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
+      width: 50px;
+      height: 50px;
       display: grid;
       place-items: center;
+      border-radius: 14px;
       font-weight: 900;
       letter-spacing: 0.05em;
       background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,107,53,0.16));
@@ -84,28 +84,49 @@
     }
 
     .brand-subtitle {
-      color: var(--muted-2);
+      color: var(--muted);
       font-size: 0.92rem;
     }
 
+    .back-link {
+      color: var(--light);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
     .hero {
-      padding: 64px 0 34px;
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .hero-grid {
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(7,12,20,0.86) 0%, rgba(7,12,20,0.62) 45%, rgba(7,12,20,0.78) 100%),
+        linear-gradient(180deg, rgba(10,10,10,0.10) 0%, rgba(10,10,10,0.54) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 22px;
-      align-items: start;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      padding: 28px;
+      align-items: center;
+      padding: 72px 0;
     }
 
     .eyebrow {
@@ -114,18 +135,18 @@
       border-radius: 999px;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
-      color: var(--muted);
+      color: #d8d8d8;
       font-size: 0.78rem;
       font-weight: 700;
-      text-transform: uppercase;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    h1, h2, h3 { line-height: 1.05; letter-spacing: -0.03em; }
+    h1, h2, h3 { line-height: 1.04; letter-spacing: -0.03em; }
 
     h1 {
       margin: 16px 0 14px;
-      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-size: clamp(2.6rem, 6vw, 4.7rem);
       font-weight: 900;
       background: linear-gradient(to right, #ffffff, var(--accent));
       -webkit-background-clip: text;
@@ -134,73 +155,116 @@
     }
 
     h2 {
-      margin: 0 0 8px;
-      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
       font-weight: 800;
     }
 
     h3 {
       margin: 0 0 8px;
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 800;
     }
 
     .lead,
-    .muted,
-    .panel p,
-    .helper,
-    .note-list li,
-    .success-box,
-    .field-help {
-      color: var(--muted);
+    .hero-note,
+    .field-help,
+    .privacy-note,
+    .footer-text,
+    .subtext {
+      color: var(--light);
+      opacity: 0.9;
     }
 
-    .cta-list {
+    .hero-points {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 22px;
+      margin-top: 24px;
     }
 
-    .cta-item,
-    .info-box,
-    fieldset {
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.10);
+    .hero-point,
+    .form-shell,
+    .field-card,
+    fieldset,
+    .summary-card {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
     }
 
-    .cta-item,
-    .info-box {
+    .hero-point,
+    .summary-card {
       padding: 16px;
     }
 
+    .hero-point strong { display: block; margin-bottom: 6px; }
+    .hero-point span { color: #dddddd; font-size: 0.92rem; }
+
+    .hero-card {
+      background: rgba(7, 12, 20, 0.66);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card ul {
+      margin: 16px 0 0;
+      padding-left: 18px;
+      color: #e2e2e2;
+    }
+
+    .hero-card li + li { margin-top: 10px; }
+
     .assessment {
-      padding: 18px 0 56px;
+      padding: 52px 0 64px;
+      background: linear-gradient(135deg, rgba(13,27,42,0.42), rgba(10,10,10,0.18));
+    }
+
+    .form-shell {
+      padding: 28px;
+      background: rgba(9, 14, 24, 0.82);
     }
 
     form {
       display: grid;
       gap: 18px;
+      margin-top: 18px;
     }
 
     fieldset {
       margin: 0;
       padding: 18px;
+      background: rgba(255,255,255,0.03);
     }
 
     legend {
       padding: 0 10px;
       font-weight: 800;
-      color: var(--text);
+      color: var(--white);
     }
 
-    .field-grid {
+    .field-grid,
+    .checkbox-grid,
+    .slider-grid {
       display: grid;
       gap: 14px;
     }
 
-    .field-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .field-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .field-grid.two,
+    .checkbox-grid.two,
+    .slider-grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .field.full { grid-column: 1 / -1; }
 
     label {
@@ -218,7 +282,7 @@
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(10,10,10,0.72);
-      color: var(--text);
+      color: var(--white);
       font: inherit;
     }
 
@@ -233,17 +297,6 @@
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(255,107,53,0.12);
-    }
-
-    .checkbox-grid,
-    .slider-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .checkbox-grid.two,
-    .slider-grid.two {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .check,
@@ -292,6 +345,7 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
+      margin-top: 6px;
     }
 
     .btn {
@@ -317,132 +371,128 @@
 
     .btn-secondary {
       background: rgba(255,255,255,0.04);
-      color: var(--text);
+      color: var(--white);
       border-color: rgba(255,255,255,0.14);
     }
 
-    .success-box {
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,107,53,0.22);
-      background: rgba(255,107,53,0.10);
-    }
-
-    .note-list {
-      margin: 0;
-      padding-left: 18px;
+    .privacy-note {
+      margin-top: 10px;
+      font-size: 0.92rem;
     }
 
     footer {
-      padding: 26px 0 42px;
+      padding: 30px 0 42px;
       border-top: 1px solid rgba(255,255,255,0.08);
       background: rgba(10,10,10,0.55);
     }
 
     @media (max-width: 980px) {
-      .hero-grid,
+      .hero-content,
       .field-grid.two,
       .field-grid.three,
       .checkbox-grid.two,
-      .slider-grid.two {
+      .slider-grid.two,
+      .hero-points {
         grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 640px) {
-      .header-inner,
+      .topbar-inner,
       .submit-wrap {
         flex-direction: column;
         align-items: stretch;
       }
 
-      .panel {
+      .brand-wrap {
+        align-items: flex-start;
+      }
+
+      .hero,
+      .assessment {
+        padding-top: 36px;
+      }
+
+      .hero-content {
+        padding: 48px 0;
+      }
+
+      .form-shell,
+      .hero-card {
         padding: 20px;
       }
 
       .btn {
         width: 100%;
       }
-
-      .brand-wrap {
-        align-items: flex-start;
-      }
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-inner">
+  <header class="topbar">
+    <div class="container topbar-inner">
       <div class="brand-wrap">
         <div class="brand-mark">M2FT</div>
         <div>
           <div class="brand-title">M2FT Performance</div>
-          <div class="brand-subtitle">Player Assessment for Personalised Programming</div>
+          <div class="brand-subtitle">Player Assessment</div>
         </div>
       </div>
-      <div class="brand-subtitle">Static page • email delivery of submissions</div>
+      <a class="back-link" href="index.html">← Back to Home</a>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="panel">
-          <span class="eyebrow">Fastest working version</span>
-          <h1>Get Your Personal Football Development Programme</h1>
-          <p class="lead">Complete this assessment and your answers will be sent directly to your inbox, so you can manually create and send the player’s programme.</p>
-          <div class="cta-list">
-            <div class="cta-item">
-              <strong>Step 1</strong><br>
-              Player completes the assessment.
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="https://www.dropbox.com/scl/fi/rq2po9uje577qugjc8qga/Video-09-03-2026-11-26-31.mov?rlkey=kjc4fhg4kl2ndxe6fvi6a1qqq&st=rvho4533&raw=1" type="video/quicktime">
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <div>
+          <span class="eyebrow">Personalised Programming</span>
+          <h1>Player Performance Assessment</h1>
+          <p class="lead">Complete this assessment to receive a personalised football development programme built around your age, position, level, schedule, training environment, and goals.</p>
+          <div class="hero-points">
+            <div class="hero-point">
+              <strong>Built around you</strong>
+              <span>Programming based on your position, football level, and development priorities.</span>
             </div>
-            <div class="cta-item">
-              <strong>Step 2</strong><br>
-              Answers arrive in your email inbox in a readable format.
+            <div class="hero-point">
+              <strong>Gym + pitch based</strong>
+              <span>Technical work, physical work, and age-appropriate strength programming where suitable.</span>
             </div>
-            <div class="cta-item">
-              <strong>Step 3</strong><br>
-              You paste the answers into your programme prompt and send the result manually.
+            <div class="hero-point">
+              <strong>Realistic structure</strong>
+              <span>Designed around team training, match schedule, time available, and equipment access.</span>
             </div>
           </div>
         </div>
 
-        <div class="panel">
-          <h2>Before you upload</h2>
-          <div class="info-box">
-            <h3>1. Replace the email address</h3>
-            <p>Find this line in the form:</p>
-            <p><code>action="https://formsubmit.co/YOUR_EMAIL@example.com"</code></p>
-            <p>Replace it with your real email address.</p>
-          </div>
-          <div class="info-box" style="margin-top: 14px;">
-            <h3>2. Upload this file</h3>
-            <p>Upload this file to your GitHub repo as a page like <code>assessment.html</code> or rename it to <code>index.html</code>.</p>
-          </div>
-          <div class="info-box" style="margin-top: 14px;">
-            <h3>3. Activate email delivery</h3>
-            <p>The first submission will trigger an activation email. Confirm it once, then future submissions go to your inbox.</p>
-          </div>
-          <div class="success-box">
-            This version is intentionally simple and reliable. It captures the lead first and lets you generate the programme manually.
-          </div>
+        <div class="hero-card">
+          <h2>What you’ll get</h2>
+          <ul>
+            <li>A more complete picture of your current game</li>
+            <li>Clear understanding of what you most need to improve</li>
+            <li>A football programme matched to your real weekly schedule</li>
+            <li>Training that suits your age, environment, and experience</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <section class="assessment">
       <div class="container">
-        <div class="panel">
+        <div class="form-shell">
           <span class="eyebrow">Assessment Form</span>
-          <h2>Player Assessment</h2>
-          <p class="muted">Complete this assessment to receive your personalised football development programme. Your plan will be built around your age, position, level, schedule, training environment, and development goals.</p>
+          <h2>Complete Your Assessment</h2>
+          <p class="subtext">Answer each section as accurately as possible so your programme can be built properly around your needs.</p>
 
-          <form action="https://formsubmit.co/YOUR_EMAIL@example.com" method="POST">
+          <form action="https://formsubmit.co/Marco@officialm2ft.com" method="POST">
             <input type="hidden" name="_subject" value="New M2FT Player Assessment Submission" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_autoresponse" value="Thanks for completing your M2FT player assessment. Your answers have been received and your programme is being prepared." />
+            <input type="hidden" name="_autoresponse" value="Thanks for completing your M2FT player assessment. Your answers have been received and your personalised programme is being prepared." />
 
             <fieldset>
               <legend>Section 1 — Player Information</legend>
@@ -730,7 +780,7 @@
               <button class="btn btn-primary" type="submit">Get My Personalised Programme</button>
               <button class="btn btn-secondary" type="reset">Reset Form</button>
             </div>
-            <p class="helper">After the player submits, the answers will be sent to your email. You can then paste them into your master programme prompt and send the final programme manually.</p>
+            <p class="privacy-note">By submitting this form, you confirm that your answers are accurate and can be used to prepare your personalised football development programme.</p>
           </form>
         </div>
       </div>
@@ -739,8 +789,7 @@
 
   <footer>
     <div class="container">
-      <div class="brand-title">M2FT Performance</div>
-      <div class="brand-subtitle">Simple version first: capture leads, generate programmes manually, then automate later.</div>
+      <div class="footer-text">© 2025 M2FT Performance. All rights reserved.</div>
     </div>
   </footer>
 
@@ -753,6 +802,5 @@
       update();
     });
   </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
