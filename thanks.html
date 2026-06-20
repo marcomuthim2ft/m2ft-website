@@ -13,31 +13,46 @@
       --black: #0a0a0a;
       --navy: #0d1b2a;
       --blue: #1b263b;
+      --deep: #08111d;
       --white: #ffffff;
       --light: #e8e8e8;
       --muted: #bdbdbd;
       --line: rgba(255,255,255,0.10);
-      --panel: rgba(7, 12, 20, 0.72);
+      --line-strong: rgba(255,255,255,0.16);
+      --panel: rgba(7, 12, 20, 0.76);
       --panel-2: rgba(255,255,255,0.05);
+      --panel-3: rgba(255,255,255,0.03);
       --accent: #ff6b35;
+      --accent-soft: rgba(255,107,53,0.16);
       --green: #2ecc71;
       --yellow: #f5c542;
       --shadow: 0 20px 48px rgba(0,0,0,0.35);
+      --shadow-strong: 0 24px 60px rgba(0,0,0,0.42);
       --radius: 18px;
-      --max: 1180px;
+      --radius-lg: 24px;
+      --max: 1220px;
     }
 
     * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--white);
       line-height: 1.6;
-      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 45%, var(--black) 100%);
+      background:
+        radial-gradient(circle at top left, rgba(255,107,53,0.10), transparent 30%),
+        linear-gradient(135deg, var(--navy) 0%, var(--blue) 45%, var(--black) 100%);
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .container {
       width: min(var(--max), calc(100% - 24px));
@@ -47,9 +62,9 @@
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(10,10,10,0.82);
-      backdrop-filter: blur(12px);
+      z-index: 30;
+      background: rgba(8, 12, 18, 0.82);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
@@ -68,23 +83,23 @@
     }
 
     .brand-mark {
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       display: grid;
       place-items: center;
-      border-radius: 14px;
+      border-radius: 16px;
       font-weight: 900;
-      letter-spacing: 0.05em;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,107,53,0.16));
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,107,53,0.20));
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: 0 10px 24px rgba(255,107,53,0.18);
     }
 
     .brand-title {
-      font-size: 1.05rem;
+      font-size: 1.04rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
 
     .brand-subtitle {
@@ -96,11 +111,15 @@
       color: var(--light);
       font-weight: 700;
       font-size: 0.95rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
     }
 
     .hero {
       position: relative;
-      min-height: 64vh;
+      min-height: 72vh;
       display: flex;
       align-items: center;
       overflow: hidden;
@@ -113,44 +132,51 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: saturate(0.95) contrast(1.02);
     }
 
     .hero-overlay {
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(7,12,20,0.88) 0%, rgba(7,12,20,0.68) 45%, rgba(7,12,20,0.82) 100%),
-        linear-gradient(180deg, rgba(10,10,10,0.18) 0%, rgba(10,10,10,0.62) 100%);
+        linear-gradient(90deg, rgba(8, 14, 24, 0.92) 0%, rgba(8, 14, 24, 0.74) 45%, rgba(8, 14, 24, 0.88) 100%),
+        linear-gradient(180deg, rgba(10,10,10,0.14) 0%, rgba(10,10,10,0.56) 100%);
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 72px 0;
+      padding: 84px 0 78px;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 22px;
-      align-items: center;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 24px;
+      align-items: stretch;
     }
 
     .eyebrow {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
       color: #d8d8d8;
       font-size: 0.78rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    h1, h2, h3 { line-height: 1.04; letter-spacing: -0.03em; }
+    h1, h2, h3, h4 {
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
 
     h1 {
-      margin: 16px 0 14px;
-      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      margin-top: 16px;
+      font-size: clamp(2.8rem, 6vw, 4.9rem);
       font-weight: 900;
       background: linear-gradient(to right, #ffffff, #ff6b35);
       -webkit-background-clip: text;
@@ -159,68 +185,43 @@
     }
 
     h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.7rem, 4vw, 2.4rem);
-      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 850;
     }
 
     h3 {
-      margin: 0 0 8px;
       font-size: 1.08rem;
       font-weight: 800;
+    }
+
+    h4 {
+      font-size: 0.96rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
     }
 
     .lead,
     .subtext,
     .muted,
     .footer-text,
+    .timeline-text,
     .small-note,
-    .timeline-text {
+    .card-note {
       color: var(--light);
-      opacity: 0.92;
+      opacity: 0.94;
     }
 
-    .hero-card,
-    .section-card,
-    .insight-card,
-    .score-card,
-    .message-box,
-    .timeline-card {
-      background: var(--panel-2);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-card {
-      padding: 26px;
-      background: rgba(7, 12, 20, 0.68);
-    }
-
-    .hero-card ul {
+    .hero-copy .lead {
       margin: 16px 0 0;
-      padding-left: 18px;
-      color: #e2e2e2;
-    }
-
-    .hero-card li + li { margin-top: 10px; }
-
-    .report {
-      padding: 52px 0 68px;
-    }
-
-    .message-box {
-      padding: 24px;
-      background: rgba(255,255,255,0.04);
-      margin-bottom: 20px;
+      max-width: 760px;
+      font-size: 1.04rem;
     }
 
     .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 18px;
+      margin-top: 22px;
     }
 
     .pill {
@@ -233,9 +234,77 @@
       border: 1px solid rgba(255,255,255,0.10);
       font-weight: 700;
       font-size: 0.92rem;
+      backdrop-filter: blur(10px);
     }
 
     .pill strong { color: #fff; }
+
+    .hero-card,
+    .section-card,
+    .insight-card,
+    .score-card,
+    .message-box,
+    .timeline-card,
+    .snapshot-card,
+    .spotlight-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card {
+      padding: 26px;
+      background: rgba(8, 13, 22, 0.76);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      box-shadow: var(--shadow-strong);
+    }
+
+    .hero-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: #2ecc71;
+      box-shadow: 0 0 0 8px rgba(46,204,113,0.12);
+      flex: 0 0 auto;
+    }
+
+    .hero-card ul {
+      margin: 18px 0 0;
+      padding-left: 18px;
+      color: #e4e4e4;
+    }
+
+    .hero-card li + li {
+      margin-top: 10px;
+    }
+
+    .report {
+      padding: 56px 0 72px;
+    }
+
+    .message-box {
+      padding: 24px;
+      background: rgba(255,255,255,0.04);
+      margin-bottom: 20px;
+    }
+
+    .message-box h2 {
+      margin-top: 12px;
+      margin-bottom: 10px;
+    }
 
     .grid {
       display: grid;
@@ -250,24 +319,66 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .snapshot-card {
+      padding: 18px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .snapshot-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffb299;
+      margin-bottom: 10px;
+    }
+
+    .snapshot-value {
+      font-size: 1.02rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .snapshot-note {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      color: #dbdbdb;
+      opacity: 0.9;
+    }
+
     .section-card {
       padding: 22px;
-      background: rgba(9, 14, 24, 0.82);
+      background: rgba(9, 14, 24, 0.84);
     }
 
-    .insight-list {
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .section-head-left {
       display: grid;
-      gap: 12px;
-      margin-top: 14px;
+      gap: 10px;
     }
 
-    .insight-card {
-      padding: 16px;
+    .section-stamp {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
     }
-
-    .insight-card.strength { border-left: 4px solid var(--green); }
-    .insight-card.weakness { border-left: 4px solid var(--accent); }
-    .insight-card.focus { border-left: 4px solid var(--yellow); }
 
     .tag-row {
       display: flex;
@@ -288,6 +399,22 @@
     .tag.green { background: rgba(46, 204, 113, 0.16); }
     .tag.orange { background: rgba(255, 107, 53, 0.16); }
     .tag.yellow { background: rgba(245, 197, 66, 0.16); }
+    .tag.blue { background: rgba(105, 178, 255, 0.16); }
+
+    .insight-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .insight-card {
+      padding: 16px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .insight-card.strength { border-left: 4px solid var(--green); }
+    .insight-card.weakness { border-left: 4px solid var(--accent); }
+    .insight-card.focus { border-left: 4px solid var(--yellow); }
 
     .scores {
       display: grid;
@@ -298,6 +425,7 @@
 
     .score-card {
       padding: 16px;
+      background: rgba(255,255,255,0.04);
     }
 
     .score-top {
@@ -330,17 +458,66 @@
     }
 
     .timeline-card {
-      padding: 16px;
+      padding: 18px;
       background: rgba(255,255,255,0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(255,107,53,0.92), rgba(255,209,102,0.92));
     }
 
     .timeline-step {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #ffb299;
       margin-bottom: 8px;
+    }
+
+    .spotlight-card {
+      padding: 22px;
+      background: linear-gradient(135deg, rgba(255,107,53,0.10), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .spotlight-quote {
+      font-size: 1.02rem;
+      color: #f2f2f2;
+    }
+
+    .mini-report {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-report-row {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-report-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #ffb299;
+      font-weight: 800;
+      margin-bottom: 6px;
     }
 
     .cta-row {
@@ -354,8 +531,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 50px;
-      padding: 12px 20px;
+      min-height: 52px;
+      padding: 12px 22px;
       border-radius: 14px;
       border: 1px solid transparent;
       font-weight: 800;
@@ -363,7 +540,9 @@
       transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
-    .btn:hover { transform: translateY(-1px); }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
 
     .btn-primary {
       background: #ff6b35;
@@ -383,10 +562,17 @@
       background: rgba(10,10,10,0.55);
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1100px) {
       .hero-content,
+      .spotlight-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 980px) {
       .grid.two,
       .grid.three,
+      .grid.four,
       .scores,
       .timeline {
         grid-template-columns: 1fr;
@@ -400,12 +586,26 @@
         align-items: stretch;
       }
 
-      .hero-content { padding: 48px 0; }
+      .hero-content {
+        padding: 52px 0;
+      }
+
       .hero-card,
       .section-card,
       .message-box,
-      .timeline-card { padding: 20px; }
-      .btn { width: 100%; }
+      .timeline-card,
+      .snapshot-card,
+      .spotlight-card {
+        padding: 20px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .back-link {
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -431,27 +631,43 @@
       <div class="hero-overlay"></div>
 
       <div class="container hero-content">
-        <div>
-          <span class="eyebrow">Thank You</span>
-          <h1>Your assessment has been submitted.</h1>
+        <div class="hero-copy">
+          <span class="eyebrow">Assessment Received</span>
+          <h1>Your player report is now underway.</h1>
           <p class="lead" id="heroMessage">Thank you for submitting your answers. Your programme will take 1–2 days to be created and then it will be sent to your inbox. Please check your spam folder as well if you do not see it in your main inbox.</p>
 
           <div class="pill-row">
             <div class="pill"><strong>Delivery:</strong> 1–2 days</div>
-            <div class="pill"><strong>Inbox check:</strong> Main + spam</div>
-            <div class="pill"><strong>Built around:</strong> Your answers</div>
+            <div class="pill"><strong>Coach review:</strong> included</div>
+            <div class="pill"><strong>Inbox check:</strong> main + spam</div>
           </div>
         </div>
 
         <div class="hero-card">
-          <span class="eyebrow">Instant Coach Snapshot</span>
-          <h2 id="playerTypeHeading">Your mini player summary</h2>
-          <ul id="heroBullets">
-            <li>Immediate snapshot of your current strengths</li>
-            <li>Main areas that appear to need the most attention</li>
-            <li>Key themes likely to be built into your programme</li>
-            <li>A quick reminder of what happens next</li>
-          </ul>
+          <div class="hero-card-top">
+            <div>
+              <div class="eyebrow">Instant Snapshot</div>
+              <div style="margin-top:12px;">
+                <h2 id="playerTypeHeading">Mini Player Report</h2>
+              </div>
+            </div>
+            <div class="status-dot"></div>
+          </div>
+
+          <div class="mini-report">
+            <div class="mini-report-row">
+              <div class="mini-report-label">Current Edge</div>
+              <div id="heroEdge">Loading your strongest qualities...</div>
+            </div>
+            <div class="mini-report-row">
+              <div class="mini-report-label">Main Growth Zone</div>
+              <div id="heroGrowth">Loading your main development needs...</div>
+            </div>
+            <div class="mini-report-row">
+              <div class="mini-report-label">Programme Direction</div>
+              <div id="heroDirection">Loading your likely programme focus...</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -459,15 +675,47 @@
     <section class="report">
       <div class="container">
         <div class="message-box">
-          <span class="eyebrow">Coach Read</span>
+          <span class="eyebrow">Coach Overview</span>
           <h2 id="playerNameHeading">We’ve got your submission.</h2>
           <p class="subtext" id="nextStepText">Your personalised programme will now be reviewed and built around your schedule, training environment, position, and improvement needs.</p>
           <p class="subtext" id="coachReadText" style="margin-top:12px;"></p>
         </div>
 
+        <div class="grid four" style="margin-bottom:18px;">
+          <div class="snapshot-card">
+            <div class="snapshot-label">Player Type</div>
+            <div class="snapshot-value" id="snapshotType">Developing player</div>
+            <div class="snapshot-note">How the current answers read at first glance.</div>
+          </div>
+
+          <div class="snapshot-card">
+            <div class="snapshot-label">Primary Strength</div>
+            <div class="snapshot-value" id="snapshotStrength">Loading...</div>
+            <div class="snapshot-note">Strongest current edge to keep building on.</div>
+          </div>
+
+          <div class="snapshot-card">
+            <div class="snapshot-label">Main Improvement</div>
+            <div class="snapshot-value" id="snapshotWeakness">Loading...</div>
+            <div class="snapshot-note">Biggest area most likely to unlock progress.</div>
+          </div>
+
+          <div class="snapshot-card">
+            <div class="snapshot-label">Weekly Direction</div>
+            <div class="snapshot-value" id="snapshotLoad">Loading...</div>
+            <div class="snapshot-note">How your weekly schedule affects programme design.</div>
+          </div>
+        </div>
+
         <div class="section-card" style="margin-bottom:18px;">
-          <span class="eyebrow">What Happens Next</span>
-          <h2>Your next 48 hours</h2>
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="eyebrow">What Happens Next</span>
+              <h2>Your next 48 hours</h2>
+            </div>
+            <div class="section-stamp">Delivery Flow</div>
+          </div>
+
           <div class="timeline">
             <div class="timeline-card">
               <div class="timeline-step">Step 1</div>
@@ -477,12 +725,12 @@
             <div class="timeline-card">
               <div class="timeline-step">Step 2</div>
               <h3>Coach review</h3>
-              <div class="timeline-text">Your profile, schedule, goals, and limitations are checked together.</div>
+              <div class="timeline-text">Your profile, schedule, goals, and restrictions are read together.</div>
             </div>
             <div class="timeline-card">
               <div class="timeline-step">Step 3</div>
-              <h3>Programme build</h3>
-              <div class="timeline-text">Your sessions are structured around your real week and environment.</div>
+              <h3>Programme built</h3>
+              <div class="timeline-text">Your plan is matched to your week, position, environment, and priorities.</div>
             </div>
             <div class="timeline-card">
               <div class="timeline-step">Step 4</div>
@@ -492,17 +740,51 @@
           </div>
         </div>
 
+        <div class="spotlight-card" style="margin-bottom:18px;">
+          <div class="spotlight-grid">
+            <div>
+              <span class="eyebrow">Coach Voice</span>
+              <h2 style="margin-top:12px;">What your answers suggest right now</h2>
+              <p class="spotlight-quote" id="premiumCoachQuote">We’re building a clearer picture of your current game and the areas most likely to move you forward fastest.</p>
+            </div>
+            <div class="mini-report">
+              <div class="mini-report-row">
+                <div class="mini-report-label">Position Lens</div>
+                <div id="miniPositionLens">Loading...</div>
+              </div>
+              <div class="mini-report-row">
+                <div class="mini-report-label">Environment Fit</div>
+                <div id="miniEnvironmentFit">Loading...</div>
+              </div>
+              <div class="mini-report-row">
+                <div class="mini-report-label">Main Focus Bias</div>
+                <div id="miniFocusBias">Loading...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="grid two">
           <div class="section-card">
-            <span class="eyebrow">Strengths</span>
-            <h2>Your current strengths</h2>
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Strengths</span>
+                <h2>Your current strengths</h2>
+              </div>
+              <div class="section-stamp">Green Light Areas</div>
+            </div>
             <div id="strengthTags" class="tag-row"></div>
             <div class="insight-list" id="strengthInsights"></div>
           </div>
 
           <div class="section-card">
-            <span class="eyebrow">Improvement Areas</span>
-            <h2>Main weaknesses to address</h2>
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Improvement Areas</span>
+                <h2>Main weaknesses to address</h2>
+              </div>
+              <div class="section-stamp">Priority Fixes</div>
+            </div>
             <div id="weaknessTags" class="tag-row"></div>
             <div class="insight-list" id="weaknessInsights"></div>
           </div>
@@ -510,15 +792,25 @@
 
         <div class="grid two" style="margin-top:18px;">
           <div class="section-card">
-            <span class="eyebrow">Programme Focus</span>
-            <h2>What your programme will likely focus on</h2>
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Programme Focus</span>
+                <h2>What your programme will likely focus on</h2>
+              </div>
+              <div class="section-stamp">Build Direction</div>
+            </div>
             <div id="focusTags" class="tag-row"></div>
             <div class="insight-list" id="focusInsights"></div>
           </div>
 
           <div class="section-card">
-            <span class="eyebrow">Player Profile</span>
-            <h2>How your answers read</h2>
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Player Profile</span>
+                <h2>How your answers read</h2>
+              </div>
+              <div class="section-stamp">Coach Lens</div>
+            </div>
             <div id="profileTags" class="tag-row"></div>
             <div class="insight-list" id="profileInsights"></div>
           </div>
@@ -526,8 +818,13 @@
 
         <div class="grid" style="margin-top:18px;">
           <div class="section-card">
-            <span class="eyebrow">Self-Rating Snapshot</span>
-            <h2>Your submitted ratings</h2>
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Self-Rating Snapshot</span>
+                <h2>Your submitted ratings</h2>
+              </div>
+              <div class="section-stamp">Initial Data View</div>
+            </div>
             <p class="small-note">This is a quick interpretation of your self-assessment, used only as a first snapshot before full coach review.</p>
             <div id="scoresGrid" class="scores"></div>
           </div>
@@ -646,10 +943,10 @@
       return terms.some(term => source.includes(term));
     }
 
-    function createTag(containerId, text, cls) {
+    function createTag(containerId, value, cls) {
       const el = document.createElement('div');
       el.className = `tag ${cls}`.trim();
-      el.textContent = text;
+      el.textContent = value;
       document.getElementById(containerId).appendChild(el);
     }
 
@@ -819,6 +1116,16 @@
       document.getElementById('nextStepText').textContent = defaultMessage;
       document.getElementById('coachReadText').textContent = 'Once the assessment is submitted from the live page, this screen will build a smarter player summary from the answers provided.';
 
+      document.getElementById('heroEdge').textContent = 'Your strongest qualities will show here.';
+      document.getElementById('heroGrowth').textContent = 'Your main development needs will show here.';
+      document.getElementById('heroDirection').textContent = 'Your likely programme focus will show here.';
+      document.getElementById('snapshotStrength').textContent = 'Awaiting submit';
+      document.getElementById('snapshotWeakness').textContent = 'Awaiting submit';
+      document.getElementById('snapshotLoad').textContent = 'Awaiting submit';
+      document.getElementById('miniPositionLens').textContent = 'Available after live submission.';
+      document.getElementById('miniEnvironmentFit').textContent = 'Available after live submission.';
+      document.getElementById('miniFocusBias').textContent = 'Available after live submission.';
+
       createInsight('strengthInsights', 'Summary available after assessment submit', 'Once the form is completed from the live assessment page, this section can display a smarter strengths and weaknesses summary based on the submitted answers.', 'strength');
       createInsight('weaknessInsights', 'No stored assessment found', 'Open the assessment page, submit the form, and the thank-you page will build the mini player report automatically.', 'weakness');
       createInsight('focusInsights', 'Coach review still applies', 'Your full programme should still be manually reviewed and built around the player, even when the instant summary is shown here.', 'focus');
@@ -844,33 +1151,45 @@
 
       document.getElementById('playerNameHeading').textContent = `${name}, we’ve got your submission.`;
       document.getElementById('nextStepText').textContent = `${defaultMessage} Below is a smarter first-pass snapshot based on your answers today.`;
-      document.getElementById('heroMessage').textContent = defaultMessage;
-      document.getElementById('playerTypeHeading').textContent = archetype;
 
       const coachReadParts = [];
-
-      coachReadParts.push(`At first glance, your answers read like a ${lower(positionLens.title)} with potential around ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')}.`);
-
+      coachReadParts.push(`At first glance, your answers read like a ${lower(positionLens.title)} with upside around ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')}.`);
       if (text(data.mainGoal)) {
-        coachReadParts.push(`Your main stated objective is to ${lower(data.mainGoal)}, so the programme will likely be pushed towards that outcome rather than generic work.`);
+        coachReadParts.push(`Your main stated objective is to ${lower(data.mainGoal)}, so the programme should be pushed toward that outcome rather than generic work.`);
       }
-
       coachReadParts.push(loadProfile.note);
 
       document.getElementById('coachReadText').textContent = coachReadParts.join(' ');
+      document.getElementById('heroMessage').textContent = defaultMessage;
+      document.getElementById('playerTypeHeading').textContent = archetype;
+      document.getElementById('snapshotType').textContent = archetype;
+      document.getElementById('snapshotStrength').textContent = strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).slice(0, 2).join(' + ');
+      document.getElementById('snapshotWeakness').textContent = mainWeaknessWords.slice(0, 2).join(' + ') || 'overall consistency';
+      document.getElementById('snapshotLoad').textContent = loadProfile.label;
+
+      document.getElementById('heroEdge').textContent = strongest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ');
+      document.getElementById('heroGrowth').textContent = mainWeaknessWords.slice(0, 3).join(', ') || 'overall consistency';
+      document.getElementById('heroDirection').textContent = (focusMap[data.mainGoal] || positionLens.focus).slice(0, 3).join(', ');
+
+      document.getElementById('miniPositionLens').textContent = `${positionLens.title} — likely bias towards ${positionLens.focus.slice(0, 3).join(', ')}.`;
+      document.getElementById('miniEnvironmentFit').textContent = environmentSummary.length ? environmentSummary.join(', ') : 'Work will be shaped around your current setup.';
+      document.getElementById('miniFocusBias').textContent = text(data.mainGoal) ? `${data.mainGoal} + ${mainWeaknessWords.slice(0, 2).join(', ')}` : mainWeaknessWords.slice(0, 3).join(', ');
+
+      document.getElementById('premiumCoachQuote').textContent =
+        `Based on your answers, the biggest opportunity looks like building on ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).slice(0, 2).join(' and ')} while pushing progress in ${mainWeaknessWords.slice(0, 2).join(' and ') || 'your main development areas'}. The programme should be matched to your real week, not just built as a generic plan.`;
 
       strongest.forEach(item => createTag('strengthTags', `${item.label} (${item.value}/10)`, 'green'));
       weakest.forEach(item => createTag('weaknessTags', `${item.label} (${item.value}/10)`, 'orange'));
 
       createTag('profileTags', archetype, 'yellow');
-      createTag('profileTags', positionLens.title, 'yellow');
+      createTag('profileTags', positionLens.title, 'blue');
       createTag('profileTags', loadProfile.label, 'yellow');
-      if (text(data.level)) createTag('profileTags', data.level, 'yellow');
+      if (text(data.level)) createTag('profileTags', data.level, 'blue');
 
       createInsight(
         'strengthInsights',
         'Best-rated attributes',
-        `Your highest self-rated areas are ${strongest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ')}. These look like the main qualities already giving you some edge.`,
+        `Your highest self-rated areas are ${strongest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ')}. These look like the qualities already giving you some edge right now.`,
         'strength'
       );
 
@@ -901,7 +1220,7 @@
         createInsight(
           'weaknessInsights',
           'Player-identified weakness',
-          `You specifically said the part of your game needing the most improvement is: “${text(data.weakestAreaText)}”. That matters because written answers often show the issue the player feels most in matches, not just in ratings.`,
+          `You specifically said the part of your game needing the most improvement is: “${text(data.weakestAreaText)}”. That matters because written answers often reveal what the player feels most in matches, not just what the slider shows.`,
           'weakness'
         );
       }
@@ -999,20 +1318,12 @@
         createInsight(
           'profileInsights',
           'Your success measure',
-          `You said success over the next 4 weeks would look like: “${text(data.success)}”. That is useful because the programme should aim at outcomes you can actually feel and recognise, not just random drills.`,
+          `You said success over the next 4 weeks would look like: “${text(data.success)}”. That helps because the programme should aim at outcomes you can actually feel and recognise, not just random drills.`,
           'focus'
         );
       }
 
       ratingsArray.forEach(item => createScore(item.label, item.value));
-
-      const heroBullets = document.getElementById('heroBullets');
-      heroBullets.innerHTML = `
-        <li><strong>Profile type:</strong> ${archetype}</li>
-        <li><strong>Strongest current edge:</strong> ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')}</li>
-        <li><strong>Main growth zone:</strong> ${mainWeaknessWords.slice(0, 2).join(', ') || 'overall consistency'}</li>
-        <li><strong>Programme direction:</strong> ${finalFocus.slice(0, 3).join(', ')}</li>
-      `;
     }
   </script>
 </body>
