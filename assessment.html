@@ -27,6 +27,7 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -35,8 +36,15 @@
       background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 45%, var(--black) 100%);
     }
 
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(var(--max), calc(100% - 24px)); margin: 0 auto; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 24px));
+      margin: 0 auto;
+    }
 
     .topbar {
       position: sticky;
@@ -158,6 +166,12 @@
     h2 {
       margin: 0 0 10px;
       font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.12rem;
       font-weight: 800;
     }
 
@@ -495,12 +509,12 @@
           <p class="subtext">Answer each section as accurately as possible so your programme can be built properly around your needs.</p>
 
           <form action="https://formsubmit.co/Marco@officialm2ft.com" method="POST">
-            <input type="hidden" name="_subject" value="New M2FT Player Assessment Submission" />
+            <input type="hidden" name="_subject" value="New Player Assessment Submission | M2FT Performance" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_autoresponse" value="Thanks for completing your M2FT player assessment. Your answers have been received and your personalised programme is being prepared." />
             <input type="hidden" name="_url" value="https://m2ftperformance.com/assessment" />
-            <input type="hidden" name="_next" value="https://m2ftperformance.com/assessment" />
+            <input type="hidden" name="_next" value="https://m2ftperformance.com/thanks.html" />
 
             <fieldset>
               <legend>Section 1 — Player Information</legend>
