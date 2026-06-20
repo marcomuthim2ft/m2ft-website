@@ -20,7 +20,6 @@
       --panel: rgba(7, 12, 20, 0.72);
       --panel-2: rgba(255,255,255,0.05);
       --accent: #ff6b35;
-      --accent-soft: rgba(255,107,53,0.12);
       --shadow: 0 20px 48px rgba(0,0,0,0.35);
       --radius: 18px;
       --max: 1180px;
@@ -141,13 +140,16 @@
       text-transform: uppercase;
     }
 
-    h1, h2, h3 { line-height: 1.04; letter-spacing: -0.03em; }
+    h1, h2, h3 {
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
 
     h1 {
       margin: 16px 0 14px;
       font-size: clamp(2.6rem, 6vw, 4.7rem);
       font-weight: 900;
-      background: linear-gradient(to right, #ffffff, var(--accent));
+      background: linear-gradient(to right, #ffffff, #ff6b35);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -159,20 +161,13 @@
       font-weight: 800;
     }
 
-    h3 {
-      margin: 0 0 8px;
-      font-size: 1.12rem;
-      font-weight: 800;
-    }
-
     .lead,
-    .hero-note,
     .field-help,
     .privacy-note,
     .footer-text,
     .subtext {
       color: var(--light);
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     .hero-points {
@@ -184,9 +179,7 @@
 
     .hero-point,
     .form-shell,
-    .field-card,
-    fieldset,
-    .summary-card {
+    fieldset {
       background: var(--panel-2);
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -194,13 +187,19 @@
       backdrop-filter: blur(10px);
     }
 
-    .hero-point,
-    .summary-card {
+    .hero-point {
       padding: 16px;
     }
 
-    .hero-point strong { display: block; margin-bottom: 6px; }
-    .hero-point span { color: #dddddd; font-size: 0.92rem; }
+    .hero-point strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .hero-point span {
+      color: #dddddd;
+      font-size: 0.92rem;
+    }
 
     .hero-card {
       background: rgba(7, 12, 20, 0.66);
@@ -217,7 +216,9 @@
       color: #e2e2e2;
     }
 
-    .hero-card li + li { margin-top: 10px; }
+    .hero-card li + li {
+      margin-top: 10px;
+    }
 
     .assessment {
       padding: 52px 0 64px;
@@ -264,7 +265,9 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .field.full { grid-column: 1 / -1; }
+    .field.full {
+      grid-column: 1 / -1;
+    }
 
     label {
       display: block;
@@ -294,7 +297,7 @@
     select:focus,
     textarea:focus {
       outline: none;
-      border-color: var(--accent);
+      border-color: #ff6b35;
       box-shadow: 0 0 0 3px rgba(255,107,53,0.12);
     }
 
@@ -318,7 +321,7 @@
       width: auto;
       min-height: auto;
       margin-top: 4px;
-      accent-color: var(--accent);
+      accent-color: #ff6b35;
     }
 
     .slider-top {
@@ -330,13 +333,13 @@
     }
 
     .slider-value {
-      color: var(--accent);
+      color: #ff6b35;
       font-weight: 900;
     }
 
     input[type="range"] {
       width: 100%;
-      accent-color: var(--accent);
+      accent-color: #ff6b35;
     }
 
     .submit-wrap {
@@ -360,10 +363,12 @@
       transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
-    .btn:hover { transform: translateY(-1px); }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
 
     .btn-primary {
-      background: var(--accent);
+      background: #ff6b35;
       color: #0a0a0a;
       box-shadow: 0 10px 28px rgba(255,107,53,0.24);
     }
@@ -437,7 +442,7 @@
           <div class="brand-subtitle">Player Assessment</div>
         </div>
       </div>
-      <a class="back-link" href="index.html">← Back to Home</a>
+      <a class="back-link" href="/">← Back to Home</a>
     </div>
   </header>
 
@@ -447,11 +452,13 @@
         <source src="https://www.dropbox.com/scl/fi/rq2po9uje577qugjc8qga/Video-09-03-2026-11-26-31.mov?rlkey=kjc4fhg4kl2ndxe6fvi6a1qqq&st=rvho4533&raw=1" type="video/quicktime">
       </video>
       <div class="hero-overlay"></div>
+
       <div class="container hero-content">
         <div>
           <span class="eyebrow">Personalised Programming</span>
           <h1>Player Performance Assessment</h1>
           <p class="lead">Complete this assessment to receive a personalised football development programme built around your age, position, level, schedule, training environment, and goals.</p>
+
           <div class="hero-points">
             <div class="hero-point">
               <strong>Built around you</strong>
@@ -492,6 +499,8 @@
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_autoresponse" value="Thanks for completing your M2FT player assessment. Your answers have been received and your personalised programme is being prepared." />
+            <input type="hidden" name="_url" value="https://m2ftperformance.com/assessment" />
+            <input type="hidden" name="_next" value="https://m2ftperformance.com/assessment" />
 
             <fieldset>
               <legend>Section 1 — Player Information</legend>
@@ -656,6 +665,7 @@
                   </select>
                 </div>
               </div>
+
               <div class="field full" style="margin-top:14px;">
                 <label>Equipment Available</label>
                 <div class="checkbox-grid two">
@@ -779,6 +789,7 @@
               <button class="btn btn-primary" type="submit">Get My Personalised Programme</button>
               <button class="btn btn-secondary" type="reset">Reset Form</button>
             </div>
+
             <p class="privacy-note">By submitting this form, you confirm that your answers are accurate and can be used to prepare your personalised football development programme.</p>
           </form>
         </div>
