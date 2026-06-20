@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Internal M2FT coach dashboard for turning player assessments into programme-ready summaries." />
+  <title>M2FT | Coach Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --navy: #0d1b2a;
+      --blue: #1b263b;
+      --deep: #08111d;
+      --white: #ffffff;
+      --light: #e8e8e8;
+      --muted: #bdbdbd;
+      --line: rgba(255,255,255,0.10);
+      --line-strong: rgba(255,255,255,0.16);
+      --panel: rgba(7, 12, 20, 0.78);
+      --panel-2: rgba(255,255,255,0.05);
+      --panel-3: rgba(255,255,255,0.03);
+      --accent: #ff6b35;
+      --accent-soft: rgba(255,107,53,0.16);
+      --green: #2ecc71;
+      --yellow: #f5c542;
+      --red: #ff6b6b;
+      --shadow: 0 20px 48px rgba(0,0,0,0.35);
+      --shadow-strong: 0 24px 60px rgba(0,0,0,0.42);
+      --radius: 18px;
+      --radius-lg: 24px;
+      --max: 1320px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--white);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at top left, rgba(255,107,53,0.10), transparent 28%),
+        linear-gradient(135deg, var(--navy) 0%, var(--blue) 45%, var(--black) 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 24px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(8, 12, 18, 0.84);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,107,53,0.20));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 24px rgba(255,107,53,0.18);
+    }
+
+    .brand-title {
+      font-size: 1.04rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .back-link {
+      color: var(--light);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero {
+      padding: 34px 0 12px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #d8d8d8;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      margin-top: 16px;
+      font-size: clamp(2.4rem, 5vw, 4.1rem);
+      font-weight: 900;
+      background: linear-gradient(to right, #ffffff, #ff6b35);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 850;
+    }
+
+    h3 {
+      font-size: 1.02rem;
+      font-weight: 800;
+    }
+
+    h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    .lead,
+    .muted,
+    .small-note,
+    .footer-text {
+      color: var(--light);
+      opacity: 0.94;
+    }
+
+    .hero-copy .lead {
+      margin-top: 16px;
+      max-width: 760px;
+    }
+
+    .panel,
+    .input-card,
+    .section-card,
+    .stat-card,
+    .list-card,
+    .summary-card,
+    .output-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel {
+      padding: 24px;
+      background: rgba(8, 13, 22, 0.78);
+      box-shadow: var(--shadow-strong);
+    }
+
+    .input-card {
+      padding: 22px;
+      background: rgba(9, 14, 24, 0.84);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: #ff6b35;
+      color: #0a0a0a;
+      box-shadow: 0 10px 28px rgba(255,107,53,0.24);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--white);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.02);
+      color: var(--light);
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 230px;
+      resize: vertical;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(10,10,10,0.72);
+      color: var(--white);
+      font: inherit;
+      margin-top: 14px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #ff6b35;
+      box-shadow: 0 0 0 3px rgba(255,107,53,0.12);
+    }
+
+    .report {
+      padding: 16px 0 72px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .stat-card {
+      padding: 18px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffb299;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .stat-note {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      color: #dbdbdb;
+      opacity: 0.9;
+    }
+
+    .section-card {
+      padding: 22px;
+      background: rgba(9, 14, 24, 0.84);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .section-head-left {
+      display: grid;
+      gap: 10px;
+    }
+
+    .section-stamp {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .summary-card {
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255,107,53,0.10), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .summary-text {
+      margin-top: 14px;
+      color: #f1f1f1;
+      white-space: pre-wrap;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .tag.green { background: rgba(46, 204, 113, 0.16); }
+    .tag.orange { background: rgba(255, 107, 53, 0.16); }
+    .tag.yellow { background: rgba(245, 197, 66, 0.16); }
+    .tag.red { background: rgba(255, 107, 107, 0.16); }
+
+    .list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .list-card {
+      padding: 15px 16px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .list-card.red {
+      border-left: 4px solid var(--red);
+    }
+
+    .list-card.green {
+      border-left: 4px solid var(--green);
+    }
+
+    .list-card.yellow {
+      border-left: 4px solid var(--yellow);
+    }
+
+    .list-card.orange {
+      border-left: 4px solid var(--accent);
+    }
+
+    .output-card {
+      padding: 18px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .copy-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      padding: 30px 0 42px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10,10,10,0.55);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .grid.four {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .grid.two,
+      .grid.three,
+      .grid.four,
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner,
+      .actions,
+      .copy-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .panel,
+      .input-card,
+      .section-card,
+      .stat-card,
+      .summary-card,
+      .output-card {
+        padding: 18px;
+      }
+
+      .btn,
+      .back-link {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand-wrap">
+        <div class="brand-mark">M2FT</div>
+        <div>
+          <div class="brand-title">M2FT Performance</div>
+          <div class="brand-subtitle">Coach Dashboard</div>
+        </div>
+      </div>
+      <a class="back-link" href="/">← Back to Home</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="panel">
+          <span class="eyebrow">Internal Coach Tool</span>
+          <h1>Turn player submissions into programme-ready decisions.</h1>
+          <p class="lead">This page is built for you, not the player. Load the latest browser assessment or paste player data manually, then generate a fast coach-side read with red flags, focus areas, weekly structure, and a copyable summary.</p>
+        </div>
+
+        <div class="input-card">
+          <span class="eyebrow">Assessment Input</span>
+          <h2 style="margin-top:12px;">Paste player data here</h2>
+          <p class="small-note" style="margin-top:10px;">Works with JSON from the assessment page or copied <span class="mono">Field: Value</span> lines.</p>
+
+          <textarea id="rawInput" placeholder='Paste JSON here or paste lines like:
+Full Name: John Smith
+Age: 16
+Primary Position: Winger
+Main Goal Right Now: Improve dribbling / 1v1
+Top 3 Improvement Priorities: First touch, finishing, stamina'></textarea>
+
+          <div class="actions">
+            <button class="btn btn-primary" id="buildBtn" type="button">Build Coach Dashboard</button>
+            <button class="btn btn-secondary" id="loadLatestBtn" type="button">Load Latest Browser Assessment</button>
+            <button class="btn btn-ghost" id="loadDemoBtn" type="button">Load Demo Data</button>
+            <button class="btn btn-ghost" id="clearBtn" type="button">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report">
+      <div class="container">
+        <div class="grid four" id="overviewGrid">
+          <div class="stat-card">
+            <div class="stat-label">Player</div>
+            <div class="stat-value" id="ovPlayer">No data loaded</div>
+            <div class="stat-note">Name, age, position, level</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Main Goal</div>
+            <div class="stat-value" id="ovGoal">—</div>
+            <div class="stat-note">Biggest player-reported target</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Weekly Load</div>
+            <div class="stat-value" id="ovLoad">—</div>
+            <div class="stat-note">Team sessions, match load, extra days</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label">Environment</div>
+            <div class="stat-value" id="ovEnvironment">—</div>
+            <div class="stat-note">Gym, wall, goal, time available</div>
+          </div>
+        </div>
+
+        <div class="section-card" style="margin-top:18px;">
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="eyebrow">Coach Summary</span>
+              <h2>Fast programme direction</h2>
+            </div>
+            <div class="section-stamp">Copy Ready</div>
+          </div>
+
+          <div class="summary-card">
+            <div id="coachSummary" class="summary-text">Load player data to generate a coach-side summary.</div>
+          </div>
+
+          <div class="copy-row">
+            <button class="btn btn-primary" id="copySummaryBtn" type="button">Copy Coach Summary</button>
+            <button class="btn btn-secondary" id="copyAllBtn" type="button">Copy Full Coach Export</button>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-top:18px;">
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Red Flags</span>
+                <h2>What needs managing carefully</h2>
+              </div>
+              <div class="section-stamp">Risk Control</div>
+            </div>
+            <div id="redFlagsTags" class="tag-row"></div>
+            <div id="redFlagsList" class="list"></div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Player Snapshot</span>
+                <h2>Quick profile read</h2>
+              </div>
+              <div class="section-stamp">20-Second View</div>
+            </div>
+            <div id="profileTags" class="tag-row"></div>
+            <div id="profileList" class="list"></div>
+          </div>
+        </div>
+
+        <div class="grid three" style="margin-top:18px;">
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Technical Focus</span>
+                <h2>Build these first</h2>
+              </div>
+              <div class="section-stamp">Technical</div>
+            </div>
+            <div id="technicalTags" class="tag-row"></div>
+            <div id="technicalList" class="list"></div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Physical Focus</span>
+                <h2>Develop these qualities</h2>
+              </div>
+              <div class="section-stamp">Physical</div>
+            </div>
+            <div id="physicalTags" class="tag-row"></div>
+            <div id="physicalList" class="list"></div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Position Focus</span>
+                <h2>Position-specific bias</h2>
+              </div>
+              <div class="section-stamp">Role Lens</div>
+            </div>
+            <div id="positionTags" class="tag-row"></div>
+            <div id="positionList" class="list"></div>
+          </div>
+        </div>
+
+        <div class="grid two" style="margin-top:18px;">
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Weekly Structure</span>
+                <h2>Recommended weekly shape</h2>
+              </div>
+              <div class="section-stamp">Structure</div>
+            </div>
+            <div id="weeklyTags" class="tag-row"></div>
+            <div id="weeklyList" class="list"></div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-head-left">
+                <span class="eyebrow">Constraints & Notes</span>
+                <h2>What the programme must respect</h2>
+              </div>
+              <div class="section-stamp">Do Not Ignore</div>
+            </div>
+            <div id="constraintsTags" class="tag-row"></div>
+            <div id="constraintsList" class="list"></div>
+          </div>
+        </div>
+
+        <div class="section-card" style="margin-top:18px;">
+          <div class="section-head">
+            <div class="section-head-left">
+              <span class="eyebrow">Coach Export</span>
+              <h2>Copy-paste working output</h2>
+            </div>
+            <div class="section-stamp">Internal Use</div>
+          </div>
+
+          <div class="output-card">
+            <div id="coachExport" class="summary-text">Your full coach export will appear here after generating the dashboard.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-text">© 2025 M2FT Performance. Internal coach workflow tool.</div>
+    </div>
+  </footer>
+
+  <script>
+    const positionLensMap = {
+      'Goalkeeper': {
+        title: 'Goalkeeper profile',
+        tags: ['reactions', 'footwork', 'handling', 'distribution'],
+        technical: ['Footwork mechanics', 'Handling consistency', 'Distribution detail', 'Set position quality'],
+        physical: ['Explosive reactions', 'Lateral movement', 'Stability under load'],
+        role: ['Goalkeeper-specific movement quality', 'Set position discipline', 'Distribution under pressure']
+      },
+      'Defender': {
+        title: 'Defensive profile',
+        tags: ['duels', 'body shape', 'recovery speed', 'composure'],
+        technical: ['Defensive footwork', 'Body shape when receiving', 'Passing out from the back', '1v1 defensive timing'],
+        physical: ['Recovery speed', 'Strength in contact', 'Repeat defensive actions'],
+        role: ['Duel control', 'Recovery runs', 'Composure during build-up']
+      },
+      'Fullback': {
+        title: 'Modern fullback profile',
+        tags: ['repeat runs', 'recovery speed', 'delivery', '1v1 defending'],
+        technical: ['Crossing quality', '1v1 defending', 'Receiving on the move', 'Delivery under fatigue'],
+        physical: ['Acceleration', 'Repeat sprint ability', 'Recovery speed'],
+        role: ['Up-and-down running capacity', 'Wide defending', 'Final-third delivery']
+      },
+      'Midfielder': {
+        title: 'Midfield profile',
+        tags: ['receiving', 'passing', 'scanning', 'engine'],
+        technical: ['First touch under pressure', 'Passing variety', 'Scanning habits', 'Turning out of pressure'],
+        physical: ['Repeat movement capacity', 'Agility in tight spaces', 'Engine / work rate'],
+        role: ['Tempo control', 'Receiving quality', 'Passing detail']
+      },
+      'Attacking Midfielder': {
+        title: 'Creative attacking midfield profile',
+        tags: ['tight-space quality', 'decision making', 'end product', 'composure'],
+        technical: ['Turning under pressure', 'Final-third passing', 'Combination play', 'Decision making in tight spaces'],
+        physical: ['Sharp acceleration', 'Balance in tight areas', 'Repeat creative actions'],
+        role: ['Chance creation', 'Tight-space receiving', 'Final-third decisions']
+      },
+      'Winger': {
+        title: 'Wide attacking profile',
+        tags: ['1v1 threat', 'pace', 'end product', 'repeat sprints'],
+        technical: ['1v1 attacking', 'Ball carrying', 'Final ball quality', 'Finishing from wide areas'],
+        physical: ['Acceleration', 'Repeat sprint ability', 'Sharp changes of direction'],
+        role: ['Beat players', 'Attack space', 'Create or finish actions']
+      },
+      'Forward': {
+        title: 'Forward profile',
+        tags: ['movement', 'finishing', 'physicality', 'confidence'],
+        technical: ['Finishing variety', 'Link play', 'Receiving to secure the ball', 'Movement timing'],
+        physical: ['Explosive movement', 'Strength in contact', 'Repeat high-intensity actions'],
+        role: ['Movement off the line', 'Box presence', 'Composure in front of goal']
+      },
+      'Striker': {
+        title: 'Striker profile',
+        tags: ['finishing', 'movement', 'aggression', 'duels'],
+        technical: ['Finishing sharpness', 'Movement timing', 'Back-to-goal control', 'Penalty-box detail'],
+        physical: ['Acceleration', 'Power in duels', 'Explosive attacking actions'],
+        role: ['Box movement', 'Aggressive runs', 'End-product consistency']
+      }
+    };
+
+    const goalFocusMap = {
+      'Become faster': {
+        technical: ['Sprint mechanics under control', 'Movement efficiency'],
+        physical: ['Acceleration mechanics', 'Speed exposure', 'Power output']
+      },
+      'Improve fitness': {
+        technical: ['Quality retention under fatigue'],
+        physical: ['Aerobic conditioning', 'Repeat sprint ability', 'Recovery efficiency']
+      },
+      'Improve ball mastery': {
+        technical: ['Ball mastery', 'Touch density', 'Repetition quality'],
+        physical: ['Coordination under fatigue']
+      },
+      'Improve confidence': {
+        technical: ['Confidence-building repetition', 'Execution under pressure'],
+        physical: ['Movement sharpness to support confidence']
+      },
+      'Improve first touch': {
+        technical: ['First-touch quality', 'Receiving angles', 'Body shape before contact'],
+        physical: ['Balance and posture on reception']
+      },
+      'Improve decision making': {
+        technical: ['Scanning habits', 'Decision timing', 'Perception before action'],
+        physical: ['Movement efficiency for better decisions']
+      },
+      'Improve finishing': {
+        technical: ['Finishing variety', 'Composure in front of goal', 'Striking technique'],
+        physical: ['Sharp attacking movements']
+      },
+      'Improve dribbling / 1v1': {
+        technical: ['1v1 attacking', 'Ball manipulation at speed', 'Direction changes'],
+        physical: ['Acceleration', 'Agility', 'Explosive first steps']
+      },
+      'Prepare for trials': {
+        technical: ['High-value position detail', 'Execution consistency'],
+        physical: ['Sharpness', 'Readiness', 'High-intensity repeat efforts']
+      },
+      'Return from injury': {
+        technical: ['Low-risk technical progression'],
+        physical: ['Controlled return to load', 'Movement confidence', 'Gradual re-exposure']
+      }
+    };
+
+    function text(v) {
+      return (v || '').toString().trim();
+    }
+
+    function lower(v) {
+      return text(v).toLowerCase();
+    }
+
+    function num(v, fallback = 0) {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : fallback;
+    }
+
+    function titleCase(s) {
+      return text(s).replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function parseTop3(value) {
+      if (!value) return [];
+      return value
+        .split(/\n|,|;|\//)
+        .map(x => x.trim())
+        .filter(Boolean)
+        .slice(0, 5);
+    }
+
+    function arrayify(value) {
+      if (Array.isArray(value)) return value.map(v => text(v)).filter(Boolean);
+      if (!value) return [];
+      return text(value).split(/,|\n|;/).map(v => v.trim()).filter(Boolean);
+    }
+
+    function firstNonEmpty(obj, keys) {
+      for (const key of keys) {
+        const value = obj[key];
+        if (Array.isArray(value) && value.length) return value;
+        if (text(value)) return value;
+      }
+      return '';
+    }
+
+    function parsePastedInput(raw) {
+      const source = text(raw);
+      if (!source) return null;
+
+      if (source.startsWith('{')) {
+        try {
+          return JSON.parse(source);
+        } catch (e) {}
+      }
+
+      const lines = source.split(/\n+/).map(line => line.trim()).filter(Boolean);
+      const obj = {};
+
+      lines.forEach(line => {
+        let key = '';
+        let value = '';
+
+        if (line.includes('\t')) {
+          const parts = line.split('\t');
+          key = text(parts[0]);
+          value = text(parts.slice(1).join(' '));
+        } else {
+          const match = line.match(/^(.+?)\s*:\s*(.+)$/);
+          if (match) {
+            key = text(match[1]);
+            value = text(match[2]);
+          }
+        }
+
+        if (!key) return;
+
+        if (obj[key] === undefined) {
+          obj[key] = value;
+        } else if (Array.isArray(obj[key])) {
+          obj[key].push(value);
+        } else {
+          obj[key] = [obj[key], value];
+        }
+      });
+
+      return obj;
+    }
+
+    function normalizeData(rawInput) {
+      const raw = rawInput || {};
+      const ratings = raw.ratings || {};
+
+      return {
+        fullName: firstNonEmpty(raw, ['fullName', 'Full Name']),
+        email: firstNonEmpty(raw, ['email', 'Email Address']),
+        age: firstNonEmpty(raw, ['age', 'Age']),
+        primaryPosition: firstNonEmpty(raw, ['primaryPosition', 'Primary Position']),
+        secondaryPosition: firstNonEmpty(raw, ['secondaryPosition', 'Secondary Position']),
+        dominantFoot: firstNonEmpty(raw, ['dominantFoot', 'Dominant Foot']),
+        level: firstNonEmpty(raw, ['level', 'Current Playing Level']),
+        teamSessions: firstNonEmpty(raw, ['teamSessions', 'Team Sessions Per Week']),
+        matchesPerWeek: firstNonEmpty(raw, ['matchesPerWeek', 'Matches Per Week']),
+        matchDay: firstNonEmpty(raw, ['matchDay', 'Main Match Day']),
+        extraDays: firstNonEmpty(raw, ['extraDays', 'Additional Training Days Available']),
+        sessionTime: firstNonEmpty(raw, ['sessionTime', 'Typical Session Time Available']),
+        gymAccess: firstNonEmpty(raw, ['gymAccess', 'Gym Access']),
+        techSpace: firstNonEmpty(raw, ['techSpace', 'Technical Training Space']),
+        wallAccess: firstNonEmpty(raw, ['wallAccess', 'Wall Access']),
+        goalAccess: firstNonEmpty(raw, ['goalAccess', 'Goal Access']),
+        equipment: arrayify(firstNonEmpty(raw, ['equipment', 'Equipment Available'])),
+        mainGoal: firstNonEmpty(raw, ['mainGoal', 'Main Goal Right Now']),
+        strongestAreaText: firstNonEmpty(raw, ['strongestAreaText', 'Strongest Area']),
+        top3: firstNonEmpty(raw, ['top3', 'Top 3 Improvement Priorities']),
+        weakestAreaText: firstNonEmpty(raw, ['weakestAreaText', 'Part of Game That Most Needs Improvement']),
+        success: firstNonEmpty(raw, ['success', 'What Would Make This Programme a Success Over the Next 4 Weeks']),
+        injuries: firstNonEmpty(raw, ['injuries', 'Current Injuries']),
+        restrictions: firstNonEmpty(raw, ['restrictions', 'Pain, Restrictions, or Problem Areas']),
+        avoid: firstNonEmpty(raw, ['avoid', 'Exercises or Movements to Avoid']),
+        gymHistory: firstNonEmpty(raw, ['gymHistory', 'Gym Training Experience']),
+        gymConfidence: firstNonEmpty(raw, ['gymConfidence', 'Gym Confidence Level']),
+        extraNotes: firstNonEmpty(raw, ['extraNotes', 'Anything Else You Want Included in Your Programme?']),
+        ratings: {
+          'First Touch': num(ratings['First Touch'] ?? raw['First Touch'], 5),
+          'Passing': num(ratings['Passing'] ?? raw['Passing'], 5),
+          'Dribbling': num(ratings['Dribbling'] ?? raw['Dribbling'], 5),
+          'Shooting / Finishing': num(ratings['Shooting / Finishing'] ?? raw['Shooting / Finishing'], 5),
+          'Speed': num(ratings['Speed'] ?? raw['Speed'], 5),
+          'Acceleration': num(ratings['Acceleration'] ?? raw['Acceleration'], 5),
+          'Agility / Change of Direction': num(ratings['Agility / Change of Direction'] ?? raw['Agility / Change of Direction'], 5),
+          'Stamina': num(ratings['Stamina'] ?? raw['Stamina'], 5),
+          'Strength': num(ratings['Strength'] ?? raw['Strength'], 5),
+          'Confidence': num(ratings['Confidence'] ?? raw['Confidence'], 5)
+        }
+      };
+    }
+
+    function getPositionLens(position) {
+      return positionLensMap[position] || {
+        title: 'Football profile',
+        tags: ['technical growth', 'physical growth', 'consistency'],
+        technical: ['Technical detail', 'First-touch quality', 'Passing detail'],
+        physical: ['Movement efficiency', 'General athletic development'],
+        role: ['Position-specific detail to be clarified']
+      };
+    }
+
+    function getLoadProfile(data) {
+      const team = num(data.teamSessions);
+      const matches = num(data.matchesPerWeek);
+      const extra = num(data.extraDays);
+      const total = team + matches + extra;
+
+      if (total >= 6) {
+        return {
+          label: 'High weekly load',
+          note: 'Keep extra work sharp, controlled, and recovery-aware rather than chasing more volume.',
+          total
+        };
+      }
+
+      if (total >= 4) {
+        return {
+          label: 'Moderate weekly load',
+          note: 'There is already decent football volume, so additional work should be high-value and targeted.',
+          total
+        };
+      }
+
+      return {
+        label: 'Lower weekly load',
+        note: 'There may be room to build extra technical and physical work more assertively, depending on age and recovery.',
+        total
+      };
+    }
+
+    function topAndBottomRatings(ratings) {
+      const list = Object.entries(ratings).map(([label, value]) => ({ label, value: num(value) }));
+      const strongest = [...list].sort((a, b) => b.value - a.value).slice(0, 3);
+      const weakest = [...list].sort((a, b) => a.value - b.value).slice(0, 3);
+      return { strongest, weakest, list };
+    }
+
+    function getArchetype(position, strongest, data) {
+      const labels = strongest.map(item => item.label);
+      const has = label => labels.includes(label);
+
+      if ((position === 'Winger' || position === 'Forward' || position === 'Striker') && has('Speed') && has('Dribbling')) return 'Direct attacking runner';
+      if ((position === 'Midfielder' || position === 'Attacking Midfielder') && (has('Passing') || has('First Touch'))) return 'Ball-progressing midfield type';
+      if ((position === 'Defender' || position === 'Fullback') && (has('Speed') || has('Strength'))) return 'Aggressive recovery defender';
+      if (position === 'Goalkeeper') return 'Reactive goalkeeper profile';
+      if (has('Confidence') && has('Dribbling')) return 'Front-foot technical player';
+      if (has('Stamina') && has('Agility / Change of Direction')) return 'High-output movement profile';
+      if (text(data.strongestAreaText)) return titleCase(text(data.strongestAreaText));
+      return 'Developing all-round player';
+    }
+
+    function getEnvironmentSummary(data) {
+      const parts = [];
+
+      if (data.wallAccess === 'Yes') parts.push('wall-based receiving and passing work');
+      if (data.goalAccess === 'Yes') parts.push('finishing work');
+      if (data.gymAccess === 'Yes') parts.push('full gym-based athletic work');
+      if (data.gymAccess === 'Sometimes') parts.push('flexible gym-based work');
+      if (data.gymAccess === 'No') parts.push('bodyweight / band / football-based physical work');
+      if (text(data.sessionTime)) parts.push(`sessions capped around ${lower(data.sessionTime)}`);
+
+      return parts;
+    }
+
+    function getRedFlags(data, loadProfile, weakest) {
+      const flags = [];
+
+      if (text(data.injuries) && lower(data.injuries) !== 'none') {
+        flags.push({ tag: 'Current injuries', body: `Player reported injuries: ${text(data.injuries)}.` });
+      }
+
+      if (text(data.restrictions) && lower(data.restrictions) !== 'none') {
+        flags.push({ tag: 'Restrictions / pain', body: `Player reported restrictions or pain areas: ${text(data.restrictions)}.` });
+      }
+
+      if (text(data.avoid) && lower(data.avoid) !== 'none') {
+        flags.push({ tag: 'Movements to avoid', body: `Avoid or modify these exercises / movements: ${text(data.avoid)}.` });
+      }
+
+      if (lower(data.mainGoal) === 'return from injury') {
+        flags.push({ tag: 'Return-to-play context', body: 'Programme needs controlled progression, not aggressive loading.' });
+      }
+
+      if (loadProfile.total >= 6) {
+        flags.push({ tag: 'High weekly load', body: 'Risk of overloading the player if extra work is too long or too intense.' });
+      }
+
+      if (num(data.ratings['Confidence']) <= 4) {
+        flags.push({ tag: 'Low confidence', body: 'Programming may need early wins, repeatable success, and controlled progression.' });
+      }
+
+      if (num(data.ratings['Strength']) <= 4 && data.gymAccess === 'No') {
+        flags.push({ tag: 'Low strength + no gym', body: 'Physical work needs to be realistic with minimal equipment.' });
+      }
+
+      if (lower(data.gymConfidence) === 'beginner') {
+        flags.push({ tag: 'Beginner gym confidence', body: 'Keep gym work simple, safe, and easy to execute correctly.' });
+      }
+
+      if (text(data.sessionTime) === '20 minutes') {
+        flags.push({ tag: 'Low available session time', body: 'Each session needs to be compact, sharp, and highly prioritised.' });
+      }
+
+      if (weakest.some(item => item.label === 'Stamina' && item.value <= 4) && num(data.matchesPerWeek) >= 1) {
+        flags.push({ tag: 'Low stamina under match demand', body: 'Conditioning needs attention, but match load still has to be respected.' });
+      }
+
+      return flags;
+    }
+
+    function buildTechnicalFocus(data, weakest, positionLens) {
+      const items = [];
+      const goalMap = goalFocusMap[data.mainGoal]?.technical || [];
+      goalMap.forEach(item => items.push(item));
+      positionLens.technical.forEach(item => items.push(item));
+
+      weakest.forEach(item => {
+        if (['First Touch', 'Passing', 'Dribbling', 'Shooting / Finishing'].includes(item.label)) {
+          items.push(`${item.label} improvement work`);
+        }
+      });
+
+      if (data.wallAccess === 'Yes') items.push('Wall passing and receiving detail');
+      if (data.goalAccess === 'Yes') items.push('End-product repetition with target outcome');
+
+      return Array.from(new Set(items)).slice(0, 6);
+    }
+
+    function buildPhysicalFocus(data, weakest, positionLens, loadProfile) {
+      const items = [];
+      const goalMap = goalFocusMap[data.mainGoal]?.physical || [];
+      goalMap.forEach(item => items.push(item));
+      positionLens.physical.forEach(item => items.push(item));
+
+      weakest.forEach(item => {
+        if (['Speed', 'Acceleration', 'Agility / Change of Direction', 'Stamina', 'Strength'].includes(item.label)) {
+          items.push(`${item.label} development`);
+        }
+      });
+
+      if (data.gymAccess === 'Yes') items.push('Gym-based strength / power block');
+      if (data.gymAccess === 'Sometimes') items.push('Hybrid gym + field physical work');
+      if (data.gymAccess === 'No') items.push('Field-based and bodyweight physical work');
+
+      if (loadProfile.total >= 6) items.push('Recovery-aware load control');
+
+      return Array.from(new Set(items)).slice(0, 6);
+    }
+
+    function buildWeeklyStructure(data, loadProfile, technicalFocus, physicalFocus) {
+      const sessions = [];
+      const extraDays = num(data.extraDays);
+      const matchDay = text(data.matchDay);
+
+      sessions.push(`Primary bias: ${loadProfile.note}`);
+
+      if (extraDays >= 1) {
+        sessions.push(`Extra Session 1: High-value technical session focused on ${technicalFocus.slice(0, 2).join(' + ')}.`);
+      }
+
+      if (extraDays >= 2) {
+        sessions.push(`Extra Session 2: Physical / athletic session focused on ${physicalFocus.slice(0, 2).join(' + ')}.`);
+      }
+
+      if (extraDays >= 3) {
+        sessions.push('Extra Session 3: Position-specific session or lighter top-up depending fatigue and match proximity.');
+      }
+
+      if (extraDays >= 4) {
+        sessions.push('Extra Session 4: Low-fatigue touch / mobility / recovery-led session rather than another heavy day.');
+      }
+
+      if (num(data.matchesPerWeek) >= 1 && matchDay && matchDay !== 'No regular match day') {
+        sessions.push(`Protect the 24 hours after ${matchDay} for recovery or low-stress work.`);
+        sessions.push(`Keep the 24–48 hours before ${matchDay} sharper and lower-fatigue, not heavy-volume.`);
+      }
+
+      if (text(data.sessionTime)) {
+        sessions.push(`Build session length around ${lower(data.sessionTime)} so the plan stays realistic and repeatable.`);
+      }
+
+      return sessions;
+    }
+
+    function buildConstraints(data) {
+      const items = [];
+
+      if (text(data.injuries) && lower(data.injuries) !== 'none') items.push(`Injuries reported: ${text(data.injuries)}`);
+      if (text(data.restrictions) && lower(data.restrictions) !== 'none') items.push(`Restrictions / pain: ${text(data.restrictions)}`);
+      if (text(data.avoid) && lower(data.avoid) !== 'none') items.push(`Avoid / modify: ${text(data.avoid)}`);
+      if (text(data.techSpace)) items.push(`Training space available: ${text(data.techSpace)}`);
+      if (data.gymAccess === 'No') items.push('No gym access available');
+      if (data.wallAccess === 'No') items.push('No wall access available');
+      if (data.goalAccess === 'No') items.push('No goal access available');
+      if (text(data.sessionTime)) items.push(`Typical session time: ${text(data.sessionTime)}`);
+      if (text(data.gymConfidence)) items.push(`Gym confidence: ${text(data.gymConfidence)}`);
+
+      if (!items.length) items.push('No major constraints reported, but coach review should still confirm appropriateness.');
+
+      return items;
+    }
+
+    function buildCoachSummary(data, strongest, weakest, archetype, loadProfile, technicalFocus, physicalFocus, redFlags) {
+      const strengthWords = strongest.map(item => `${item.label.toLowerCase()} (${item.value}/10)`).join(', ');
+      const weakWords = weakest.map(item => `${item.label.toLowerCase()} (${item.value}/10)`).join(', ');
+
+      return `${text(data.fullName) || 'This player'} is a ${text(data.age) || 'developing'}-year-old ${lower(text(data.level) || 'football')} ${lower(text(data.primaryPosition) || 'player')} profile whose answers currently read like a ${lower(archetype)}. Strongest self-rated qualities are ${strengthWords}. Main growth zones are ${weakWords}. The player’s main stated goal is to ${lower(text(data.mainGoal) || 'improve overall performance')}, so the programme should be biased toward that outcome rather than generic work. Weekly load currently reads as ${lower(loadProfile.label)}, which means ${lower(loadProfile.note)}. Early technical priorities should likely include ${technicalFocus.slice(0, 3).join(', ')}, while physical development should likely emphasise ${physicalFocus.slice(0, 3).join(', ')}. ${redFlags.length ? `Coach should also manage these key risks: ${redFlags.slice(0, 3).map(flag => flag.tag.toLowerCase()).join(', ')}.` : 'No major red flags were declared, but coach review should still confirm load and movement tolerance.'}`;
+    }
+
+    function buildFullExport(data, analysis) {
+      return [
+        `PLAYER OVERVIEW`,
+        `Name: ${text(data.fullName) || 'N/A'}`,
+        `Age: ${text(data.age) || 'N/A'}`,
+        `Primary Position: ${text(data.primaryPosition) || 'N/A'}`,
+        `Level: ${text(data.level) || 'N/A'}`,
+        `Main Goal: ${text(data.mainGoal) || 'N/A'}`,
+        ``,
+        `COACH SUMMARY`,
+        analysis.summary,
+        ``,
+        `RED FLAGS`,
+        ...(analysis.redFlags.length ? analysis.redFlags.map(flag => `- ${flag.tag}: ${flag.body}`) : ['- No major red flags declared']),
+        ``,
+        `TECHNICAL FOCUS`,
+        ...analysis.technicalFocus.map(item => `- ${item}`),
+        ``,
+        `PHYSICAL FOCUS`,
+        ...analysis.physicalFocus.map(item => `- ${item}`),
+        ``,
+        `POSITION-SPECIFIC FOCUS`,
+        ...analysis.positionFocus.map(item => `- ${item}`),
+        ``,
+        `WEEKLY STRUCTURE`,
+        ...analysis.weeklyStructure.map(item => `- ${item}`),
+        ``,
+        `CONSTRAINTS / NOTES`,
+        ...analysis.constraints.map(item => `- ${item}`)
+      ].join('\n');
+    }
+
+    function clearContainer(id) {
+      document.getElementById(id).innerHTML = '';
+    }
+
+    function addTag(id, value, cls) {
+      const el = document.createElement('div');
+      el.className = `tag ${cls}`.trim();
+      el.textContent = value;
+      document.getElementById(id).appendChild(el);
+    }
+
+    function addListCard(id, title, body, cls = '') {
+      const el = document.createElement('div');
+      el.className = `list-card ${cls}`.trim();
+      el.innerHTML = `<h3>${title}</h3><div class="muted" style="margin-top:6px;">${body}</div>`;
+      document.getElementById(id).appendChild(el);
+    }
+
+    function renderDashboard(data) {
+      const positionLens = getPositionLens(data.primaryPosition);
+      const { strongest, weakest, list } = topAndBottomRatings(data.ratings);
+      const archetype = getArchetype(data.primaryPosition, strongest, data);
+      const loadProfile = getLoadProfile(data);
+      const redFlags = getRedFlags(data, loadProfile, weakest);
+      const technicalFocus = buildTechnicalFocus(data, weakest, positionLens);
+      const physicalFocus = buildPhysicalFocus(data, weakest, positionLens, loadProfile);
+      const weeklyStructure = buildWeeklyStructure(data, loadProfile, technicalFocus, physicalFocus);
+      const constraints = buildConstraints(data);
+      const environmentSummary = getEnvironmentSummary(data);
+      const positionFocus = positionLens.role;
+      const summary = buildCoachSummary(data, strongest, weakest, archetype, loadProfile, technicalFocus, physicalFocus, redFlags);
+
+      document.getElementById('ovPlayer').textContent = `${text(data.fullName) || 'Unknown player'}${text(data.age) ? ` | ${text(data.age)}` : ''}${text(data.primaryPosition) ? ` | ${text(data.primaryPosition)}` : ''}${text(data.level) ? ` | ${text(data.level)}` : ''}`;
+      document.getElementById('ovGoal').textContent = text(data.mainGoal) || 'No goal stated';
+      document.getElementById('ovLoad').textContent = `${loadProfile.label}${text(data.teamSessions) || text(data.matchesPerWeek) || text(data.extraDays) ? ` | Team ${text(data.teamSessions) || '0'} / Match ${text(data.matchesPerWeek) || '0'} / Extra ${text(data.extraDays) || '0'}` : ''}`;
+      document.getElementById('ovEnvironment').textContent = environmentSummary.length ? environmentSummary.join(' | ') : 'Environment not clearly stated';
+
+      document.getElementById('coachSummary').textContent = summary;
+
+      clearContainer('redFlagsTags');
+      clearContainer('redFlagsList');
+      if (redFlags.length) {
+        redFlags.forEach(flag => addTag('redFlagsTags', flag.tag, 'red'));
+        redFlags.forEach(flag => addListCard('redFlagsList', flag.tag, flag.body, 'red'));
+      } else {
+        addTag('redFlagsTags', 'No major alerts reported', 'green');
+        addListCard('redFlagsList', 'No major red flags declared', 'The player did not report major injury or restriction flags, but coach review should still confirm suitability.', 'green');
+      }
+
+      clearContainer('profileTags');
+      clearContainer('profileList');
+      addTag('profileTags', archetype, 'yellow');
+      addTag('profileTags', positionLens.title, 'yellow');
+      addTag('profileTags', loadProfile.label, 'yellow');
+      if (text(data.level)) addTag('profileTags', text(data.level), 'green');
+      addListCard('profileList', 'Current player type', `Answers currently read most like a ${lower(archetype)}.`, 'yellow');
+      addListCard('profileList', 'Strongest current edge', strongest.map(item => `${item.label} (${item.value}/10)`).join(', '), 'green');
+      addListCard('profileList', 'Main growth zone', weakest.map(item => `${item.label} (${item.value}/10)`).join(', '), 'orange');
+
+      clearContainer('technicalTags');
+      clearContainer('technicalList');
+      technicalFocus.forEach(item => addTag('technicalTags', item, 'orange'));
+      technicalFocus.forEach(item => addListCard('technicalList', item, `Candidate technical focus block for the programme.`, 'orange'));
+
+      clearContainer('physicalTags');
+      clearContainer('physicalList');
+      physicalFocus.forEach(item => addTag('physicalTags', item, 'yellow'));
+      physicalFocus.forEach(item => addListCard('physicalList', item, `Candidate physical focus block for the programme.`, 'yellow'));
+
+      clearContainer('positionTags');
+      clearContainer('positionList');
+      positionLens.tags.forEach(item => addTag('positionTags', item, 'green'));
+      positionFocus.forEach(item => addListCard('positionList', item, `Role-specific theme suggested by the player’s primary position.`, 'green'));
+
+      clearContainer('weeklyTags');
+      clearContainer('weeklyList');
+      addTag('weeklyTags', loadProfile.label, 'yellow');
+      if (text(data.sessionTime)) addTag('weeklyTags', text(data.sessionTime), 'green');
+      if (text(data.matchDay)) addTag('weeklyTags', text(data.matchDay), 'green');
+      weeklyStructure.forEach((item, index) => addListCard('weeklyList', `Block ${index + 1}`, item, 'yellow'));
+
+      clearContainer('constraintsTags');
+      clearContainer('constraintsList');
+      constraints.slice(0, 5).forEach(item => addTag('constraintsTags', item.length > 34 ? item.slice(0, 34) + '…' : item, 'orange'));
+      constraints.forEach(item => addListCard('constraintsList', 'Constraint / note', item, 'orange'));
+
+      list.forEach(() => {});
+
+      const analysis = {
+        summary,
+        redFlags,
+        technicalFocus,
+        physicalFocus,
+        positionFocus,
+        weeklyStructure,
+        constraints
+      };
+
+      document.getElementById('coachExport').textContent = buildFullExport(data, analysis);
+      window.__coachDashboardExport = buildFullExport(data, analysis);
+      window.__coachDashboardSummary = summary;
+    }
+
+    document.getElementById('buildBtn').addEventListener('click', () => {
+      const raw = document.getElementById('rawInput').value;
+      const parsed = parsePastedInput(raw);
+
+      if (!parsed) {
+        alert('Paste some player data first.');
+        return;
+      }
+
+      const normalized = normalizeData(parsed);
+      renderDashboard(normalized);
+    });
+
+    document.getElementById('loadLatestBtn').addEventListener('click', () => {
+      const latest = localStorage.getItem('m2ftAssessmentData');
+      if (!latest) {
+        alert('No browser assessment data found in local storage yet.');
+        return;
+      }
+      document.getElementById('rawInput').value = latest;
+    });
+
+    document.getElementById('loadDemoBtn').addEventListener('click', () => {
+      const demo = {
+        fullName: 'Demo Player',
+        email: 'demo@example.com',
+        age: '16',
+        primaryPosition: 'Winger',
+        secondaryPosition: 'Forward',
+        dominantFoot: 'Right',
+        level: 'Academy',
+        teamSessions: '3',
+        matchesPerWeek: '1',
+        matchDay: 'Saturday',
+        extraDays: '2',
+        sessionTime: '45 minutes',
+        gymAccess: 'Sometimes',
+        techSpace: 'Pitch',
+        wallAccess: 'Yes',
+        goalAccess: 'Yes',
+        equipment: ['Football', 'Cones', 'Resistance bands', 'Goal'],
+        mainGoal: 'Improve dribbling / 1v1',
+        strongestAreaText: 'Direct running with the ball',
+        top3: 'First touch, finishing, stamina',
+        weakestAreaText: 'End product in the final third',
+        success: 'Feeling more dangerous in games and creating more goals',
+        injuries: 'None',
+        restrictions: 'None',
+        avoid: 'None',
+        gymHistory: 'A little',
+        gymConfidence: 'Beginner',
+        extraNotes: 'Would like more confidence in 1v1s and end product',
+        ratings: {
+          'First Touch': 5,
+          'Passing': 6,
+          'Dribbling': 8,
+          'Shooting / Finishing': 4,
+          'Speed': 8,
+          'Acceleration': 7,
+          'Agility / Change of Direction': 7,
+          'Stamina': 4,
+          'Strength': 4,
+          'Confidence': 6
+        }
+      };
+
+      document.getElementById('rawInput').value = JSON.stringify(demo, null, 2);
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      document.getElementById('rawInput').value = '';
+    });
+
+    document.getElementById('copySummaryBtn').addEventListener('click', async () => {
+      const textToCopy = window.__coachDashboardSummary || document.getElementById('coachSummary').textContent;
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        alert('Coach summary copied.');
+      } catch (e) {
+        alert('Copy failed. You can still select and copy manually.');
+      }
+    });
+
+    document.getElementById('copyAllBtn').addEventListener('click', async () => {
+      const textToCopy = window.__coachDashboardExport || document.getElementById('coachExport').textContent;
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        alert('Full coach export copied.');
+      } catch (e) {
+        alert('Copy failed. You can still select and copy manually.');
+      }
+    });
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
