@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M2FT Performance | Player Assessment</title>
+  <meta name="description" content="Complete your M2FT player assessment and receive a personalised football development programme." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --navy: #0d1b2a;
+      --blue: #1b263b;
+      --text: #ffffff;
+      --muted: #c9c9c9;
+      --muted-2: #8f8f8f;
+      --line: rgba(255,255,255,0.10);
+      --panel: rgba(255,255,255,0.05);
+      --accent: #ff6b35;
+      --accent-soft: rgba(255,107,53,0.12);
+      --shadow: 0 18px 44px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at top right, rgba(255,107,53,0.12), transparent 28%),
+        linear-gradient(135deg, var(--navy) 0%, var(--blue) 42%, var(--bg) 100%);
+    }
+
+    a { color: inherit; }
+    .container { width: min(var(--max), calc(100% - 24px)); margin: 0 auto; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(10,10,10,0.84);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,107,53,0.16));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 24px rgba(255,107,53,0.18);
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-subtitle {
+      color: var(--muted-2);
+      font-size: 0.92rem;
+    }
+
+    .hero {
+      padding: 64px 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1, h2, h3 { line-height: 1.05; letter-spacing: -0.03em; }
+
+    h1 {
+      margin: 16px 0 14px;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 900;
+      background: linear-gradient(to right, #ffffff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      font-weight: 800;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .lead,
+    .muted,
+    .panel p,
+    .helper,
+    .note-list li,
+    .success-box,
+    .field-help {
+      color: var(--muted);
+    }
+
+    .cta-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .cta-item,
+    .info-box,
+    fieldset {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+    }
+
+    .cta-item,
+    .info-box {
+      padding: 16px;
+    }
+
+    .assessment {
+      padding: 18px 0 56px;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    fieldset {
+      margin: 0;
+      padding: 18px;
+    }
+
+    legend {
+      padding: 0 10px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .field-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(10,10,10,0.72);
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255,107,53,0.12);
+    }
+
+    .checkbox-grid,
+    .slider-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .checkbox-grid.two,
+    .slider-grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .check,
+    .slider-card {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .check label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .check input[type="checkbox"] {
+      width: auto;
+      min-height: auto;
+      margin-top: 4px;
+      accent-color: var(--accent);
+    }
+
+    .slider-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .slider-value {
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .submit-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0a;
+      box-shadow: 0 10px 28px rgba(255,107,53,0.24);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .success-box {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,107,53,0.22);
+      background: rgba(255,107,53,0.10);
+    }
+
+    .note-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    footer {
+      padding: 26px 0 42px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10,10,10,0.55);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .field-grid.two,
+      .field-grid.three,
+      .checkbox-grid.two,
+      .slider-grid.two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner,
+      .submit-wrap {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .brand-wrap {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand-wrap">
+        <div class="brand-mark">M2FT</div>
+        <div>
+          <div class="brand-title">M2FT Performance</div>
+          <div class="brand-subtitle">Player Assessment for Personalised Programming</div>
+        </div>
+      </div>
+      <div class="brand-subtitle">Static page • email delivery of submissions</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="panel">
+          <span class="eyebrow">Fastest working version</span>
+          <h1>Get Your Personal Football Development Programme</h1>
+          <p class="lead">Complete this assessment and your answers will be sent directly to your inbox, so you can manually create and send the player’s programme.</p>
+          <div class="cta-list">
+            <div class="cta-item">
+              <strong>Step 1</strong><br>
+              Player completes the assessment.
+            </div>
+            <div class="cta-item">
+              <strong>Step 2</strong><br>
+              Answers arrive in your email inbox in a readable format.
+            </div>
+            <div class="cta-item">
+              <strong>Step 3</strong><br>
+              You paste the answers into your programme prompt and send the result manually.
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Before you upload</h2>
+          <div class="info-box">
+            <h3>1. Replace the email address</h3>
+            <p>Find this line in the form:</p>
+            <p><code>action="https://formsubmit.co/YOUR_EMAIL@example.com"</code></p>
+            <p>Replace it with your real email address.</p>
+          </div>
+          <div class="info-box" style="margin-top: 14px;">
+            <h3>2. Upload this file</h3>
+            <p>Upload this file to your GitHub repo as a page like <code>assessment.html</code> or rename it to <code>index.html</code>.</p>
+          </div>
+          <div class="info-box" style="margin-top: 14px;">
+            <h3>3. Activate email delivery</h3>
+            <p>The first submission will trigger an activation email. Confirm it once, then future submissions go to your inbox.</p>
+          </div>
+          <div class="success-box">
+            This version is intentionally simple and reliable. It captures the lead first and lets you generate the programme manually.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="assessment">
+      <div class="container">
+        <div class="panel">
+          <span class="eyebrow">Assessment Form</span>
+          <h2>Player Assessment</h2>
+          <p class="muted">Complete this assessment to receive your personalised football development programme. Your plan will be built around your age, position, level, schedule, training environment, and development goals.</p>
+
+          <form action="https://formsubmit.co/YOUR_EMAIL@example.com" method="POST">
+            <input type="hidden" name="_subject" value="New M2FT Player Assessment Submission" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_autoresponse" value="Thanks for completing your M2FT player assessment. Your answers have been received and your programme is being prepared." />
+
+            <fieldset>
+              <legend>Section 1 — Player Information</legend>
+              <div class="field-grid two">
+                <div class="field">
+                  <label for="full_name">Full Name</label>
+                  <input id="full_name" name="Full Name" type="text" required />
+                </div>
+                <div class="field">
+                  <label for="email">Email Address</label>
+                  <input id="email" name="Email Address" type="email" required />
+                </div>
+                <div class="field">
+                  <label for="age">Age</label>
+                  <input id="age" name="Age" type="number" min="8" max="45" required />
+                </div>
+                <div class="field">
+                  <label for="dob">Date of Birth</label>
+                  <input id="dob" name="Date of Birth" type="date" />
+                </div>
+                <div class="field">
+                  <label for="primary_position">Primary Position</label>
+                  <select id="primary_position" name="Primary Position" required>
+                    <option value="">Select</option>
+                    <option>Goalkeeper</option>
+                    <option>Defender</option>
+                    <option>Fullback</option>
+                    <option>Midfielder</option>
+                    <option>Attacking Midfielder</option>
+                    <option>Winger</option>
+                    <option>Forward</option>
+                    <option>Striker</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="secondary_position">Secondary Position</label>
+                  <select id="secondary_position" name="Secondary Position">
+                    <option value="">None</option>
+                    <option>Goalkeeper</option>
+                    <option>Defender</option>
+                    <option>Fullback</option>
+                    <option>Midfielder</option>
+                    <option>Attacking Midfielder</option>
+                    <option>Winger</option>
+                    <option>Forward</option>
+                    <option>Striker</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="dominant_foot">Dominant Foot</label>
+                  <select id="dominant_foot" name="Dominant Foot" required>
+                    <option value="">Select</option>
+                    <option>Right</option>
+                    <option>Left</option>
+                    <option>Both</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="level">Current Playing Level</label>
+                  <select id="level" name="Current Playing Level" required>
+                    <option value="">Select</option>
+                    <option>Grassroots</option>
+                    <option>Academy</option>
+                    <option>School football</option>
+                    <option>District</option>
+                    <option>College</option>
+                    <option>Semi-professional</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Section 2 — Weekly Football Schedule</legend>
+              <div class="field-grid three">
+                <div class="field">
+                  <label for="team_sessions">Team Sessions Per Week</label>
+                  <select id="team_sessions" name="Team Sessions Per Week" required>
+                    <option value="">Select</option>
+                    <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="matches_per_week">Matches Per Week</label>
+                  <select id="matches_per_week" name="Matches Per Week" required>
+                    <option value="">Select</option>
+                    <option>0</option><option>1</option><option>2</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="match_day">Main Match Day</label>
+                  <select id="match_day" name="Main Match Day" required>
+                    <option value="">Select</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                    <option>No regular match day</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="extra_days">Additional Training Days Available</label>
+                  <select id="extra_days" name="Additional Training Days Available" required>
+                    <option value="">Select</option>
+                    <option>1</option><option>2</option><option>3</option><option>4</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="session_time">Typical Session Time Available</label>
+                  <select id="session_time" name="Typical Session Time Available" required>
+                    <option value="">Select</option>
+                    <option>20 minutes</option>
+                    <option>30 minutes</option>
+                    <option>40 minutes</option>
+                    <option>45 minutes</option>
+                    <option>60 minutes</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Section 3 — Training Environment</legend>
+              <div class="field-grid two">
+                <div class="field">
+                  <label for="gym_access">Gym Access</label>
+                  <select id="gym_access" name="Gym Access" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                    <option>Sometimes</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="tech_space">Technical Training Space</label>
+                  <select id="tech_space" name="Technical Training Space" required>
+                    <option value="">Select</option>
+                    <option>Garden / driveway</option>
+                    <option>Small indoor space</option>
+                    <option>Park</option>
+                    <option>Pitch</option>
+                    <option>Full-size pitch</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="wall_access">Wall Access</label>
+                  <select id="wall_access" name="Wall Access" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="goal_access">Goal Access</label>
+                  <select id="goal_access" name="Goal Access" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field full" style="margin-top:14px;">
+                <label>Equipment Available</label>
+                <div class="checkbox-grid two">
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Football" /> <span>Football</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Cones" /> <span>Cones</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Resistance bands" /> <span>Resistance bands</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Dumbbells" /> <span>Dumbbells</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Barbell" /> <span>Barbell</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Gym machines" /> <span>Gym machines</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Mini hurdles" /> <span>Mini hurdles</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Speed ladder" /> <span>Speed ladder</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Goal" /> <span>Goal</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="Wall" /> <span>Wall</span></label></div>
+                  <div class="check"><label><input type="checkbox" name="Equipment Available" value="None" /> <span>None</span></label></div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Section 4 — Self Assessment (1–10)</legend>
+              <p class="field-help">1 = very weak / 10 = very strong</p>
+              <div class="slider-grid two">
+                <div class="slider-card"><div class="slider-top"><span>First Touch</span><span class="slider-value" data-for="first_touch">5</span></div><input id="first_touch" name="First Touch" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Passing</span><span class="slider-value" data-for="passing">5</span></div><input id="passing" name="Passing" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Dribbling</span><span class="slider-value" data-for="dribbling">5</span></div><input id="dribbling" name="Dribbling" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Shooting / Finishing</span><span class="slider-value" data-for="shooting">5</span></div><input id="shooting" name="Shooting / Finishing" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Speed</span><span class="slider-value" data-for="speed">5</span></div><input id="speed" name="Speed" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Acceleration</span><span class="slider-value" data-for="acceleration">5</span></div><input id="acceleration" name="Acceleration" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Agility / Change of Direction</span><span class="slider-value" data-for="agility">5</span></div><input id="agility" name="Agility / Change of Direction" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Stamina</span><span class="slider-value" data-for="stamina">5</span></div><input id="stamina" name="Stamina" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Strength</span><span class="slider-value" data-for="strength">5</span></div><input id="strength" name="Strength" type="range" min="1" max="10" value="5" /></div>
+                <div class="slider-card"><div class="slider-top"><span>Confidence</span><span class="slider-value" data-for="confidence">5</span></div><input id="confidence" name="Confidence" type="range" min="1" max="10" value="5" /></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Section 5 — Goals and Development Needs</legend>
+              <div class="field-grid two">
+                <div class="field">
+                  <label for="main_goal">Main Goal Right Now</label>
+                  <select id="main_goal" name="Main Goal Right Now" required>
+                    <option value="">Select</option>
+                    <option>Become faster</option>
+                    <option>Improve fitness</option>
+                    <option>Improve ball mastery</option>
+                    <option>Improve confidence</option>
+                    <option>Improve first touch</option>
+                    <option>Improve decision making</option>
+                    <option>Improve finishing</option>
+                    <option>Improve dribbling / 1v1</option>
+                    <option>Prepare for trials</option>
+                    <option>Return from injury</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="strongest_area">Strongest Area</label>
+                  <input id="strongest_area" name="Strongest Area" type="text" required />
+                </div>
+                <div class="field full">
+                  <label for="top3">Top 3 Improvement Priorities</label>
+                  <textarea id="top3" name="Top 3 Improvement Priorities" required></textarea>
+                </div>
+                <div class="field full">
+                  <label for="weakest_area">Part of Your Game That Most Needs Improvement</label>
+                  <textarea id="weakest_area" name="Part of Game That Most Needs Improvement" required></textarea>
+                </div>
+                <div class="field full">
+                  <label for="success">What Would Make This Programme a Success Over the Next 4 Weeks?</label>
+                  <textarea id="success" name="What Would Make This Programme a Success Over the Next 4 Weeks" required></textarea>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Section 6 — Physical Context</legend>
+              <div class="field-grid two">
+                <div class="field full">
+                  <label for="injuries">Current Injuries</label>
+                  <textarea id="injuries" name="Current Injuries" placeholder="If none, write None" required></textarea>
+                </div>
+                <div class="field full">
+                  <label for="restrictions">Pain, Restrictions, or Problem Areas</label>
+                  <textarea id="restrictions" name="Pain, Restrictions, or Problem Areas" placeholder="If none, write None" required></textarea>
+                </div>
+                <div class="field full">
+                  <label for="avoid">Exercises or Movements to Avoid</label>
+                  <textarea id="avoid" name="Exercises or Movements to Avoid" placeholder="If none, write None" required></textarea>
+                </div>
+                <div class="field">
+                  <label for="gym_history">Gym Training Experience</label>
+                  <select id="gym_history" name="Gym Training Experience" required>
+                    <option value="">Select</option>
+                    <option>Yes, regularly</option>
+                    <option>A little</option>
+                    <option>No</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="gym_confidence">Gym Confidence Level</label>
+                  <select id="gym_confidence" name="Gym Confidence Level" required>
+                    <option value="">Select</option>
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                  </select>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Section 7 — Extra Coaching Notes</legend>
+              <div class="field-grid">
+                <div class="field full">
+                  <label for="extra_notes">Anything Else You Want Included in Your Programme?</label>
+                  <textarea id="extra_notes" name="Anything Else You Want Included in Your Programme"></textarea>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="submit-wrap">
+              <button class="btn btn-primary" type="submit">Get My Personalised Programme</button>
+              <button class="btn btn-secondary" type="reset">Reset Form</button>
+            </div>
+            <p class="helper">After the player submits, the answers will be sent to your email. You can then paste them into your master programme prompt and send the final programme manually.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="brand-title">M2FT Performance</div>
+      <div class="brand-subtitle">Simple version first: capture leads, generate programmes manually, then automate later.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('input[type="range"]').forEach((input) => {
+      const output = document.querySelector(`.slider-value[data-for="${input.id}"]`);
+      if (!output) return;
+      const update = () => { output.textContent = input.value; };
+      input.addEventListener('input', update);
+      update();
+    });
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
