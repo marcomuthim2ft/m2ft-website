@@ -1871,7 +1871,13 @@
         <p class="waitlist-intro">Join the early-access list to receive platform updates, testing opportunities and the confirmed launch date.</p>
         
         <div class="waitlist-form-container">
-            <form id="waitlistForm" class="waitlist-form">
+            <form id="waitlistForm" class="waitlist-form" name="ai-coach-waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+                <!-- Netlify Forms Integration -->
+                <input type="hidden" name="form-name" value="ai-coach-waitlist" />
+                <p style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </p>
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label for="firstName">First Name *</label>
