@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The M2 AI Coach | Personalised Football and Fitness Programmes</title>
+    <meta name="description" content="Join the early-access list for The M2 AI Coach, a personalised football and fitness coaching platform built around your age, ability, goals, equipment and development needs.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --black: #0a0a0a;
+            --dark-bg: #121212;
+            --card-bg: #1a1a1a;
+            --blue: #0066ff;
+            --electric-blue: #00d4ff;
+            --white: #ffffff;
+            --gray: #888888;
+            --light-gray: #e0e0e0;
+            --glow: rgba(0, 212, 255, 0.3);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(18, 18, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--electric-blue);
+        }
+        
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--electric-blue);
+        }
+        
+        .nav-cta {
+            background: var(--blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-cta:hover {
+            background: var(--electric-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Section Base Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1, h2, h3 {
+            line-height: 1.2;
+            font-weight: 800;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 8rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--electric-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-gray);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+        
+        .hero-ctas {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--electric-blue);
+            box-shadow: 0 12px 35px rgba(0, 212, 255, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+        
+        .hero-note {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .hero-visual {
+            margin-top: 3rem;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .phone-mockup {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mockup-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mockup-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--electric-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .mockup-greeting h4 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .mockup-greeting p {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .session-card {
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        
+        .session-title {
+            font-size: 0.85rem;
+            color: var(--electric-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .session-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        
+        .session-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .progress-section {
+            margin-top: 1rem;
+        }
+        
+        .progress-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar-bg {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue), var(--electric-blue));
+            width: 65%;
+            border-radius: 10px;
+        }
+        
+        .coach-button {
+            margin-top: 1rem;
+            width: 100%;
+            padding: 1rem;
+            background: var(--blue);
+            border: none;
+            border-radius: 10px;
+            color: var(--white);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .coach-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--electric-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
+        }
+        
+        /* Why Section */
+        .why-section {
+            background: var(--dark-bg);
+        }
+        
+        .why-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .why-content {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--light-gray);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+        
+        .problems-grid {
+            display: grid;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .problem-item {
+            background: var(--card-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--blue);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .problem-item i {
+            color: var(--electric-blue);
+            font-size: 1.25rem;
+        }
+        
+        .conclusion {
+            text-align: center;
+            font-size: 1.15rem;
+            color: var(--white);
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+        
+        /* How It Works */
+        .how-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .step-card:hover {
+            border-color: var(--electric-blue);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--blue), var(--electric-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-card h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .step-card p {
+            color: var(--light-gray);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .step-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .step-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+            color: var(--gray);
+        }
+        
+        .step-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--electric-blue);
+            font-weight: 700;
+        }
+        
+        .flow-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+        
+        .flow-item {
+            padding: 0.75rem 1.25rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .flow-arrow {
+            color: var(--electric-blue);
+            font-size: 1.5rem;
+        }
+        
+        /* Features Section */
+        .features-section {
+            background: var(--dark-bg);
+        }
+        
+        .features-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--blue);
+            transform: translateY(-3px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--electric-blue);
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-card p {
+            color: var(--light-gray);
+            line-height: 1.7;
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--electric-blue);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--electric-blue);
+        }
+        
+        .feature-warning {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 3px solid #ffc107;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: var(--light-gray);
+        }
+        
+        /* Pathways Section */
+        .pathways-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .pathways-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .pathway-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .pathway-card:hover {
+            border-color: var(--electric-blue);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .pathway-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pathway-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pathway-list {
+            list-style: none;
+            text-align: left;
+            margin: 1.5rem 0;
+            color: var(--light-gray);
+        }
+        
+        .pathway-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .pathway-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--electric-blue);
+            font-weight: 700;
+        }
+        
+        .both-note {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            color: var(--light-gray);
+            font-size: 1.1rem;
+        }
+        
+        /* Dashboard Preview */
+        .dashboard-section {
+            background: var(--dark-bg);
+        }
+        
+        .dashboard-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .dashboard-mockup {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .dashboard-user h3 {
+            font-size: 1.5rem;
+        }
+        
+        .dashboard-week {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .focus-card {
+            background: rgba(0, 102, 255, 0.15);
+            border: 1px solid var(--blue);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+        
+        .focus-card h4 {
+            font-size: 0.9rem;
+            color: var(--electric-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .focus-card p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .sessions-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .session-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.25rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .session-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .session-meta {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .recommendation-card {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid var(--electric-blue);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .recommendation-card h4 {
+            font-size: 0.9rem;
+            color: var(--electric-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .recommendation-card p {
+            color: var(--light-gray);
+            line-height: 1.7;
+        }
+        
+        /* Roadmap Section */
+        .roadmap-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .roadmap-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: var(--light-gray);
+        }
+        
+        .roadmap-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .roadmap-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .roadmap-card h3 {
+            color: var(--electric-blue);
+            margin-bottom: 1.5rem;
+        }
+        
+        .roadmap-list {
+            list-style: none;
+        }
+        
+        .roadmap-list li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--light-gray);
+        }
+        
+        .roadmap-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+        }
+        
+        .roadmap-note {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 193, 7, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--light-gray);
+            font-style: italic;
+        }
+        
+        /* Who It's For */
+        .audience-section {
+            background: var(--dark-bg);
+        }
+        
+        .audience-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .audience-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .audience-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .audience-card:hover {
+            border-color: var(--electric-blue);
+            transform: translateX(5px);
+        }
+        
+        .audience-icon {
+            font-size: 2rem;
+            color: var(--electric-blue);
+        }
+        
+        .audience-note {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--light-gray);
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Why M2 Section */
+        .why-m2-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .why-m2-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .why-m2-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .why-m2-list li {
+            padding: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--light-gray);
+            line-height: 1.7;
+        }
+        
+        .why-m2-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--electric-blue);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .founder-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .founder-card h3 {
+            color: var(--electric-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .founder-card p {
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            background: var(--dark-bg);
+        }
+        
+        .trust-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .trust-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .trust-points {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .trust-points li {
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border-left: 3px solid var(--blue);
+            color: var(--light-gray);
+            line-height: 1.7;
+        }
+        
+        .safety-note {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--electric-blue);
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--light-gray);
+        }
+        
+        /* Waitlist Section */
+        .waitlist-section {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a1628 100%);
+        }
+        
+        .waitlist-section h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .waitlist-intro {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: var(--light-gray);
+            font-size: 1.1rem;
+        }
+        
+        .waitlist-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--light-gray);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.25rem;
+        }
+        
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 400;
+            color: var(--light-gray);
+            line-height: 1.6;
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--blue);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .form-submit:hover {
+            background: var(--electric-blue);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .form-submit:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .form-note {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .form-incentive {
+            margin-top: 1rem;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light-gray);
+            font-size: 0.95rem;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--electric-blue);
+            margin-bottom: 1.5rem;
+        }
+        
+        .success-message h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message p {
+            color: var(--light-gray);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background: var(--dark-bg);
+        }
+        
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .faq-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .faq-question:hover {
+            color: var(--electric-blue);
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s;
+            font-size: 1.25rem;
+            color: var(--electric-blue);
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #0a1628 0%, var(--black) 100%);
+        }
+        
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .final-cta-text {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .final-tagline {
+            margin-top: 2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--electric-blue);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            padding: 3rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--electric-blue);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: var(--gray);
+            text-decoration: none;
+            display: block;
+            padding: 0.4rem 0;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--blue);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .hero-ctas {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .problems-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pathways-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sessions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .roadmap-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .audience-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .audience-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-2 {
+            margin-top: 2rem;
+        }
+        
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">M2 <span>AI Coach</span></a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#who-its-for">Who It's For</a></li>
+                <li><a href="#roadmap">Development Updates</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#waitlist" class="nav-cta">Join Early Access</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Meet The M2 AI Coach</h1>
+            <p class="hero-subtitle">Personalised football and fitness programmes built around your age, ability, goals, available equipment and training environment.</p>
+            <p class="hero-description">The Coach learns what you need, selects from the approved M2 exercise library and builds a structured development plan around you.</p>
+            
+            <div class="hero-ctas">
+                <a href="#waitlist" class="btn btn-primary">Join the Early Access List</a>
+                <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+            </div>
+            
+            <p class="hero-note">Early access opening soon. Join the list for development updates and the confirmed release date.</p>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="phone-mockup">
+                <div class="mockup-header">
+                    <div class="mockup-avatar">MM</div>
+                    <div class="mockup-greeting">
+                        <h4>Good morning,</h4>
+                        <p>Marco</p>
+                    </div>
+                </div>
+                
+                <div class="session-card">
+                    <div class="session-title">TODAY'S SESSION</div>
+                    <div class="session-name">Technical + Physical</div>
+                    <div class="session-tags">
+                        <span class="tag">Ball + cones</span>
+                        <span class="tag">35 minutes</span>
+                        <span class="tag">Intermediate</span>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-label">Weekly Progress — 65%</div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill"></div>
+                    </div>
+                </div>
+                
+                <button class="coach-button">
+                    <div class="coach-icon">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    Ask The Coach
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="why-section" id="why">
+        <h2>Most programmes are generic. Your development shouldn't be.</h2>
+        
+        <div class="why-content">
+            <p>Players and fitness clients often receive programmes that ignore their age, level, position, available equipment, weekly schedule and previous training.</p>
+            <p>The M2 AI Coach is being built to understand the person first, then create the plan.</p>
+        </div>
+        
+        <div class="problems-grid">
+            <div class="problem-item">
+                <i class="fas fa-times-circle"></i>
+                <span>Random online workouts</span>
+            </div>
+            <div class="problem-item">
+                <i class="fas fa-times-circle"></i>
+                <span>Drills that don't match the player's position</span>
+            </div>
+            <div class="problem-item">
+                <i class="fas fa-times-circle"></i>
+                <span>Exercises requiring equipment you don't own</span>
+            </div>
+            <div class="problem-item">
+                <i class="fas fa-times-circle"></i>
+                <span>Programmes that are too difficult or too easy</span>
+            </div>
+            <div class="problem-item">
+                <i class="fas fa-times-circle"></i>
+                <span>No clear progression</span>
+            </div>
+            <div class="problem-item">
+                <i class="fas fa-times-circle"></i>
+                <span>No connection between football and gym training</span>
+            </div>
+            <div class="problem-item">
+                <i class="fas fa-times-circle"></i>
+                <span>No adaptation when goals or circumstances change</span>
+            </div>
+        </div>
+        
+        <p class="conclusion">The Coach brings assessment, programme design, exercise demonstrations and progression into one connected system.</p>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section" id="how-it-works">
+        <h2>How It Works</h2>
+        
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Tell The Coach about you</h3>
+                <p>Complete an intelligent profile covering:</p>
+                <ul class="step-list">
+                    <li>Age and football position</li>
+                    <li>Ability and goals</li>
+                    <li>Main weaknesses</li>
+                    <li>Current training schedule</li>
+                    <li>Gym access and available equipment</li>
+                    <li>Preferred session duration</li>
+                    <li>Injury and safety information</li>
+                </ul>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>The Coach builds your plan</h3>
+                <p>The system filters the M2 exercise library based on your profile.</p>
+                <ul class="step-list">
+                    <li>Age appropriateness</li>
+                    <li>Playing position and goals</li>
+                    <li>Available equipment and environment</li>
+                    <li>Session length and training demands</li>
+                    <li>Solo or partner availability</li>
+                </ul>
+                <p style="margin-top: 1rem; font-style: italic; color: var(--gray);">The Coach may only select exercises from the approved M2 library.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Follow guided sessions</h3>
+                <p>Each session includes:</p>
+                <ul class="step-list">
+                    <li>Exercise videos</li>
+                    <li>Setup instructions</li>
+                    <li>Coaching points</li>
+                    <li>Common mistakes</li>
+                    <li>Progressions and regressions</li>
+                    <li>Session structure</li>
+                    <li>Completion tracking</li>
+                </ul>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Review and progress</h3>
+                <p>The platform will use check-ins and training feedback to support future programme updates.</p>
+                <ul class="step-list">
+                    <li>Session completion tracking</li>
+                    <li>Difficulty and confidence feedback</li>
+                    <li>Pain or soreness monitoring</li>
+                    <li>Changing goals and available time</li>
+                    <li>Performance development</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="flow-visual">
+            <div class="flow-item">Profile</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Analysis</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Programme</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Train</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Review</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">Progress</div>
+        </div>
+    </section>
+
+    <!-- Main Features -->
+    <section class="features-section" id="features">
+        <h2>Everything your development plan needs</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Personalised Programme Generation</h3>
+                <p>Plans built around the individual rather than a generic template.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚽</div>
+                <h3>Football Development</h3>
+                <p>Technical, physical, psychological and position-specific development support.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💪</div>
+                <h3>Fitness and Gym Programming</h3>
+                <p>Strength, conditioning, mobility, bodyweight and equipment-based sessions.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎥</div>
+                <h3>M2 Exercise Video Library</h3>
+                <p>Real exercise demonstrations recorded and reviewed by M2.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👶</div>
+                <h3>Age-Appropriate Training</h3>
+                <p>Different training logic for U8–U10, U11–U13, U14–U16, and U17–Adult age groups.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🏋️</div>
+                <h3>Equipment-Aware Programming</h3>
+                <p>The Coach only selects exercises that match the equipment and environment available to you.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Position and Goal-Based Selection</h3>
+                <p>Programmes consider striker, winger, midfielder, fullback, centre-back, goalkeeper, strength, speed, power, conditioning and technical goals.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Exercise Progressions & Regressions</h3>
+                <p>Users can be given easier or more difficult versions as appropriate to their level.</p>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Safety Profile</h3>
+                <p>Record current injuries, pain, restrictions, clearance status, previous injury history and guardian acknowledgement.</p>
+                <div class="feature-warning">
+                    <strong>Important:</strong> The M2 AI Coach does not diagnose injuries or replace a doctor or physiotherapist.
+                </div>
+                <span class="feature-badge">Available at launch</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Progress Tracking</h3>
+                <p>Completed sessions, training streaks, weekly progress, programme milestones, review prompts and future programme updates.</p>
+                <span class="feature-badge">In development</span>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Ask The Coach</h3>
+                <p>A conversational coaching feature where you can ask questions about your programme, exercise technique, session preparation, recovery, progression and training organisation.</p>
+                <span class="feature-badge">Coming later</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pathways Section -->
+    <section class="pathways-section" id="pathways">
+        <h2>Choose Your Development Path</h2>
+        
+        <div class="pathways-grid">
+            <div class="pathway-card">
+                <div class="pathway-icon">⚽</div>
+                <h3>M2 Football</h3>
+                <p>For players who want to improve:</p>
+                <ul class="pathway-list">
+                    <li>Ball mastery</li>
+                    <li>Passing and receiving</li>
+                    <li>Dribbling and finishing</li>
+                    <li>Speed and strength</li>
+                    <li>Position-specific qualities</li>
+                    <li>Movement and conditioning</li>
+                    <li>Confidence</li>
+                    <li>Individual development</li>
+                </ul>
+                <a href="#waitlist" class="btn btn-primary" style="margin-top: 1.5rem;">Join the Football Early Access List</a>
+            </div>
+            
+            <div class="pathway-card">
+                <div class="pathway-icon">💪</div>
+                <h3>M2 Fitness</h3>
+                <p>For users who want to improve:</p>
+                <ul class="pathway-list">
+                    <li>Strength</li>
+                    <li>Body composition</li>
+                    <li>Fitness and muscle development</li>
+                    <li>Conditioning and mobility</li>
+                    <li>Consistency</li>
+                    <li>Gym confidence</li>
+                    <li>Home training</li>
+                </ul>
+                <a href="#waitlist" class="btn btn-primary" style="margin-top: 1.5rem;">Join the Fitness Early Access List</a>
+            </div>
+        </div>
+        
+        <div class="both-note">
+            <strong>Interested in both?</strong> The Coach can support football and physical development together.
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard-section" id="dashboard">
+        <h2>Your Personal Dashboard</h2>
+        
+        <div class="dashboard-mockup">
+            <div class="dashboard-header">
+                <div class="dashboard-user">
+                    <h3>Marco Muthi</h3>
+                    <p class="dashboard-week">Week of January 15, 2026</p>
+                </div>
+            </div>
+            
+            <div class="focus-card">
+                <h4>THIS WEEK'S FOCUS</h4>
+                <p>Acceleration, unilateral strength and first-touch quality</p>
+            </div>
+            
+            <div class="sessions-grid">
+                <div class="session-item">
+                    <div class="session-info">
+                        <h4>Monday: Technical Session</h4>
+                        <p class="session-meta">35 min • Ball + cones • Intermediate</p>
+                    </div>
+                </div>
+                
+                <div class="session-item">
+                    <div class="session-info">
+                        <h4>Wednesday: Physical</h4>
+                        <p class="session-meta">40 min • Gym • Advanced</p>
+                    </div>
+                </div>
+                
+                <div class="session-item">
+                    <div class="session-info">
+                        <h4>Friday: Recovery</h4>
+                        <p class="session-meta">25 min • Home • Beginner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recommendation-card">
+                <h4>THE COACH RECOMMENDS</h4>
+                <p>Complete the technical session before your team training day to avoid unnecessary fatigue.</p>
+            </div>
+            
+            <button class="coach-button">
+                <div class="coach-icon">
+                    <i class="fas fa-comment"></i>
+                </div>
+                Ask The Coach
+            </button>
+        </div>
+    </section>
+
+    <!-- Development Roadmap -->
+    <section class="roadmap-section" id="roadmap">
+        <h2>Built to keep developing with you</h2>
+        
+        <p class="roadmap-intro">We're clearly separating current development from future ideas to set realistic expectations.</p>
+        
+        <div class="roadmap-grid">
+            <div class="roadmap-card">
+                <h3>Initial Launch Focus</h3>
+                <ul class="roadmap-list">
+                    <li>Personalised profiles</li>
+                    <li>Programme generation</li>
+                    <li>Approved M2 exercise library</li>
+                    <li>Football and fitness sessions</li>
+                    <li>Exercise videos</li>
+                    <li>Age and equipment filtering</li>
+                    <li>Programme tracking</li>
+                    <li>Player safety profile</li>
+                </ul>
+            </div>
+            
+            <div class="roadmap-card">
+                <h3>Planned Future Development</h3>
+                <ul class="roadmap-list">
+                    <li>Intelligent programme progression</li>
+                    <li>Weekly Coach check-ins</li>
+                    <li>Performance testing</li>
+                    <li>Personalised gym progression</li>
+                    <li>Match preparation support</li>
+                    <li>Nutrition education</li>
+                    <li>Recovery guidance</li>
+                    <li>Video analysis</li>
+                    <li>Match analysis</li>
+                    <li>Player reports</li>
+                    <li>Parent and coach dashboards</li>
+                    <li>Team programmes</li>
+                    <li>Integration with wearable data</li>
+                    <li>AI-assisted technical feedback</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="roadmap-note">
+            Development priorities may change based on testing and early-user feedback.
+        </div>
+    </section>
+
+    <!-- Who It's For -->
+    <section class="audience-section" id="who-its-for">
+        <h2>Who It's For</h2>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👦</div>
+                <span>Youth football players</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍👩‍👧</div>
+                <span>Parents supporting young players</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🎓</div>
+                <span>Aspiring academy players</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">⚽</div>
+                <span>Grassroots footballers</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👤</div>
+                <span>Adult players</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏋️</div>
+                <span>Gym beginners</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">💪</div>
+                <span>Fitness clients</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">👨‍🏫</div>
+                <span>Coaches seeking player support</span>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🔄</div>
+                <span>Players combining football & gym</span>
+            </div>
+        </div>
+        
+        <p class="audience-note">Whether you are beginning your journey, pushing towards academy football or simply trying to become stronger, fitter and more consistent, The Coach is designed to meet you at your current level.</p>
+    </section>
+
+    <!-- Why M2 -->
+    <section class="why-m2-section" id="why-m2">
+        <h2>Built from real coaching, not random internet workouts</h2>
+        
+        <div class="why-m2-content">
+            <p style="color: var(--light-gray); line-height: 1.8; margin-bottom: 2rem;">The platform is based on:</p>
+            
+            <ul class="why-m2-list">
+                <li>Marco's football coaching experience</li>
+                <li>Strength and conditioning knowledge</li>
+                <li>Work with youth, grassroots and high-level players</li>
+                <li>Real exercise demonstrations</li>
+                <li>Structured player assessments</li>
+                <li>Coaching rules developed specifically for football and fitness</li>
+                <li>Human-reviewed exercise metadata</li>
+            </ul>
+            
+            <div class="founder-card">
+                <h3>Built by Marco Muthi</h3>
+                <p>Marco is a football coach, personal trainer and performance coach with a background in Sport and Exercise Science and Performance Football Coaching. The M2 AI Coach is being created to turn the M2 coaching system into a platform players can access wherever they train.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust and Safety -->
+    <section class="trust-section" id="trust">
+        <h2>Personalised does not mean uncontrolled</h2>
+        
+        <div class="trust-content">
+            <ul class="trust-points">
+                <li>Exercises come from the approved M2 library</li>
+                <li>The AI cannot freely invent exercises</li>
+                <li>Age and equipment rules are applied</li>
+                <li>Exercise safety data is human-reviewed</li>
+                <li>Player injury information can be recorded</li>
+                <li>Unclear or serious safety cases may require further review</li>
+                <li>The platform does not provide medical diagnoses</li>
+            </ul>
+            
+            <div class="safety-note">
+                Always follow guidance from your doctor, physiotherapist or qualified medical professional where applicable.
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Form -->
+    <section class="waitlist-section" id="waitlist">
+        <h2>Be one of the first to train with The Coach</h2>
+        <p class="waitlist-intro">Join the early-access list to receive platform updates, testing opportunities and the confirmed launch date.</p>
+        
+        <div class="waitlist-form-container">
+            <form id="waitlistForm" class="waitlist-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="interest">Interest *</label>
+                        <select id="interest" name="interest" required>
+                            <option value="">Choose one...</option>
+                            <option value="football">Football</option>
+                            <option value="fitness">Fitness</option>
+                            <option value="both">Both</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ageGroup">Age Group *</label>
+                        <select id="ageGroup" name="ageGroup" required>
+                            <option value="">Choose one...</option>
+                            <option value="u8-u10">U8–U10</option>
+                            <option value="u11-u13">U11–U13</option>
+                            <option value="u14-u16">U14–U16</option>
+                            <option value="u17-adult">U17–Adult</option>
+                            <option value="parent">Parent/Guardian (for my child)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goal">Main Training Goal (Optional)</label>
+                    <input type="text" id="goal" name="goal" placeholder="e.g., improve speed, get stronger, increase fitness...">
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="consent" name="consent" required>
+                    <label for="consent">I would like to receive development updates, early-access invitations and launch information from M2.</label>
+                </div>
+                
+                <button type="submit" class="form-submit">Join Early Access</button>
+                
+                <p class="form-note">No spam. Only meaningful development updates, early-access invitations and launch information.</p>
+                
+                <div class="form-incentive">
+                    <strong>Early subscribers may be invited to test the platform before public release.</strong>
+                </div>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✓</div>
+                <h3>You're on the list.</h3>
+                <p>We'll send you platform updates, early-access opportunities and the confirmed release date.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is The M2 AI Coach already available?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        The platform is currently in development. Join the early-access list for testing opportunities and the confirmed launch date.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is it only for footballers?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        No. The platform is being designed for both football development and general fitness.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Will it create the same programme for everyone?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        No. Programmes are designed around the user's profile, goals, age, ability, equipment and training environment.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Does it replace a real coach?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        No. It is designed to make structured M2 coaching guidance more accessible and support the work players already do with coaches.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Can it help with injuries?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        The platform can collect injury and restriction information and support safer coaching decisions. It does not diagnose injuries or replace medical professionals.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is it suitable for children?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Age-appropriate rules are being built into the system. Parents or guardians may also be required to acknowledge certain safety information.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Will there be exercise videos?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes. The exercise library is being built using real M2 coaching and demonstration videos.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How much will it cost?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Pricing has not yet been confirmed. Waitlist subscribers will receive launch and pricing updates.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>When is the release date?</span>
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        The confirmed release date will be announced to early-access subscribers once testing is complete.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>Your next programme should understand you.</h2>
+        <p class="final-cta-text">Join the early-access list and follow the development of The M2 AI Coach.</p>
+        <a href="#waitlist" class="btn btn-primary">Get Launch Updates</a>
+        <p class="final-tagline">Football. Fitness. Development. One Coach.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>M2 AI Coach</h4>
+                <p style="color: var(--gray); line-height: 1.7;">Personalised football and fitness coaching, built around you.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#roadmap">Development Updates</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#waitlist">Join Early Access</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/officialm2ft/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/m2football/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@m2ftfootball" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.youtube.com/@m2ftfootball" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <ul style="margin-top: 1rem;">
+                    <li><a href="https://m2ftperformance.com/privacy-policy" target="_blank">Privacy Policy</a></li>
+                    <li><a href="https://m2ftperformance.com/terms-conditions" target="_blank">Terms of Service</a></li>
+                    <li><a href="mailto:Marco@officialm2ft.com">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 M2 Football and M2 Fitness. All rights reserved.</p>
+            <p>Founded by Marco Muthi</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="m2-ai-coach.js"></script>
+</body>
+</html>
