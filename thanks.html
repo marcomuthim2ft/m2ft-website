@@ -683,19 +683,19 @@
 
         <div class="grid four" style="margin-bottom:18px;">
           <div class="snapshot-card">
-            <div class="snapshot-label">Player Type</div>
+            <div class="snapshot-label">Player Profile</div>
             <div class="snapshot-value" id="snapshotType">Developing player</div>
             <div class="snapshot-note">How the current answers read at first glance.</div>
           </div>
 
           <div class="snapshot-card">
-            <div class="snapshot-label">Primary Strength</div>
+            <div class="snapshot-label">Current Strength</div>
             <div class="snapshot-value" id="snapshotStrength">Loading...</div>
             <div class="snapshot-note">Strongest current edge to keep building on.</div>
           </div>
 
           <div class="snapshot-card">
-            <div class="snapshot-label">Main Improvement</div>
+            <div class="snapshot-label">Main Development Goal</div>
             <div class="snapshot-value" id="snapshotWeakness">Loading...</div>
             <div class="snapshot-note">Biggest area most likely to unlock progress.</div>
           </div>
@@ -845,486 +845,712 @@
   </footer>
 
   <script>
-    const defaultMessage = 'Thank you for submitting your answers. Your programme will take 1–2 days to be created and then it will be sent to your inbox. Please check your spam folder as well if you do not see it in your main inbox.';
+const defaultMessage = 'Thank you for submitting your answers. Your programme will take 1–2 days to be created and then it will be sent to your inbox. Please check your spam folder as well if you do not see it in your main inbox.';
 
-    const stored = localStorage.getItem('m2ftAssessmentData');
-    let data = null;
+const stored = localStorage.getItem('m2ftAssessmentData');
+let data = null;
 
-    try {
-      data = stored ? JSON.parse(stored) : null;
-    } catch (e) {
-      data = null;
-    }
+try {
+  data = stored ? JSON.parse(stored) : null;
+} catch (e) {
+  data = null;
+}
 
-    const friendlyNameMap = {
-      'First Touch': 'first touch',
-      'Passing': 'passing',
-      'Dribbling': 'dribbling',
-      'Shooting / Finishing': 'finishing',
-      'Speed': 'speed',
-      'Acceleration': 'acceleration',
-      'Agility / Change of Direction': 'agility',
-      'Stamina': 'stamina',
-      'Strength': 'strength',
-      'Confidence': 'confidence'
+const friendlyNameMap = {
+  'First Touch': 'first touch',
+  'Passing': 'passing',
+  'Dribbling': 'dribbling',
+  'Shooting / Finishing': 'finishing',
+  'Speed': 'speed',
+  'Acceleration': 'acceleration',
+  'Agility / Change of Direction': 'agility / change of direction',
+  'Stamina': 'stamina',
+  'Strength': 'strength',
+  'Confidence': 'confidence'
+};
+
+const ratingToConceptMap = {
+  'First Touch': 'firstTouch',
+  'Passing': 'passing',
+  'Dribbling': 'dribbling',
+  'Shooting / Finishing': 'finishing',
+  'Speed': 'sprintExposure',
+  'Acceleration': 'acceleration',
+  'Agility / Change of Direction': 'changeDirection',
+  'Stamina': 'conditioning',
+  'Strength': 'strengthPower',
+  'Confidence': 'confidence'
+};
+
+const positionLensMap = {
+  'Goalkeeper': {
+    title: 'Goalkeeper',
+    profile: 'Goalkeeper profile',
+    demands: ['explosive reactions', 'footwork', 'set position quality'],
+    concepts: ['acceleration', 'strengthPower', 'firstTouch', 'passing', 'confidence']
+  },
+  'Defender': {
+    title: 'Defender',
+    profile: 'Centre-back',
+    demands: ['duel reliability', 'body shape', 'recovery ability'],
+    concepts: ['strengthPower', 'defensive1v1', 'conditioning', 'passing', 'acceleration']
+  },
+  'Fullback': {
+    title: 'Fullback',
+    profile: 'Modern fullback',
+    demands: ['repeat runs', 'recovery speed', 'delivery quality'],
+    concepts: ['acceleration', 'conditioning', 'defensive1v1', 'crossing', 'strengthPower']
+  },
+  'Midfielder': {
+    title: 'Midfielder',
+    profile: 'Central midfielder',
+    demands: ['receiving quality', 'passing detail', 'repeat movement'],
+    concepts: ['firstTouch', 'passing', 'conditioning', 'decisionMaking', 'strengthPower']
+  },
+  'Attacking Midfielder': {
+    title: 'Attacking Midfielder',
+    profile: 'Attacking midfielder',
+    demands: ['tight-space quality', 'decision making', 'end product'],
+    concepts: ['firstTouch', 'passing', 'finishing', 'decisionMaking', 'dribbling']
+  },
+  'Winger': {
+    title: 'Winger',
+    profile: 'Wide attacker',
+    demands: ['1v1 threat', 'explosive actions', 'end product'],
+    concepts: ['acceleration', 'dribbling', 'finishing', 'crossing', 'conditioning', 'defensive1v1']
+  },
+  'Forward': {
+    title: 'Forward',
+    profile: 'Forward',
+    demands: ['movement timing', 'finishing detail', 'physical presence'],
+    concepts: ['finishing', 'acceleration', 'strengthPower', 'conditioning', 'confidence']
+  },
+  'Striker': {
+    title: 'Striker',
+    profile: 'Centre forward',
+    demands: ['box movement', 'finishing sharpness', 'aggressive actions'],
+    concepts: ['finishing', 'acceleration', 'strengthPower', 'conditioning', 'confidence']
+  }
+};
+
+function text(v) {
+  return (v || '').toString().trim();
+}
+
+function lower(v) {
+  return text(v).toLowerCase();
+}
+
+function sentenceCase(value) {
+  if (!value) return '';
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function normaliseSpaces(value) {
+  return lower(value).replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function listToSentence(items) {
+  const clean = items.filter(Boolean);
+  if (!clean.length) return '';
+  if (clean.length === 1) return clean[0];
+  if (clean.length === 2) return `${clean[0]} and ${clean[1]}`;
+  return `${clean.slice(0, -1).join(', ')} and ${clean[clean.length - 1]}`;
+}
+
+function createTag(containerId, value, cls) {
+  const el = document.createElement('div');
+  el.className = `tag ${cls}`.trim();
+  el.textContent = value;
+  document.getElementById(containerId).appendChild(el);
+}
+
+function createInsight(containerId, title, body, type) {
+  const card = document.createElement('div');
+  card.className = `insight-card ${type}`;
+  card.innerHTML = `<h3>${title}</h3><div class="muted">${body}</div>`;
+  document.getElementById(containerId).appendChild(card);
+}
+
+function createScore(label, value) {
+  const card = document.createElement('div');
+  card.className = 'score-card';
+  card.innerHTML = `
+    <div class="score-top">
+      <span>${label}</span>
+      <span>${value}/10</span>
+    </div>
+    <div class="bar"><span style="width:${Math.max(0, Math.min(100, value * 10))}%"></span></div>
+  `;
+  document.getElementById('scoresGrid').appendChild(card);
+}
+
+function parsePriorityLines(value) {
+  if (!value) return [];
+  return value
+    .split(/\n|;|,/)
+    .map(item => item.replace(/^[-•\s]+/, '').trim())
+    .filter(Boolean)
+    .slice(0, 8);
+}
+
+function getPositionLens(position) {
+  return positionLensMap[position] || {
+    title: 'Player',
+    profile: 'Football profile',
+    demands: ['technical growth', 'physical growth', 'decision making'],
+    concepts: ['firstTouch', 'strengthPower', 'conditioning']
+  };
+}
+
+function getLoadProfile(teamSessions, matchesPerWeek, extraDays) {
+  const team = Number(teamSessions || 0);
+  const matches = Number(matchesPerWeek || 0);
+  const extra = Number(extraDays || 0);
+  const total = team + matches + extra;
+
+  if (total >= 6) {
+    return {
+      label: 'High weekly load',
+      note: 'The programme should prioritise quality, freshness, and sharpness rather than just adding extra volume.'
     };
+  }
 
-    const positionLensMap = {
-      'Goalkeeper': {
-        title: 'Goalkeeper profile',
-        themes: ['handling consistency', 'set position quality', 'explosive reactions'],
-        focus: ['footwork', 'handling quality', 'distribution detail', 'explosive movement']
-      },
-      'Defender': {
-        title: 'Defensive profile',
-        themes: ['duel reliability', 'body shape', 'recovery ability'],
-        focus: ['defensive footwork', 'recovery speed', 'duel strength', 'composure in build-up']
-      },
-      'Fullback': {
-        title: 'Modern fullback profile',
-        themes: ['repeat runs', 'recovery speed', 'delivery quality'],
-        focus: ['acceleration', 'recovery runs', 'crossing / delivery', '1v1 defending']
-      },
-      'Midfielder': {
-        title: 'Midfield profile',
-        themes: ['receiving quality', 'passing detail', 'repeat movement'],
-        focus: ['first touch', 'scanning habits', 'passing range', 'engine / repeat effort']
-      },
-      'Attacking Midfielder': {
-        title: 'Creative attacking midfield profile',
-        themes: ['tight-space quality', 'decision making', 'end product'],
-        focus: ['turning under pressure', 'decision making', 'final-third passing', 'composure']
-      },
-      'Winger': {
-        title: 'Wide attacking profile',
-        themes: ['1v1 threat', 'explosive actions', 'end product'],
-        focus: ['acceleration', 'dribbling', 'finishing / final ball', 'repeat sprint ability']
-      },
-      'Forward': {
-        title: 'Forward profile',
-        themes: ['movement timing', 'finishing detail', 'physical presence'],
-        focus: ['finishing', 'explosive movement', 'hold-up ability', 'confidence in front of goal']
-      },
-      'Striker': {
-        title: 'Striker profile',
-        themes: ['box movement', 'finishing sharpness', 'aggressive actions'],
-        focus: ['finishing', 'attacking movement', 'acceleration', 'physical duels']
-      }
+  if (total >= 4) {
+    return {
+      label: 'Moderate weekly load',
+      note: 'There is enough football in the week already, so the extra work should stay targeted and purposeful.'
     };
+  }
 
-    const focusMap = {
-      'Become faster': ['Acceleration mechanics', 'Speed exposure', 'Change of direction work'],
-      'Improve fitness': ['Aerobic conditioning', 'Repeat sprint ability', 'Recovery structure'],
-      'Improve ball mastery': ['Ball mastery', 'Touches under pressure', 'Technical repetition'],
-      'Improve confidence': ['Confidence-building repetition', 'Decision-making under pressure', 'Game-transfer habits'],
-      'Improve first touch': ['First-touch quality', 'Receiving under pressure', 'Body shape before contact'],
-      'Improve decision making': ['Scanning habits', 'Decision-making', 'Position-specific perception'],
-      'Improve finishing': ['Finishing variety', 'Composure in front of goal', 'Striking technique'],
-      'Improve dribbling / 1v1': ['1v1 attacking', 'Ball carrying', 'Change of direction'],
-      'Prepare for trials': ['High-intensity sharpness', 'Position-specific detail', 'Performance consistency'],
-      'Return from injury': ['Progressive return to play', 'Movement confidence', 'Load management']
-    };
+  return {
+    label: 'Lower weekly load',
+    note: 'There is room to build extra technical and physical work, but it should still stay position-specific and realistic.'
+  };
+}
 
-    function text(v) {
-      return (v || '').toString().trim();
+function getWeakFootLabel(dominantFoot) {
+  const foot = lower(dominantFoot);
+  if (foot.includes('left')) return 'Right-foot';
+  if (foot.includes('right')) return 'Left-foot';
+  return 'Weak-foot';
+}
+
+function getGymExperienceLabel(data) {
+  const raw = text(data.gymExperience || data.gymExperienceLevel || data.gym_level || '');
+  return raw;
+}
+
+function getConceptCatalog(data) {
+  const weakFootLabel = getWeakFootLabel(data.dominantFoot);
+  return {
+    acceleration: {
+      label: 'Acceleration / Explosiveness',
+      focusTag: 'Acceleration mechanics',
+      aliases: ['become faster', 'faster', 'acceleration', 'explosive', 'explosiveness', 'first step', 'burst', 'separate from defenders', 'pace', 'quicker']
+    },
+    sprintExposure: {
+      label: 'Sprint exposure',
+      focusTag: 'Sprint exposure',
+      aliases: ['speed', 'top speed', 'max velocity', 'sprint', 'faster']
+    },
+    strengthPower: {
+      label: 'Lower-body strength / power',
+      focusTag: 'Lower-body strength / power',
+      aliases: ['strength', 'power', 'gym', 'stronger', 'explosive power']
+    },
+    weakFootEndProduct: {
+      label: `${weakFootLabel} end product`,
+      focusTag: `${weakFootLabel} end product`,
+      aliases: ['weak foot', 'weaker foot', 'right foot', 'left foot', 'weak-foot', 'weaker-foot']
+    },
+    weakFootFinishing: {
+      label: `${weakFootLabel} finishing`,
+      focusTag: `${weakFootLabel} finishing`,
+      aliases: ['right foot shooting', 'right-foot shooting', 'left foot shooting', 'left-foot shooting', 'weak foot shooting', 'weaker foot shooting', 'weak foot finishing', 'weaker foot finishing']
+    },
+    crossing: {
+      label: `${weakFootLabel} crossing`,
+      focusTag: `${weakFootLabel} crossing`,
+      aliases: ['crossing', 'right foot crossing', 'right-foot crossing', 'left foot crossing', 'left-foot crossing', 'weak foot crossing', 'weaker foot crossing', 'delivery']
+    },
+    defensive1v1: {
+      label: 'Defensive 1v1 movement',
+      focusTag: 'Defensive 1v1 movement',
+      aliases: ['1v1 defensive', 'defensive work', 'defending', 'defensive movement', '1v1 movement', 'duel', 'duels', 'defensive 1v1']
+    },
+    conditioning: {
+      label: 'Repeat-effort conditioning',
+      focusTag: 'Repeat-effort conditioning',
+      aliases: ['fitness', 'conditioning', 'stamina', 'engine', 'fit', 'repeat effort', 'repeat-effort']
+    },
+    dribbling: {
+      label: 'Dribbling / 1v1 threat',
+      focusTag: 'Dribbling as a supporting winger quality',
+      aliases: ['dribbling', '1v1', 'beat players', 'ball carrying', 'carry the ball']
+    },
+    changeDirection: {
+      label: 'Change of direction',
+      focusTag: 'Change of direction work',
+      aliases: ['change of direction', 'cod', 'agility', 'footwork']
+    },
+    firstTouch: {
+      label: 'First-touch quality',
+      focusTag: 'First-touch quality',
+      aliases: ['first touch', 'touch']
+    },
+    passing: {
+      label: 'Passing quality',
+      focusTag: 'Passing quality',
+      aliases: ['passing', 'final pass', 'distribution']
+    },
+    finishing: {
+      label: 'Finishing / end product',
+      focusTag: 'Finishing / end product',
+      aliases: ['finishing', 'shooting', 'end product', 'final ball']
+    },
+    confidence: {
+      label: 'Confidence / assertiveness',
+      focusTag: 'Confidence-building work',
+      aliases: ['confidence', 'belief', 'assertiveness']
+    },
+    decisionMaking: {
+      label: 'Decision-making',
+      focusTag: 'Decision-making scenarios',
+      aliases: ['decision making', 'decision-making', 'scanning', 'awareness']
     }
+  };
+}
 
-    function lower(v) {
-      return text(v).toLowerCase();
+function addScore(scoreMap, reasonsMap, key, points, reason) {
+  scoreMap[key] = (scoreMap[key] || 0) + points;
+  reasonsMap[key] = reasonsMap[key] || [];
+  reasonsMap[key].push(reason);
+}
+
+function textMatchesAliases(value, aliases) {
+  const source = normaliseSpaces(value);
+  return aliases.some(alias => source.includes(normaliseSpaces(alias)));
+}
+
+function scoreTextAgainstCatalog(value, weight, scoreMap, reasonsMap, catalog, reasonLabel) {
+  const source = text(value);
+  if (!source) return;
+
+  Object.entries(catalog).forEach(([key, config]) => {
+    if (textMatchesAliases(source, config.aliases)) {
+      addScore(scoreMap, reasonsMap, key, weight, `${reasonLabel}: ${source}`);
     }
+  });
+}
 
-    function sentenceCase(value) {
-      if (!value) return '';
-      return value.charAt(0).toUpperCase() + value.slice(1);
+function getProfileLabel(position, topConcepts, strongestAreaText) {
+  const primary = topConcepts[0] ? topConcepts[0].key : '';
+  const strongestText = lower(strongestAreaText);
+
+  if (position === 'Winger') {
+    if (primary === 'acceleration' || primary === 'sprintExposure') return 'Direct Winger';
+    if (strongestText.includes('shoot')) return 'Wide Attacker';
+    return 'Wide Attacker';
+  }
+
+  if (position === 'Fullback') {
+    if (primary === 'acceleration' || primary === 'conditioning') return 'Dynamic Fullback';
+    return 'Modern Fullback';
+  }
+
+  if (position === 'Midfielder') return 'Central Midfielder';
+  if (position === 'Attacking Midfielder') return 'Attacking Midfielder';
+  if (position === 'Striker' || position === 'Forward') return 'Forward';
+  if (position === 'Defender') return 'Centre-Back';
+  if (position === 'Goalkeeper') return 'Goalkeeper';
+  return 'Football Profile';
+}
+
+function getStrengthSummary(ratingsArray, data) {
+  const highest = ratingsArray.slice(0, 3);
+  const playerStrength = text(data.strongestAreaText);
+
+  if (playerStrength) {
+    if (normaliseSpaces(playerStrength).includes('shoot')) return 'Shooting / End product';
+    return sentenceCase(playerStrength.replace(/[.]+$/, ''));
+  }
+
+  return highest
+    .slice(0, 2)
+    .map(item => sentenceCase(friendlyNameMap[item.label] || item.label.toLowerCase()))
+    .join(' + ');
+}
+
+function getEnvironmentSummary(data) {
+  const parts = [];
+
+  if (data.goalAccess === 'Yes') parts.push('finishing and end-product work');
+  if (data.wallAccess === 'Yes') parts.push('wall-based first-touch and passing work');
+  if (data.gymAccess === 'Yes') parts.push('gym-based strength and power work');
+  if (data.gymAccess === 'Sometimes') parts.push('flexible gym work when access is available');
+  if (data.gymAccess === 'No') parts.push('bodyweight, band, and football-based physical work');
+  if (text(data.sessionTime)) parts.push(`sessions shaped around ${data.sessionTime.toLowerCase()}`);
+
+  return parts;
+}
+
+function buildPriorityModel(data, ratingsArray, ratings) {
+  const position = text(data.primaryPosition) || 'Player';
+  const secondaryPosition = text(data.secondaryPosition || '');
+  const positionLens = getPositionLens(position);
+  const secondaryLens = secondaryPosition ? getPositionLens(secondaryPosition) : null;
+  const loadProfile = getLoadProfile(data.teamSessions, data.matchesPerWeek, data.extraDays);
+  const catalog = getConceptCatalog(data);
+  const scoreMap = {};
+  const reasonsMap = {};
+  const top3Items = parsePriorityLines(data.top3);
+  const weakestAreaText = text(data.weakestAreaText);
+  const goalText = text(data.mainGoal);
+  const gymExperience = lower(getGymExperienceLabel(data));
+  const totalLoad = Number(data.teamSessions || 0) + Number(data.matchesPerWeek || 0) + Number(data.extraDays || 0);
+
+  scoreTextAgainstCatalog(goalText, 40, scoreMap, reasonsMap, catalog, 'main goal');
+  top3Items.forEach(item => scoreTextAgainstCatalog(item, 28, scoreMap, reasonsMap, catalog, 'written priority'));
+  scoreTextAgainstCatalog(weakestAreaText, 24, scoreMap, reasonsMap, catalog, 'written weakness');
+
+  positionLens.concepts.forEach(key => addScore(scoreMap, reasonsMap, key, 16, `position demand: ${positionLens.profile}`));
+  if (secondaryLens) {
+    secondaryLens.concepts.forEach(key => addScore(scoreMap, reasonsMap, key, 8, `secondary position demand: ${secondaryLens.profile}`));
+  }
+
+  ratingsArray.forEach(item => {
+    const conceptKey = ratingToConceptMap[item.label];
+    if (!conceptKey) return;
+    const value = Number(item.value) || 0;
+    if (value <= 6) {
+      addScore(scoreMap, reasonsMap, conceptKey, 8 + ((6 - value) * 2), `self-rating: ${item.label} ${value}/10`);
     }
+  });
 
-    function includesAny(value, terms) {
-      const source = lower(value);
-      return terms.some(term => source.includes(term));
+  if (data.gymAccess === 'Yes' || data.gymAccess === 'Sometimes') {
+    addScore(scoreMap, reasonsMap, 'strengthPower', gymExperience.includes('advanced') ? 12 : 8, 'environment: gym access');
+  }
+  if (data.goalAccess === 'Yes') {
+    addScore(scoreMap, reasonsMap, 'finishing', 6, 'environment: goal access');
+    addScore(scoreMap, reasonsMap, 'crossing', 4, 'environment: goal access');
+  }
+  if (data.wallAccess === 'Yes') {
+    addScore(scoreMap, reasonsMap, 'firstTouch', 6, 'environment: wall access');
+    addScore(scoreMap, reasonsMap, 'passing', 6, 'environment: wall access');
+  }
+
+  if (totalLoad <= 4) {
+    addScore(scoreMap, reasonsMap, 'conditioning', 4, 'weekly structure: room for targeted extra work');
+    addScore(scoreMap, reasonsMap, 'strengthPower', 4, 'weekly structure: room for targeted extra work');
+  }
+
+  if ((ratings['Confidence'] || 0) <= 6) {
+    addScore(scoreMap, reasonsMap, 'confidence', 10, 'confidence below preferred range');
+  }
+
+  const priorityList = Object.entries(scoreMap)
+    .map(([key, score]) => ({
+      key,
+      score,
+      label: catalog[key] ? catalog[key].label : sentenceCase(key),
+      focusTag: catalog[key] ? catalog[key].focusTag : sentenceCase(key),
+      reasons: reasonsMap[key] || []
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  const filtered = priorityList.filter(item => item.score > 0);
+  const primary = filtered[0] || null;
+  const secondary = filtered.slice(1, 3);
+  const supporting = filtered.slice(3, 6);
+  const technicalPriorities = filtered
+    .filter(item => ['weakFootFinishing', 'crossing', 'dribbling', 'firstTouch', 'passing', 'finishing', 'defensive1v1'].includes(item.key))
+    .slice(0, 3);
+
+  return {
+    positionLens,
+    loadProfile,
+    priorityList: filtered,
+    primary,
+    secondary,
+    supporting,
+    technicalPriorities,
+    top3Items,
+    weakestAreaText,
+    environmentSummary: getEnvironmentSummary(data)
+  };
+}
+
+function buildCoachOverview(name, data, ratingsArray, model, profileLabel) {
+  const strengths = ratingsArray.slice(0, 3).map(item => `${friendlyNameMap[item.label] || lower(item.label)}${item.value ? ` (${item.value}/10)` : ''}`);
+  const writtenSecondary = [];
+
+  if (model.technicalPriorities.length) {
+    writtenSecondary.push(listToSentence(model.technicalPriorities.map(item => item.label.toLowerCase())));
+  }
+
+  if (model.secondary.length) {
+    model.secondary.forEach(item => {
+      const alreadyIncluded = writtenSecondary.join(' | ').includes(item.label.toLowerCase());
+      if (!alreadyIncluded) writtenSecondary.push(item.label.toLowerCase());
+    });
+  }
+
+  const parts = [];
+  parts.push(`Your profile reads as a ${lower(profileLabel)} with a solid base in ${listToSentence(strengths.map(s => s.replace(/ \(.*?\)/, '')))}.`);
+
+  if (text(data.mainGoal) && model.primary) {
+    parts.push(`Your main objective is to ${lower(data.mainGoal)}, so ${model.primary.label.toLowerCase()} should lead the programme.`);
+  }
+
+  if (writtenSecondary.length) {
+    parts.push(`Your written answers also point toward ${listToSentence(writtenSecondary.slice(0, 3))} as important development areas.`);
+  }
+
+  const extraDays = Number(data.extraDays || 0);
+  const sessionTime = text(data.sessionTime);
+  const matchDay = text(data.matchDay);
+  if (extraDays || sessionTime || matchDay) {
+    const weekBits = [];
+    if (extraDays) weekBits.push(`${extraDays} additional ${extraDays === 1 ? 'session' : 'sessions'}`);
+    if (sessionTime) weekBits.push(`${sessionTime.toLowerCase()} blocks`);
+    if (matchDay) weekBits.push(`${matchDay} match`);
+    parts.push(`With ${listToSentence(weekBits)}, the plan should prioritise these areas without adding unnecessary volume around your current football week.`);
+  } else {
+    parts.push(model.loadProfile.note);
+  }
+
+  return parts.join(' ');
+}
+
+if (!data || !data.ratings) {
+  document.getElementById('playerNameHeading').textContent = 'Thanks — your submission is in.';
+  document.getElementById('nextStepText').textContent = defaultMessage;
+  document.getElementById('coachReadText').textContent = 'Once the assessment is submitted from the live page, this screen will build a smarter player summary from the answers provided.';
+
+  document.getElementById('heroEdge').textContent = 'Your strongest qualities will show here.';
+  document.getElementById('heroGrowth').textContent = 'Your main development needs will show here.';
+  document.getElementById('heroDirection').textContent = 'Your likely programme focus will show here.';
+  document.getElementById('snapshotStrength').textContent = 'Awaiting submit';
+  document.getElementById('snapshotWeakness').textContent = 'Awaiting submit';
+  document.getElementById('snapshotLoad').textContent = 'Awaiting submit';
+  document.getElementById('miniPositionLens').textContent = 'Available after live submission.';
+  document.getElementById('miniEnvironmentFit').textContent = 'Available after live submission.';
+  document.getElementById('miniFocusBias').textContent = 'Available after live submission.';
+
+  createInsight('strengthInsights', 'Summary available after assessment submit', 'Once the form is completed from the live assessment page, this section can display a smarter strengths and weaknesses summary based on the submitted answers.', 'strength');
+  createInsight('weaknessInsights', 'No stored assessment found', 'Open the assessment page, submit the form, and the thank-you page will build the mini player report automatically.', 'weakness');
+  createInsight('focusInsights', 'Coach review still applies', 'Your full programme should still be manually reviewed and built around the player, even when the instant summary is shown here.', 'focus');
+  createInsight('profileInsights', 'Player profile appears after submit', 'The position-aware and schedule-aware summary is shown after a real assessment submission.', 'focus');
+} else {
+  const name = text(data.fullName) || 'Player';
+  const position = text(data.primaryPosition) || 'Player';
+  const ratings = data.ratings || {};
+
+  const ratingsArray = Object.entries(ratings)
+    .map(([label, value]) => ({ label, value: Number(value) || 0 }))
+    .sort((a, b) => b.value - a.value);
+
+  const strongest = ratingsArray.slice(0, 3);
+  const model = buildPriorityModel(data, ratingsArray, ratings);
+  const profileLabel = getProfileLabel(position, model.priorityList, data.strongestAreaText);
+  const strengthSummary = getStrengthSummary(ratingsArray, data);
+  const coachOverview = buildCoachOverview(name, data, ratingsArray, model, profileLabel);
+  const mainDevelopment = model.primary ? model.primary.label : 'Overall development';
+  const technicalPriorityLine = model.technicalPriorities.length
+    ? listToSentence(model.technicalPriorities.map(item => item.label))
+    : '';
+
+  const snapshotLabels = document.querySelectorAll('.snapshot-label');
+  if (snapshotLabels[0]) snapshotLabels[0].textContent = 'Player Profile';
+  if (snapshotLabels[1]) snapshotLabels[1].textContent = 'Current Strength';
+  if (snapshotLabels[2]) snapshotLabels[2].textContent = 'Main Development Goal';
+  if (snapshotLabels[3]) snapshotLabels[3].textContent = 'Weekly Direction';
+
+  document.getElementById('playerNameHeading').textContent = `${name}, we’ve got your submission.`;
+  document.getElementById('nextStepText').textContent = `${defaultMessage} Below is a smarter first-pass snapshot based on your answers today.`;
+  document.getElementById('coachReadText').textContent = coachOverview;
+  document.getElementById('heroMessage').textContent = defaultMessage;
+
+  document.getElementById('playerTypeHeading').textContent = profileLabel;
+  document.getElementById('snapshotType').textContent = profileLabel;
+  document.getElementById('snapshotStrength').textContent = strengthSummary;
+  document.getElementById('snapshotWeakness').textContent = mainDevelopment;
+  document.getElementById('snapshotLoad').textContent = model.loadProfile.label;
+
+  document.getElementById('heroEdge').textContent = strongest.map(item => `${sentenceCase(friendlyNameMap[item.label] || lower(item.label))} (${item.value}/10)`).join(', ');
+  document.getElementById('heroGrowth').textContent = [mainDevelopment].concat(model.secondary.map(item => item.label)).slice(0, 3).join(', ');
+  document.getElementById('heroDirection').textContent = model.priorityList.slice(0, 4).map(item => item.focusTag).join(', ');
+
+  document.getElementById('miniPositionLens').textContent = `${model.positionLens.profile} — likely emphasis on ${listToSentence(model.positionLens.demands)}.`;
+  document.getElementById('miniEnvironmentFit').textContent = model.environmentSummary.length ? model.environmentSummary.join(', ') : 'Work will be shaped around your current setup.';
+  document.getElementById('miniFocusBias').textContent = technicalPriorityLine ? `${mainDevelopment} + ${technicalPriorityLine}` : mainDevelopment;
+
+  document.getElementById('premiumCoachQuote').textContent =
+    technicalPriorityLine
+      ? `Based on your answers, the programme should lead with ${mainDevelopment.toLowerCase()} while layering in ${technicalPriorityLine.toLowerCase()} around your real week.`
+      : `Based on your answers, the programme should lead with ${mainDevelopment.toLowerCase()} and build it into your real football week rather than just selecting the lowest ratings.`;
+
+  strongest.forEach(item => createTag('strengthTags', `${item.label} (${item.value}/10)`, 'green'));
+  if (text(data.strongestAreaText)) createTag('strengthTags', `Player-identified: ${text(data.strongestAreaText).replace(/[.]+$/, '')}`, 'green');
+
+  if (model.primary) createTag('weaknessTags', `Primary: ${model.primary.label}`, 'orange');
+  model.secondary.forEach(item => createTag('weaknessTags', `Secondary: ${item.label}`, 'orange'));
+  model.supporting.forEach(item => createTag('weaknessTags', `Supporting: ${item.label}`, 'yellow'));
+
+  createTag('profileTags', profileLabel, 'yellow');
+  createTag('profileTags', model.positionLens.profile, 'blue');
+  createTag('profileTags', model.loadProfile.label, 'yellow');
+  if (text(data.level)) createTag('profileTags', data.level, 'blue');
+
+  createInsight(
+    'strengthInsights',
+    'Current strengths to build from',
+    `Your best current qualities look like ${strongest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ')}. These should be maintained and used as a base, rather than becoming the main place the programme spends its energy.`,
+    'strength'
+  );
+
+  if (text(data.strongestAreaText)) {
+    createInsight(
+      'strengthInsights',
+      'Player-identified strength',
+      `You also identified “${text(data.strongestAreaText)}” as a current strength. That matters because it shows where you already feel most natural and dangerous in your game.`,
+      'strength'
+    );
+  }
+
+  createInsight(
+    'strengthInsights',
+    'How strengths should be used',
+    `The programme should protect your better qualities and use them as a platform, while the main development resources go toward ${listToSentence([mainDevelopment].concat(model.secondary.map(item => item.label.toLowerCase())).slice(0, 3))}.`,
+    'strength'
+  );
+
+  createInsight(
+    'weaknessInsights',
+    'Weighted priority view',
+    `These priorities are not based on the lowest scores alone. They are led by your stated goal, written priorities, written weakness areas, position demands, then checked against your ratings and environment.`,
+    'weakness'
+  );
+
+  if (model.primary) {
+    createInsight(
+      'weaknessInsights',
+      'Primary development priority',
+      `${model.primary.label} comes out highest because it is strongly supported by your goal, written answers, position demands, and relevant self-ratings.`,
+      'weakness'
+    );
+  }
+
+  if (model.secondary.length) {
+    createInsight(
+      'weaknessInsights',
+      'Secondary priorities',
+      `The next layer looks like ${listToSentence(model.secondary.map(item => item.label.toLowerCase()))}. These are important enough to feature clearly, but they should sit behind the main development goal rather than replace it.`,
+      'weakness'
+    );
+  }
+
+  if (text(data.weakestAreaText)) {
+    createInsight(
+      'weaknessInsights',
+      'Player-written weakness',
+      `You specifically wrote “${text(data.weakestAreaText)}”. That carries more weight than small differences between nearby self-ratings because it usually reflects what you actually feel in matches.`,
+      'weakness'
+    );
+  }
+
+  const finalFocus = [];
+  const focusSeen = new Set();
+  model.priorityList.forEach(item => {
+    if (!focusSeen.has(item.focusTag) && finalFocus.length < 8) {
+      focusSeen.add(item.focusTag);
+      finalFocus.push(item.focusTag);
     }
+  });
+  if (text(data.primaryPosition) && finalFocus.length < 8) {
+    const extra = `${data.primaryPosition} specific detail`;
+    if (!focusSeen.has(extra)) finalFocus.push(extra);
+  }
+
+  finalFocus.forEach(item => createTag('focusTags', item, 'yellow'));
+
+  createInsight(
+    'focusInsights',
+    'Likely first programme themes',
+    `Based on your goal, written answers, position, ratings, and environment, the programme should likely open with ${listToSentence(finalFocus.slice(0, 4).map(item => item.toLowerCase()))}.`,
+    'focus'
+  );
+
+  if (technicalPriorityLine) {
+    createInsight(
+      'focusInsights',
+      'Technical priorities',
+      `The technical layer should keep visible attention on ${technicalPriorityLine.toLowerCase()} rather than defaulting too quickly to generic work.`,
+      'focus'
+    );
+  }
+
+  if (model.environmentSummary.length) {
+    createInsight(
+      'focusInsights',
+      'Built around your environment',
+      `Your current setup allows for ${model.environmentSummary.join(', ')}. That means the plan can push realistic work that actually fits your environment.`,
+      'focus'
+    );
+  }
+
+  createInsight(
+    'focusInsights',
+    'Built around your week',
+    model.loadProfile.note,
+    'focus'
+  );
+
+  if (
+    (text(data.injuries) && lower(data.injuries) !== 'none') ||
+    (text(data.restrictions) && lower(data.restrictions) !== 'none') ||
+    (text(data.avoid) && lower(data.avoid) !== 'none')
+  ) {
+    const cautionBits = [];
+    if (text(data.injuries) && lower(data.injuries) !== 'none') cautionBits.push(`injuries: ${text(data.injuries)}`);
+    if (text(data.restrictions) && lower(data.restrictions) !== 'none') cautionBits.push(`restrictions: ${text(data.restrictions)}`);
+    if (text(data.avoid) && lower(data.avoid) !== 'none') cautionBits.push(`avoid: ${text(data.avoid)}`);
+
+    createInsight(
+      'focusInsights',
+      'Physical considerations',
+      `Your coach review should take into account ${cautionBits.join(' | ')} so the programme stays realistic and appropriate.`,
+      'focus'
+    );
+  }
+
+  createInsight(
+    'profileInsights',
+    'Player profile',
+    `At the moment, your answers read most like a ${lower(profileLabel)}. That label is there to sharpen the first coaching lens, not to box you in.`,
+    'focus'
+  );
+
+  createInsight(
+    'profileInsights',
+    'Main development direction',
+    `The first coaching direction should be ${mainDevelopment.toLowerCase()}, then layered with ${listToSentence(model.secondary.map(item => item.label.toLowerCase()).slice(0, 2)) || 'the next most relevant support work'}.`,
+    'focus'
+  );
+
+  if (text(data.success)) {
+    createInsight(
+      'profileInsights',
+      'Your success measure',
+      `You said success over the next 4 weeks would look like: “${text(data.success)}”. That matters because the plan should aim at outcomes you can actually notice, not just random drill volume.`,
+      'focus'
+    );
+  }
+
+  ratingsArray.forEach(item => createScore(item.label, item.value));
+}
 
-    function createTag(containerId, value, cls) {
-      const el = document.createElement('div');
-      el.className = `tag ${cls}`.trim();
-      el.textContent = value;
-      document.getElementById(containerId).appendChild(el);
-    }
-
-    function createInsight(containerId, title, body, type) {
-      const card = document.createElement('div');
-      card.className = `insight-card ${type}`;
-      card.innerHTML = `<h3>${title}</h3><div class="muted">${body}</div>`;
-      document.getElementById(containerId).appendChild(card);
-    }
-
-    function createScore(label, value) {
-      const card = document.createElement('div');
-      card.className = 'score-card';
-      card.innerHTML = `
-        <div class="score-top">
-          <span>${label}</span>
-          <span>${value}/10</span>
-        </div>
-        <div class="bar"><span style="width:${Math.max(0, Math.min(100, value * 10))}%"></span></div>
-      `;
-      document.getElementById('scoresGrid').appendChild(card);
-    }
-
-    function parseTop3(textValue) {
-      if (!textValue) return [];
-      return textValue
-        .split(/\n|,|;|\//)
-        .map(item => item.trim())
-        .filter(Boolean)
-        .slice(0, 5);
-    }
-
-    function getPositionLens(position) {
-      return positionLensMap[position] || {
-        title: 'Football profile',
-        themes: ['technical growth', 'physical growth', 'decision making'],
-        focus: ['technical detail', 'physical development', 'consistency']
-      };
-    }
-
-    function getLoadProfile(teamSessions, matchesPerWeek, extraDays) {
-      const team = Number(teamSessions || 0);
-      const matches = Number(matchesPerWeek || 0);
-      const extra = Number(extraDays || 0);
-      const total = team + matches + extra;
-
-      if (total >= 6) {
-        return {
-          label: 'High weekly load',
-          note: 'The programme will likely need to prioritise quality, recovery, and sharpness rather than just adding extra volume.'
-        };
-      }
-
-      if (total >= 4) {
-        return {
-          label: 'Moderate weekly load',
-          note: 'There is enough football in the week already, so extra work should be targeted and purposeful.'
-        };
-      }
-
-      return {
-        label: 'Lower weekly load',
-        note: 'There may be room to build extra technical and physical work more aggressively, depending on recovery and age.'
-      };
-    }
-
-    function getArchetype(position, strongest, data) {
-      const labels = strongest.map(item => item.label);
-      const has = label => labels.includes(label);
-
-      if ((position === 'Winger' || position === 'Forward' || position === 'Striker') && has('Speed') && has('Dribbling')) {
-        return 'Direct attacking runner';
-      }
-
-      if ((position === 'Midfielder' || position === 'Attacking Midfielder') && (has('Passing') || has('First Touch'))) {
-        return 'Ball-progressing midfield type';
-      }
-
-      if ((position === 'Defender' || position === 'Fullback') && (has('Speed') || has('Strength'))) {
-        return 'Aggressive recovery defender';
-      }
-
-      if (position === 'Goalkeeper') {
-        return 'Reactive goalkeeper profile';
-      }
-
-      if (has('Confidence') && has('Dribbling')) {
-        return 'Front-foot technical player';
-      }
-
-      if (has('Stamina') && has('Agility / Change of Direction')) {
-        return 'High-output movement profile';
-      }
-
-      if (text(data.strongestAreaText)) {
-        return sentenceCase(text(data.strongestAreaText));
-      }
-
-      return 'Developing all-round player';
-    }
-
-    function getContradictions(data, ratings) {
-      const notes = [];
-
-      if ((ratings['Dribbling'] || 0) >= 7 && includesAny(data.weakestAreaText, ['1v1', 'dribbl', 'confidence', 'beat players'])) {
-        notes.push('Your dribbling score suggests technical ability is there, but your written answers hint that confidence or execution in real 1v1 moments may still need work.');
-      }
-
-      if ((ratings['Speed'] || 0) >= 7 && lower(data.mainGoal) === 'become faster') {
-        notes.push('You already rate your speed reasonably well, so the bigger opportunity may be improving acceleration mechanics, repeat speed, and how often you can produce pace in matches.');
-      }
-
-      if ((ratings['Confidence'] || 0) <= 4) {
-        const technicalAvg = (
-          (ratings['First Touch'] || 0) +
-          (ratings['Passing'] || 0) +
-          (ratings['Dribbling'] || 0) +
-          (ratings['Shooting / Finishing'] || 0)
-        ) / 4;
-
-        if (technicalAvg >= 6) {
-          notes.push('Your technical ratings look stronger than your confidence rating, which could mean belief, match assertiveness, or consistency under pressure is lagging behind your actual ability.');
-        }
-      }
-
-      if ((ratings['Strength'] || 0) <= 4 && (data.gymAccess === 'Yes' || data.gymAccess === 'Sometimes')) {
-        notes.push('You have at least some gym access, so physical development looks like a realistic area to attack rather than a limitation.');
-      }
-
-      return notes;
-    }
-
-    function getEnvironmentSummary(data) {
-      const parts = [];
-
-      if (data.wallAccess === 'Yes') parts.push('wall-based first-touch and passing work');
-      if (data.goalAccess === 'Yes') parts.push('finishing and end-product work');
-      if (data.gymAccess === 'Yes') parts.push('gym-based strength and athletic development');
-      if (data.gymAccess === 'Sometimes') parts.push('flexible gym work when access is available');
-      if (data.gymAccess === 'No') parts.push('bodyweight, band, and football-based physical work');
-
-      if (text(data.sessionTime)) {
-        parts.push(`sessions shaped around ${data.sessionTime.toLowerCase()}`);
-      }
-
-      return parts;
-    }
-
-    function getPrimaryWeaknessWords(data, weakest) {
-      const result = new Set();
-
-      weakest.forEach(item => {
-        result.add(sentenceCase(friendlyNameMap[item.label] || item.label.toLowerCase()));
-      });
-
-      parseTop3(data.top3).forEach(item => result.add(sentenceCase(item)));
-
-      if (text(data.weakestAreaText)) {
-        result.add(sentenceCase(text(data.weakestAreaText)));
-      }
-
-      return Array.from(result).slice(0, 6);
-    }
-
-    if (!data || !data.ratings) {
-      document.getElementById('playerNameHeading').textContent = 'Thanks — your submission is in.';
-      document.getElementById('nextStepText').textContent = defaultMessage;
-      document.getElementById('coachReadText').textContent = 'Once the assessment is submitted from the live page, this screen will build a smarter player summary from the answers provided.';
-
-      document.getElementById('heroEdge').textContent = 'Your strongest qualities will show here.';
-      document.getElementById('heroGrowth').textContent = 'Your main development needs will show here.';
-      document.getElementById('heroDirection').textContent = 'Your likely programme focus will show here.';
-      document.getElementById('snapshotStrength').textContent = 'Awaiting submit';
-      document.getElementById('snapshotWeakness').textContent = 'Awaiting submit';
-      document.getElementById('snapshotLoad').textContent = 'Awaiting submit';
-      document.getElementById('miniPositionLens').textContent = 'Available after live submission.';
-      document.getElementById('miniEnvironmentFit').textContent = 'Available after live submission.';
-      document.getElementById('miniFocusBias').textContent = 'Available after live submission.';
-
-      createInsight('strengthInsights', 'Summary available after assessment submit', 'Once the form is completed from the live assessment page, this section can display a smarter strengths and weaknesses summary based on the submitted answers.', 'strength');
-      createInsight('weaknessInsights', 'No stored assessment found', 'Open the assessment page, submit the form, and the thank-you page will build the mini player report automatically.', 'weakness');
-      createInsight('focusInsights', 'Coach review still applies', 'Your full programme should still be manually reviewed and built around the player, even when the instant summary is shown here.', 'focus');
-      createInsight('profileInsights', 'Player profile appears after submit', 'The position-aware and schedule-aware summary is shown after a real assessment submission.', 'focus');
-    } else {
-      const name = text(data.fullName) || 'Player';
-      const position = text(data.primaryPosition) || 'Player';
-      const ratings = data.ratings || {};
-
-      const ratingsArray = Object.entries(ratings)
-        .map(([label, value]) => ({ label, value: Number(value) || 0 }))
-        .sort((a, b) => b.value - a.value);
-
-      const strongest = ratingsArray.slice(0, 3);
-      const weakest = [...ratingsArray].sort((a, b) => a.value - b.value).slice(0, 3);
-
-      const positionLens = getPositionLens(position);
-      const loadProfile = getLoadProfile(data.teamSessions, data.matchesPerWeek, data.extraDays);
-      const archetype = getArchetype(position, strongest, data);
-      const contradictions = getContradictions(data, ratings);
-      const environmentSummary = getEnvironmentSummary(data);
-      const mainWeaknessWords = getPrimaryWeaknessWords(data, weakest);
-
-      document.getElementById('playerNameHeading').textContent = `${name}, we’ve got your submission.`;
-      document.getElementById('nextStepText').textContent = `${defaultMessage} Below is a smarter first-pass snapshot based on your answers today.`;
-
-      const coachReadParts = [];
-      coachReadParts.push(`At first glance, your answers read like a ${lower(positionLens.title)} with upside around ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')}.`);
-      if (text(data.mainGoal)) {
-        coachReadParts.push(`Your main stated objective is to ${lower(data.mainGoal)}, so the programme should be pushed toward that outcome rather than generic work.`);
-      }
-      coachReadParts.push(loadProfile.note);
-
-      document.getElementById('coachReadText').textContent = coachReadParts.join(' ');
-      document.getElementById('heroMessage').textContent = defaultMessage;
-      document.getElementById('playerTypeHeading').textContent = archetype;
-      document.getElementById('snapshotType').textContent = archetype;
-      document.getElementById('snapshotStrength').textContent = strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).slice(0, 2).join(' + ');
-      document.getElementById('snapshotWeakness').textContent = mainWeaknessWords.slice(0, 2).join(' + ') || 'overall consistency';
-      document.getElementById('snapshotLoad').textContent = loadProfile.label;
-
-      document.getElementById('heroEdge').textContent = strongest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ');
-      document.getElementById('heroGrowth').textContent = mainWeaknessWords.slice(0, 3).join(', ') || 'overall consistency';
-      document.getElementById('heroDirection').textContent = (focusMap[data.mainGoal] || positionLens.focus).slice(0, 3).join(', ');
-
-      document.getElementById('miniPositionLens').textContent = `${positionLens.title} — likely bias towards ${positionLens.focus.slice(0, 3).join(', ')}.`;
-      document.getElementById('miniEnvironmentFit').textContent = environmentSummary.length ? environmentSummary.join(', ') : 'Work will be shaped around your current setup.';
-      document.getElementById('miniFocusBias').textContent = text(data.mainGoal) ? `${data.mainGoal} + ${mainWeaknessWords.slice(0, 2).join(', ')}` : mainWeaknessWords.slice(0, 3).join(', ');
-
-      document.getElementById('premiumCoachQuote').textContent =
-        `Based on your answers, the biggest opportunity looks like building on ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).slice(0, 2).join(' and ')} while pushing progress in ${mainWeaknessWords.slice(0, 2).join(' and ') || 'your main development areas'}. The programme should be matched to your real week, not just built as a generic plan.`;
-
-      strongest.forEach(item => createTag('strengthTags', `${item.label} (${item.value}/10)`, 'green'));
-      weakest.forEach(item => createTag('weaknessTags', `${item.label} (${item.value}/10)`, 'orange'));
-
-      createTag('profileTags', archetype, 'yellow');
-      createTag('profileTags', positionLens.title, 'blue');
-      createTag('profileTags', loadProfile.label, 'yellow');
-      if (text(data.level)) createTag('profileTags', data.level, 'blue');
-
-      createInsight(
-        'strengthInsights',
-        'Best-rated attributes',
-        `Your highest self-rated areas are ${strongest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ')}. These look like the qualities already giving you some edge right now.`,
-        'strength'
-      );
-
-      if (text(data.strongestAreaText)) {
-        createInsight(
-          'strengthInsights',
-          'Player-identified strength',
-          `You also described “${text(data.strongestAreaText)}” as one of your stronger areas, which is useful because it shows where you personally feel most secure in your game.`,
-          'strength'
-        );
-      }
-
-      createInsight(
-        'strengthInsights',
-        'Position lens',
-        `For a ${lower(position)}, the strongest upside often comes from improving ${positionLens.themes.join(', ')}. Your better ratings suggest there is already a base to build from in that direction.`,
-        'strength'
-      );
-
-      createInsight(
-        'weaknessInsights',
-        'Lowest-rated attributes',
-        `Your current lowest self-ratings are ${weakest.map(item => `${friendlyNameMap[item.label] || lower(item.label)} (${item.value}/10)`).join(', ')}. These are likely to become early attention areas inside the programme.`,
-        'weakness'
-      );
-
-      if (text(data.weakestAreaText)) {
-        createInsight(
-          'weaknessInsights',
-          'Player-identified weakness',
-          `You specifically said the part of your game needing the most improvement is: “${text(data.weakestAreaText)}”. That matters because written answers often reveal what the player feels most in matches, not just what the slider shows.`,
-          'weakness'
-        );
-      }
-
-      if (contradictions.length) {
-        contradictions.forEach(note => {
-          createInsight(
-            'weaknessInsights',
-            'Coach interpretation',
-            note,
-            'weakness'
-          );
-        });
-      } else {
-        createInsight(
-          'weaknessInsights',
-          'Answer consistency',
-          'Your ratings and written answers broadly point in the same direction, which makes the first coaching priorities easier to identify.',
-          'weakness'
-        );
-      }
-
-      const focusItems = new Set();
-
-      (focusMap[data.mainGoal] || []).forEach(item => focusItems.add(item));
-      positionLens.focus.forEach(item => focusItems.add(item));
-      mainWeaknessWords.forEach(item => focusItems.add(item));
-
-      if (data.wallAccess === 'Yes') focusItems.add('Wall passing / receiving work');
-      if (data.goalAccess === 'Yes') focusItems.add('Finishing and end-product work');
-      if (data.gymAccess === 'Yes' || data.gymAccess === 'Sometimes') focusItems.add('Strength and athletic development');
-      if (data.gymAccess === 'No') focusItems.add('Football-specific physical work without gym');
-      if (text(data.sessionTime)) focusItems.add(`${data.sessionTime} session structure`);
-      if (text(data.primaryPosition)) focusItems.add(`${data.primaryPosition} specific detail`);
-
-      const finalFocus = Array.from(focusItems).slice(0, 7);
-      finalFocus.forEach(item => createTag('focusTags', item, 'yellow'));
-
-      createInsight(
-        'focusInsights',
-        'Likely first programme themes',
-        `Based on your goal, self-ratings, position, and written priorities, the programme will likely place early attention on ${finalFocus.slice(0, 4).join(', ')}.`,
-        'focus'
-      );
-
-      if (environmentSummary.length) {
-        createInsight(
-          'focusInsights',
-          'Built around your environment',
-          `Your answers suggest the plan can realistically include ${environmentSummary.join(', ')} rather than forcing sessions that do not fit your current setup.`,
-          'focus'
-        );
-      }
-
-      createInsight(
-        'focusInsights',
-        'Built around your week',
-        loadProfile.note,
-        'focus'
-      );
-
-      if (
-        (text(data.injuries) && lower(data.injuries) !== 'none') ||
-        (text(data.restrictions) && lower(data.restrictions) !== 'none') ||
-        (text(data.avoid) && lower(data.avoid) !== 'none')
-      ) {
-        const cautionBits = [];
-        if (text(data.injuries) && lower(data.injuries) !== 'none') cautionBits.push(`injuries: ${text(data.injuries)}`);
-        if (text(data.restrictions) && lower(data.restrictions) !== 'none') cautionBits.push(`restrictions: ${text(data.restrictions)}`);
-        if (text(data.avoid) && lower(data.avoid) !== 'none') cautionBits.push(`avoid: ${text(data.avoid)}`);
-
-        createInsight(
-          'focusInsights',
-          'Physical considerations',
-          `Your coach review should take into account ${cautionBits.join(' | ')} so the programme stays realistic and appropriate.`,
-          'focus'
-        );
-      }
-
-      createInsight(
-        'profileInsights',
-        'Player type',
-        `At the moment, your answers read most like a “${archetype}”. That does not lock you into one label, but it does help shape the first style of work we would prioritise.`,
-        'focus'
-      );
-
-      createInsight(
-        'profileInsights',
-        'Main development direction',
-        `The biggest opportunity looks like combining your stronger qualities in ${strongest.map(item => friendlyNameMap[item.label] || lower(item.label)).join(', ')} with improvement work around ${mainWeaknessWords.slice(0, 3).join(', ')}.`,
-        'focus'
-      );
-
-      if (text(data.success)) {
-        createInsight(
-          'profileInsights',
-          'Your success measure',
-          `You said success over the next 4 weeks would look like: “${text(data.success)}”. That helps because the programme should aim at outcomes you can actually feel and recognise, not just random drills.`,
-          'focus'
-        );
-      }
-
-      ratingsArray.forEach(item => createScore(item.label, item.value));
-    }
   </script>
 </body>
 </html>
