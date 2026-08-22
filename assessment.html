@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Complete your M2FT Player Assessment and receive a personalised football development programme." />
+  <meta name="description" content="Complete your M2FT Player Assessment and receive a personalised football performance programme." />
   <title>M2FT | Player Assessment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -392,6 +392,85 @@
       font-size: 0.92rem;
     }
 
+
+    .accent {
+      color: var(--accent);
+      -webkit-text-fill-color: initial;
+      background: none;
+    }
+
+    .hero-cta-wrap {
+      margin-top: 24px;
+    }
+
+    .hero-cta-note {
+      margin-top: 10px;
+      color: var(--light);
+      opacity: 0.82;
+      font-size: 0.92rem;
+    }
+
+    .section-stack {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .trust-line,
+    .how-works-shell {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .trust-line {
+      padding: 14px 18px;
+      font-weight: 700;
+      color: var(--light);
+    }
+
+    .how-works-shell {
+      padding: 22px;
+      background: rgba(9, 14, 24, 0.72);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .step-card {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .step-kicker {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: #ffb299;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .subtle-note {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      color: var(--light);
+      opacity: 0.82;
+    }
+
+    .conditional-hidden {
+      display: none;
+    }
+
     footer {
       padding: 30px 0 42px;
       border-top: 1px solid rgba(255,255,255,0.08);
@@ -404,7 +483,8 @@
       .field-grid.three,
       .checkbox-grid.two,
       .slider-grid.two,
-      .hero-points {
+      .hero-points,
+      .steps-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -463,22 +543,27 @@
 
       <div class="container hero-content">
         <div>
-          <span class="eyebrow">Personalised Programming</span>
-          <h1>Player Performance Assessment</h1>
-          <p class="lead">Complete this assessment to receive a personalised football development programme built around your age, position, level, schedule, training environment, and goals.</p>
+          <span class="eyebrow">Free Player Performance Assessment</span>
+          <h1>Get Your <span class="accent">Personalised</span><br>Football Performance Programme</h1>
+          <p class="lead">Complete the assessment and receive a personalised 4-week football performance programme built around your age, position, current level, weekly schedule, training environment, goals and performance habits.</p>
+
+          <div class="hero-cta-wrap">
+            <a class="btn btn-primary" href="#assessment-form">Get My Free Personalised Programme</a>
+            <div class="hero-cta-note">Free • Takes around 5 minutes • Built from your answers</div>
+          </div>
 
           <div class="hero-points">
             <div class="hero-point">
               <strong>Built around you</strong>
-              <span>Programming based on your position, football level, and development priorities.</span>
+              <span>Your age, position, current level, goals and development priorities shape what you receive.</span>
             </div>
             <div class="hero-point">
-              <strong>Gym + pitch based</strong>
-              <span>Technical work, physical work, and age-appropriate strength programming where suitable.</span>
+              <strong>Football + physical</strong>
+              <span>Technical development, football-specific work and age-appropriate physical training where suitable.</span>
             </div>
             <div class="hero-point">
-              <strong>Realistic structure</strong>
-              <span>Designed around team training, match schedule, time available, and equipment access.</span>
+              <strong>Performance support</strong>
+              <span>Your schedule, training environment, available equipment, recovery needs and nutrition habits are taken into account.</span>
             </div>
           </div>
         </div>
@@ -486,27 +571,55 @@
         <div class="hero-card">
           <h2>What you’ll get</h2>
           <ul>
-            <li>A more complete picture of your current game</li>
-            <li>Clear understanding of what you most need to improve</li>
-            <li>A football programme matched to your real weekly schedule</li>
-            <li>Training that suits your age, environment, and experience</li>
+            <li>Your personalised Athlete Report</li>
+            <li>Clear understanding of your biggest development priorities</li>
+            <li>A 4-week football performance programme matched to your schedule</li>
+            <li>Age-appropriate physical development where suitable</li>
+            <li>Practical nutrition guidance based on your current habits</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section class="assessment">
+    <section class="assessment" id="assessment-form">
       <div class="container">
+        <div class="section-stack">
+          <div class="how-works-shell">
+            <span class="eyebrow">How It Works</span>
+            <h2>How it works</h2>
+            <div class="steps-grid">
+              <div class="step-card">
+                <span class="step-kicker">Step 1</span>
+                <h3>Complete your assessment</h3>
+                <div class="subtext">Tell us about your game, schedule, training environment, goals and current habits.</div>
+              </div>
+              <div class="step-card">
+                <span class="step-kicker">Step 2</span>
+                <h3>Get your player analysis</h3>
+                <div class="subtext">Your answers are used to identify your strengths, priorities and next development areas.</div>
+              </div>
+              <div class="step-card">
+                <span class="step-kicker">Step 3</span>
+                <h3>Receive your programme</h3>
+                <div class="subtext">Your analysis is turned into a personalised 4-week M2FT Football Performance Programme.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trust-line">Not a generic training plan. Your programme is built from your answers.</div>
+        </div>
+
         <div class="form-shell">
-          <span class="eyebrow">Assessment Form</span>
+          <span class="eyebrow">Free Player Performance Assessment</span>
           <h2>Complete Your Assessment</h2>
-          <p class="subtext">Answer each section as accurately as possible so your programme can be built properly around your needs.</p>
+          <p class="subtext">Answer each section as accurately as possible so your programme can be built around your football, physical development, schedule, environment and performance habits.</p>
+          <p class="subtle-note">Estimated completion time: approximately 5 minutes.</p>
 
           <form id="playerAssessmentForm" action="https://formsubmit.co/Marco@officialm2ft.com" method="POST">
             <input type="hidden" name="_subject" value="New Player Assessment Submission | M2FT Performance" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_autoresponse" value="Thanks for completing your M2FT player assessment. Your answers have been received and your personalised programme is being prepared." />
+            <input type="hidden" name="_autoresponse" value="Thanks for completing your M2FT player assessment. Your answers have been received and your personalised football performance programme is being prepared." />
             <input type="hidden" name="_url" value="https://m2ftperformance.com/assessment" />
             <input type="hidden" name="_next" value="https://m2ftperformance.com/thanks.html" />
 
@@ -693,7 +806,7 @@
             </fieldset>
 
             <fieldset>
-              <legend>Section 4 — Self Assessment (1–10)</legend>
+              <legend>Section 4 — Player Self-Ratings</legend>
               <p class="field-help">1 = very weak / 10 = very strong</p>
               <div class="slider-grid two">
                 <div class="slider-card"><div class="slider-top"><span>First Touch</span><span class="slider-value" data-for="first_touch">5</span></div><input id="first_touch" name="First Touch" type="range" min="1" max="10" value="5" /></div>
@@ -710,7 +823,7 @@
             </fieldset>
 
             <fieldset>
-              <legend>Section 5 — Goals and Development Needs</legend>
+              <legend>Section 5 — Goals / Development Priorities</legend>
               <div class="field-grid two">
                 <div class="field">
                   <label for="main_goal">Main Goal Right Now</label>
@@ -784,7 +897,87 @@
             </fieldset>
 
             <fieldset>
-              <legend>Section 7 — Extra Coaching Notes</legend>
+              <legend>Section 7 — Nutrition & Fueling</legend>
+              <p class="field-help">Tell us a little about your current eating and hydration habits so your programme can include practical football-performance nutrition guidance.</p>
+              <div class="field-grid two">
+                <div class="field">
+                  <label for="nutrition_meal_consistency">How consistent are your meals on a normal day?</label>
+                  <select id="nutrition_meal_consistency" name="Nutrition_Meal_Consistency" required>
+                    <option value="">Select</option>
+                    <option>I usually eat 3 proper meals</option>
+                    <option>I eat 2 proper meals</option>
+                    <option>I often skip breakfast</option>
+                    <option>My eating is quite irregular</option>
+                    <option>It varies a lot day to day</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="nutrition_pre_training">What do you normally have before football training?</label>
+                  <select id="nutrition_pre_training" name="Nutrition_Pre_Training" required>
+                    <option value="">Select</option>
+                    <option>A proper meal 2–4 hours before</option>
+                    <option>A snack 30–90 minutes before</option>
+                    <option>Both a meal and a snack</option>
+                    <option>Usually very little</option>
+                    <option>Often nothing</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="nutrition_post_training">What normally happens after training?</label>
+                  <select id="nutrition_post_training" name="Nutrition_Post_Training" required>
+                    <option value="">Select</option>
+                    <option>I eat a proper meal within about an hour</option>
+                    <option>I have a snack first, then a meal later</option>
+                    <option>I usually wait a few hours</option>
+                    <option>I often don’t eat much afterwards</option>
+                    <option>It depends on the day</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="nutrition_hydration">How would you describe your hydration during a normal day?</label>
+                  <select id="nutrition_hydration" name="Nutrition_Hydration" required>
+                    <option value="">Select</option>
+                    <option>I drink water regularly throughout the day</option>
+                    <option>I drink mainly when I’m thirsty</option>
+                    <option>I probably don’t drink enough</option>
+                    <option>I often forget to drink during school/work</option>
+                    <option>Most of my drinks aren’t water</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="nutrition_match_day">How organised is your nutrition on match day?</label>
+                  <select id="nutrition_match_day" name="Nutrition_Match_Day" required>
+                    <option value="">Select</option>
+                    <option>I have a planned pre-match meal and snacks</option>
+                    <option>I usually eat something suitable but don’t really plan it</option>
+                    <option>It depends on the kickoff time</option>
+                    <option>I often struggle to know what to eat</option>
+                    <option>I sometimes play without eating enough beforehand</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="nutrition_dietary_requirements">Do you have any dietary requirements, allergies, preferences or foods you avoid?</label>
+                  <select id="nutrition_dietary_requirements" name="Nutrition_Dietary_Requirements" required>
+                    <option value="">Select</option>
+                    <option>No</option>
+                    <option>Vegetarian</option>
+                    <option>Vegan</option>
+                    <option>Dairy-free</option>
+                    <option>Gluten-free</option>
+                    <option>Food allergy/intolerance</option>
+                    <option>Religious/cultural dietary requirements</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="field full conditional-hidden" id="nutrition_dietary_details_wrap">
+                  <label for="nutrition_dietary_details">Please give us a little more detail</label>
+                  <textarea id="nutrition_dietary_details" name="Nutrition_Dietary_Details"></textarea>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Section 8 — Extra Coaching Notes</legend>
               <div class="field-grid">
                 <div class="field full">
                   <label for="extra_notes">Anything Else You Want Included in Your Programme?</label>
@@ -794,11 +987,11 @@
             </fieldset>
 
             <div class="submit-wrap">
-              <button class="btn btn-primary" type="submit">Get My Personalised Programme</button>
+              <button class="btn btn-primary" type="submit">Get My Free Personalised Programme</button>
               <button class="btn btn-secondary" type="reset">Reset Form</button>
             </div>
 
-            <p class="privacy-note">By submitting this form, you confirm that your answers are accurate and can be used to prepare your personalised football development programme.</p>
+            <p class="privacy-note">By submitting this form, you confirm that your answers are accurate and can be used to prepare your personalised football performance programme.</p>
           </form>
         </div>
       </div>
@@ -819,6 +1012,27 @@
       input.addEventListener('input', update);
       update();
     });
+
+    const dietaryRequirements = document.getElementById('nutrition_dietary_requirements');
+    const dietaryDetailsWrap = document.getElementById('nutrition_dietary_details_wrap');
+    const dietaryDetails = document.getElementById('nutrition_dietary_details');
+
+    const updateDietaryDetailsVisibility = () => {
+      const value = dietaryRequirements?.value || '';
+      const show = value === 'Food allergy/intolerance' || value === 'Other';
+      if (dietaryDetailsWrap) {
+        dietaryDetailsWrap.style.display = show ? 'block' : 'none';
+      }
+      if (dietaryDetails) {
+        dietaryDetails.required = false;
+        if (!show) dietaryDetails.value = '';
+      }
+    };
+
+    if (dietaryRequirements) {
+      dietaryRequirements.addEventListener('change', updateDietaryDetailsVisibility);
+      updateDietaryDetailsVisibility();
+    }
 
     const form = document.getElementById('playerAssessmentForm');
     if (form) {
@@ -853,6 +1067,13 @@
           avoid: document.getElementById('avoid')?.value || '',
           gymHistory: document.getElementById('gym_history')?.value || '',
           gymConfidence: document.getElementById('gym_confidence')?.value || '',
+          nutritionMealConsistency: document.getElementById('nutrition_meal_consistency')?.value || '',
+          nutritionPreTraining: document.getElementById('nutrition_pre_training')?.value || '',
+          nutritionPostTraining: document.getElementById('nutrition_post_training')?.value || '',
+          nutritionHydration: document.getElementById('nutrition_hydration')?.value || '',
+          nutritionMatchDay: document.getElementById('nutrition_match_day')?.value || '',
+          nutritionDietaryRequirements: document.getElementById('nutrition_dietary_requirements')?.value || '',
+          nutritionDietaryDetails: document.getElementById('nutrition_dietary_details')?.value || '',
           extraNotes: document.getElementById('extra_notes')?.value || '',
           ratings: {
             'First Touch': Number(document.getElementById('first_touch')?.value || 5),
