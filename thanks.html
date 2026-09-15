@@ -178,7 +178,7 @@
       margin-top: 16px;
       font-size: clamp(2.8rem, 6vw, 4.9rem);
       font-weight: 900;
-      background: linear-gradient(to right, #ffffff, #ff6b35);
+      background: linear-gradient(to right, #ffffff, #8FD8FF);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -333,7 +333,7 @@
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #ffb299;
+      color: #CDEEFF;
       margin-bottom: 10px;
     }
 
@@ -477,7 +477,7 @@
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #ffb299;
+      color: #CDEEFF;
       margin-bottom: 8px;
     }
 
@@ -515,7 +515,7 @@
       font-size: 0.76rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #ffb299;
+      color: #CDEEFF;
       font-weight: 800;
       margin-bottom: 6px;
     }
@@ -526,7 +526,6 @@
       gap: 12px;
       margin-top: 22px;
     }
-
 
     .nutrition-grid {
       display: grid;
@@ -873,7 +872,6 @@
             <div id="scoresGrid" class="scores"></div>
           </div>
         </div>
-
 
         <div class="grid" style="margin-top:18px;">
           <div class="section-card">
@@ -1392,7 +1390,7 @@ function buildCoachOverview(name, data, ratingsArray, model, profileLabel) {
   }
 
   const parts = [];
-  parts.push(`Your profile reads as a ${lower(profileLabel)} with a solid base in ${listToSentence(strengths.map(s => s.replace(/ \(.*?\)/, '')))}.`);
+  parts.push(`Your profile reads as a ${lower(profileLabel)} with a solid base in ${listToSentence(strengths.map(s => s.replace(/ \\(.*?\\)/, '')))}.`);
 
   if (text(data.mainGoal) && model.primary) {
     parts.push(`Your main objective is to ${lower(data.mainGoal)}, so ${model.primary.label.toLowerCase()} should lead the programme.`);
@@ -1646,7 +1644,6 @@ if (!data || !data.ratings) {
   ratingsArray.forEach(item => createScore(item.label, item.value));
   buildNutritionSnapshot(data);
 }
-
 
 function getNutritionStatus(value, mapping) {
   const clean = text(value);
