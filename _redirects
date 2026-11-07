@@ -2,42 +2,42 @@
 # Retired pages → current destinations (301 permanent)
 
 # Retired services fold back to the homepage
-/home.html                 /                       301
-/m2-fitness.html           /                       301
-/m2-fitness                /                       301
-/fitness.html              /                       301
-/team.html                 /                       301
-/holiday-camps.html        /                       301
-/holiday-camps             /                       301
-/free-trial.html           /                       301
-/free-trial                /                       301
-/trainers.html             /                       301
-/trainers                  /                       301
-/m2-football.html          /                       301
-/m2-football               /                       301
-/join-community.html       /                       301
-/school-partnerships.html  /                       301
-/ball-mastery-waitlist-admin.html    /            301
-/coach-dashboard.html      /                       301
-/quiz-leads-admin.html     /                       301
-/m2-ai-coach.html          /                       301
-/m2-player-scorecard.html  /                       301
-/m2-player-scorecard       /                       301
+/home.html  /  301!
+/m2-fitness.html  /  301!
+/m2-fitness  /  301!
+/fitness.html  /  301!
+/team.html  /  301!
+/holiday-camps.html  /  301!
+/holiday-camps  /  301!
+/free-trial.html  /  301!
+/free-trial  /  301!
+/trainers.html  /  301!
+/trainers  /  301!
+/m2-football.html  /  301!
+/m2-football  /  301!
+/join-community.html  /  301!
+/school-partnerships.html  /  301!
+/ball-mastery-waitlist-admin.html  /  301!
+/coach-dashboard.html  /  301!
+/quiz-leads-admin.html  /  301!
+/m2-ai-coach.html  /  301!
+/m2-player-scorecard.html  /  301!
+/m2-player-scorecard  /  301!
 
 # Assessment / testing intent → the testing section
-/assessment.html           /#testing               301
-/assessment                /#testing               301
-/quiz.html                 /#testing               301
+/assessment.html  /#testing  301!
+/assessment  /#testing  301!
+/quiz.html  /#testing  301!
 
 # Contact
-/contact.html              /#contact               301
-/contact                   /#contact               301
-/thank-you.html            /#contact               301
-/thanks.html               /#contact               301
+/contact.html  /#contact  301!
+/contact  /#contact  301!
+/thank-you.html  /#contact  301!
+/thanks.html  /#contact  301!
 
 # Legal — physical files, keep the clean URLs working
-/privacy-policy            /privacy-policy.html    200
-/terms-conditions          /terms-conditions.html  200
+/privacy-policy  /privacy-policy.html  200!
+/terms-conditions  /terms-conditions.html  200!
 
 # Fallback
 /*                         /index.html             404
