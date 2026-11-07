@@ -48,30 +48,18 @@
         if (!v || v.dataset.kicked) return;
         v.dataset.kicked = "1";
         if (v.preload === "none") v.preload = "auto";
-        try { v.load(); } catch (e) {}
+        /* no v.load() here — it aborted the in-flight load and restarted the clip */
         var p = v.play();
         if (p && p.catch) p.catch(function () {});
+        v.addEventListener("playing", function () { v.classList.add("is-live"); }, { once: true });
     };
-    if (document.readyState === "complete") setTimeout(heroLazy, 1200);
-    else window.addEventListener("load", function () { setTimeout(heroLazy, 1200); });
+    if (document.readyState === "complete") setTimeout(heroLazy, 600);
+    else window.addEventListener("load", function () { setTimeout(heroLazy, 600); });
 
-    /* The line — one element, text swaps on the video clock:
-           comment for the first 3.5s, brand for the rest of the loop */
-        var line = document.querySelector(".intro-main h1");
-        var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        var CARD = 3.5;
-        var COMMENT = "A place for athletes";
-        var BRAND = "Marco Muthi Performance";
-        var tick = function () {
-            var t = video.currentTime;
-            var d = video.duration || 0;
-            var live = d > 0 && !video.paused && !video.ended;
-            if (line) line.textContent = (live && !reduced && t < CARD) ? COMMENT : BRAND;
-        };
-        ["timeupdate", "playing", "seeked", "ended"].forEach(function (ev) {
-            video.addEventListener(ev, tick);
-        });
-        tick();
+    /* The headline is static. It used to be driven by the hero video clock
+       (comment card for the first 3.5s, brand after) — but because the video is
+       lazy-loaded it started seconds after paint, so the h1 visibly swapped text
+       mid-view and re-swapped on every loop. That read as the page restarting. */
     }
 
     /* The Work reel — play clips only while in view */

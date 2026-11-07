@@ -1202,3 +1202,8 @@ h1, h2, h3, .display {
     line-height: 1;
 }
 .proof-card:has(.proof-stars) { justify-content: flex-start; gap: 1rem; }
+
+/* HERO CROSSFADE — poster shows until the clip is actually playing */
+.intro { background: #090B10 url("media/hero-poster.jpg") center center / cover no-repeat; }
+.intro-video-bg { opacity: 0; transition: opacity .6s ease; }
+.intro-video-bg.is-live { opacity: 1; }
