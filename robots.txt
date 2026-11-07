@@ -1,0 +1,6 @@
+# M2FT Performance Ltd — https://m2ftperformance.com
+User-agent: *
+Allow: /
+Disallow: /cdn-cgi/
+
+Sitemap: https://m2ftperformance.com/sitemap.xml
