@@ -53,8 +53,8 @@
         if (p && p.catch) p.catch(function () {});
         v.addEventListener("playing", function () { v.classList.add("is-live"); }, { once: true });
     };
-    if (document.readyState === "complete") setTimeout(heroLazy, 600);
-    else window.addEventListener("load", function () { setTimeout(heroLazy, 600); });
+    if (document.readyState === "complete") setTimeout(heroLazy, 400);
+    else window.addEventListener("load", function () { setTimeout(heroLazy, 400); });
 
     /* The headline is static. It used to be driven by the hero video clock
        (comment card for the first 3.5s, brand after) — but because the video is

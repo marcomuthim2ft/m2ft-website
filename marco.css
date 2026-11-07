@@ -1203,7 +1203,8 @@ h1, h2, h3, .display {
 }
 .proof-card:has(.proof-stars) { justify-content: flex-start; gap: 1rem; }
 
-/* HERO CROSSFADE — poster shows until the clip is actually playing */
-.intro { background: #090B10 url("media/hero-poster.jpg") center center / cover no-repeat; }
-.intro-video-bg { opacity: 0; transition: opacity .6s ease; }
-.intro-video-bg.is-live { opacity: 1; }
+/* HERO BACKDROP — the video element carries its own poster, so it paints
+   instantly. Do NOT hide it behind opacity: if the 'playing' event never
+   fires (iOS defers autoplay), the clip plays invisibly and the hero looks
+   static. */
+.intro { background: #090B10; }
