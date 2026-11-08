@@ -1423,3 +1423,161 @@ h1, h2, h3, .display {
 .faq-body a, .offer-extra a { color: var(--accent); border-bottom: 1px solid rgba(127,212,255,0.35); }
 .faq-body a:hover, .offer-extra a:hover { border-color: var(--accent); }
 .trust-val a { overflow-wrap: anywhere; }
+
+/* ===== Intro film — the official clip, directly under the hero video ===== */
+.intro-film {
+    background: #090B10;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
+}
+.film-inner {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+}
+.film-copy h2 {
+    margin: 0.6rem 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4.4vw, 3rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: var(--text);
+}
+.film-copy p {
+    max-width: 46ch;
+    margin: 0 0 1.6rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--mist);
+}
+.film-note {
+    margin-top: 1.2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(242, 245, 248, 0.42);
+}
+.film-frame { position: relative; }
+.film-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border: 1px solid var(--line-strong);
+    object-fit: cover;
+}
+.film-frame::after {
+    content: "";
+    position: absolute;
+    inset: -1px -1px auto auto;
+    width: 26px; height: 26px;
+    border-top: 1px solid var(--line-strong);
+    border-right: 1px solid var(--line-strong);
+    pointer-events: none;
+}
+@media (max-width: 900px) {
+    .film-inner { grid-template-columns: 1fr; }
+    .film-frame { order: -1; max-width: 330px; margin: 0 auto; }
+    .film-copy { text-align: center; }
+    .film-copy p { margin-left: auto; margin-right: auto; }
+    .film-note { text-align: center; }
+}
+
+/* Credentials — sits directly under the intro film video */
+.film-credentials {
+    margin-top: clamp(2.2rem, 4vw, 3.2rem);
+    padding-top: clamp(1.6rem, 3vw, 2.2rem);
+    border-top: 1px solid var(--line);
+}
+.readout-wide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 4rem);
+    margin: 1.2rem 0 0;
+    border-top: 0;
+}
+.readout-wide li {
+    display: block;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+}
+.readout-wide .readout-key {
+    display: block;
+    margin-bottom: 0.35rem;
+}
+.readout-wide .readout-val {
+    display: block;
+    line-height: 1.55;
+    font-size: 1rem;
+}
+.story-single { grid-template-columns: 1fr; }
+.story-single .story-copy { max-width: 720px; }
+.story-summary { font-size: 1.12rem; line-height: 1.65; color: var(--text) !important; }
+@media (max-width: 760px) {
+    .readout-wide { grid-template-columns: 1fr; }
+}
+
+/* Stats band — now standalone after the intro film + credentials */
+.stats-band { display: block; }
+
+/* Audit fixes — tighter film block, seamless hero→film transition */
+.intro-scrim {
+    background:
+        linear-gradient(180deg, rgba(9,11,16,0.45) 0%, rgba(9,11,16,0.05) 34%, rgba(9,11,16,0.35) 68%, #090B10 100%),
+        linear-gradient(90deg, rgba(9,11,16,0.5) 0%, rgba(9,11,16,0) 60%);
+}
+.intro-film { border-top: 0; }
+.film-inner {
+    grid-template-columns: 1fr 320px;
+    align-items: start;
+}
+.film-video { max-height: 560px; }
+.film-credentials {
+    margin-top: clamp(1.4rem, 2.4vw, 2rem);
+    padding-top: clamp(1.2rem, 2vw, 1.6rem);
+}
+.readout-wide li { padding: 0.8rem 0; }
+@media (max-width: 900px) {
+    .film-video { max-height: none; }
+}
+
+/* Audit fix 2 — video fills its row so credentials sit flush beneath it */
+.film-inner { align-items: stretch; }
+.film-frame { display: flex; }
+.film-video { height: 100%; max-height: none; aspect-ratio: 9 / 16; }
+@media (max-width: 900px) {
+    .film-frame { display: block; }
+    .film-video { height: auto; aspect-ratio: 9 / 16; }
+}
+
+/* Credentials grid — 2×2 with a full-width closer, so no empty cell bottom-right.
+   Row 1: Role | Education   Row 2: Playing Path | Licence   Row 3: Coaching (full) */
+.readout-wide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+}
+.readout-wide li:nth-child(5) {
+    grid-column: 1 / -1;
+    border-bottom: 0;
+    padding-bottom: 0.2rem;
+}
+@media (max-width: 760px) {
+    .readout-wide li:nth-child(5) {
+        grid-column: auto;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.8rem;
+    }
+}
+
+/* Stats band directly under the intro film */
+.stats-band {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-2);
+}
+.intro-film { border-bottom: 0; }

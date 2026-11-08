@@ -101,16 +101,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="marco.css?v=67">
+    <link rel="stylesheet" href="marco.css?v=74">
 </head>
 <body>
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a class="wordmark" href="/">MARCO MUTHI PERFORMANCE<em>.</em></a>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
+                <li><a href="#film">Film</a></li>
                 <li><a href="#testing">Testing</a></li>
-                <li><a href="#story">Story</a></li>
+                <li><a href="#process">How It Works</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="nav-cta"><a class="btn btn-accent" href="https://wa.me/447852710207?text=Hi%20Marco%20%E2%80%94%20I%27d%20like%20to%20book%20a%20testing%20day" target="_blank" rel="noopener">Book a Testing Day</a></li>
             </ul>
@@ -132,13 +132,66 @@
         </div>
     </section>
 
-    <!-- 2. WHO / WHAT / WHY — one sentence -->
-    <section id="about" class="statement" aria-label="About">
-        <div class="container statement-inner">
-            <div class="eyebrow">Who I Am</div>
-            <p class="statement-line"><strong>I&rsquo;m Marco Muthi</strong> &mdash; an MSc performance coach and former Aldershot Town player. <strong>I test footballers, from age 8 to pro, on the same physical markers professional clubs use</strong>, then build their training off the numbers &mdash; <strong>because most players train hard without ever knowing what&rsquo;s actually holding them back.</strong></p>
+    <!-- 1b. THE INTRO FILM — the official clip, directly under the hero video -->
+    <section id="film" class="intro-film" aria-label="Intro film">
+        <div class="container film-inner">
+            <div class="film-copy">
+                <div class="eyebrow">The Intro — 1:55</div>
+                <h2>IN MY OWN<br>WORDS.</h2>
+                <p>What I actually test, why the numbers matter more than how a player feels, and what happens between the first session and the re-test. The whole process, said straight — no sales pitch.</p>
+                <a class="btn btn-ghost" href="#testing">See the testing</a>
+                <div class="film-note">Sound on &middot; captions included</div>
+            </div>
+            <div class="film-frame">
+                <video id="introFilm" class="film-video" controls playsinline preload="none"
+                       poster="media/intro-film-poster.jpg?v=2"
+                       aria-label="Marco Muthi — intro film">
+                    <source src="media/intro-film.mp4?v=1" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="film-credentials">
+                <div class="eyebrow">Credentials</div>
+                <ul class="readout readout-wide">
+                    <li><span class="readout-key">Role</span><span class="readout-val">Performance Coach &amp; Sports Scientist</span></li>
+                    <li><span class="readout-key">Education</span><span class="readout-val">MSc Performance Football Coaching &mdash; St Mary's University<br>BSc Sport &amp; Exercise Science &mdash; University of Bath</span></li>
+                    <li><span class="readout-key">Playing Path</span><span class="readout-val">Scouted from Canada &mdash; Leatherhead FC &middot; Aldershot Town U23s &amp; reserves &middot; University of Bath performance squad</span></li>
+                    <li><span class="readout-key">Licence</span><span class="readout-val">FA Qualified Coach &middot; Level 3 Personal Trainer</span></li>
+                    <li><span class="readout-key">Coaching</span><span class="readout-val">Chelsea FC Foundation &mdash; U9&ndash;U10 development centres &middot; LionHeart Football Academy Lead</span></li>
+                </ul>
+            </div>
         </div>
     </section>
+
+<section class="stats-band" aria-label="Track record">
+        <div class="stats-strip">
+            <div class="container" style="padding: 0;">
+                <div class="stats-grid" style="padding: 0 var(--pad-x);">
+                    <div class="stat-cell">
+                        <div class="stat-num">50<em>+</em></div>
+                        <div class="stat-label">One-to-One Players — Last 2 Years</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num">6</div>
+                        <div class="stat-label">Teams Weekly</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num">500<em>+</em></div>
+                        <div class="stat-label">Players Coached — 10 Years</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num">MSc</div>
+                        <div class="stat-label">Sport Science &amp; Coaching</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. WHO / WHAT / WHY — one sentence -->
+    
 
     <!-- 3. THE TESTING -->
     <section id="testing" class="test-band">
@@ -464,55 +517,7 @@
     </section>
 
     <!-- 2. THE STORY -->
-    <section id="story">
-        <div class="container section-head">
-            <div class="eyebrow">02 — The Story</div>
-            <h2>FROM CANADA TO THE<br>PERFORMANCE LAB.</h2>
-        </div>
-        <div class="rule"></div>
-        <div class="container" style="padding-top: 3rem;">
-            <div class="story-grid">
-                <div class="story-photo">
-                    <img src="images/marco-muthi.jpeg" alt="Marco Muthi — performance coach" loading="lazy">
-                </div>
-                <div class="story-copy">
-                    <p>I started playing football in Canada — and got scouted across the Atlantic: first Leatherhead FC, then Aldershot Town U23s. And I saw first-hand what separates players who make it from players who don't: it's rarely talent. It's what gets measured, and what gets done about it.</p>
-                    <p>So I made it my job. Accepted to the University of Bath, I used my gap year to play for Aldershot's reserves, then played in Bath's performance squad while earning my BSc in Sport &amp; Exercise Science. Coaching since 17 — FA licence, Level 3 Personal Trainer — ten years on the pitch with everyone from Sunday-league amateurs to semi-professionals and Premier League players — across grassroots clubs, schools and individual programmes.</p>
-                    <p>Then came the MSc in Performance Football Coaching at St Mary's — and the decision to build players rather than keep chasing the game myself. Today M2FT is a team of five coaches across clubs, schools and individual programmes, but my own work stays one thing: putting real numbers on a player's game, then building them off those numbers.</p>
-                    <ul class="readout">
-                        <li><span class="readout-key">Role</span><span class="readout-val">Performance Coach &amp; Sports Scientist</span></li>
-                        <li><span class="readout-key">Education</span><span class="readout-val">MSc Performance Football Coaching — St Mary's University · BSc Sport &amp; Exercise Science — University of Bath</span></li>
-                        <li><span class="readout-key">Licence</span><span class="readout-val">FA Qualified Coach · Level 3 Personal Trainer</span></li>
-                        <li><span class="readout-key">Playing Path</span><span class="readout-val">Scouted from Canada — Leatherhead FC · Aldershot Town U23s &amp; reserves · University of Bath performance squad</span></li>
-                        <li><span class="readout-key">Coaching</span><span class="readout-val">Chelsea FC Foundation — U9–U10 development centres · LionHeart Football Academy Lead</span></li>
-                    </ul>
-                    <a class="btn btn-ghost btn-lg" href="#testing">See the testing</a>
-                </div>
-            </div>
-        </div>
-        <div class="stats-strip">
-            <div class="container" style="padding: 0;">
-                <div class="stats-grid" style="padding: 0 var(--pad-x);">
-                    <div class="stat-cell">
-                        <div class="stat-num">50<em>+</em></div>
-                        <div class="stat-label">One-to-One Players — Last 2 Years</div>
-                    </div>
-                    <div class="stat-cell">
-                        <div class="stat-num">6</div>
-                        <div class="stat-label">Teams Weekly</div>
-                    </div>
-                    <div class="stat-cell">
-                        <div class="stat-num">500<em>+</em></div>
-                        <div class="stat-label">Players Coached — 10 Years</div>
-                    </div>
-                    <div class="stat-cell">
-                        <div class="stat-num">MSc</div>
-                        <div class="stat-label">Sport Science &amp; Coaching</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
 
     <!-- The Work — reel -->
@@ -752,7 +757,7 @@
                 <div class="footer-col">
                     <h4>Site</h4>
                     <ul>
-                        <li><a href="#story">Story</a></li>
+                        <li><a href="#process">How It Works</a></li>
                         <li><a href="#testing">Testing</a></li>
                         <li><a href="https://wa.me/447852710207?text=Hi%20Marco%20%E2%80%94%20I%27d%20like%20to%20book%20a%20testing%20day" target="_blank" rel="noopener">Book a Testing Day</a></li>
                         <li><a href="mailto:Marco@officialm2ft.com">Marco@officialm2ft.com</a></li>
