@@ -1075,23 +1075,6 @@ h1, h2, h3, .display {
 
 
 .intro-hero-line, .intro-offer { }
-.hero-pitch {
-    margin: 1.7rem 0 0;
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 0.68rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    line-height: 2.1;
-    color: rgba(242, 245, 248, 0.72);
-    text-indent: 0.16em;
-}
-.offer-prices {
-    display: block;
-    font-size: 0.58rem;
-    letter-spacing: 0.13em;
-    color: rgba(242, 245, 248, 0.5);
-}
 .offer-prices em { font-style: normal; font-weight: 700; color: var(--accent); }
 @media (max-width: 620px) {
     .hero-pitch { font-size: 0.55rem; letter-spacing: 0.1em; text-indent: 0.1em; margin-top: 1.15rem; line-height: 2; }
@@ -1208,3 +1191,235 @@ h1, h2, h3, .display {
    fires (iOS defers autoplay), the clip plays invisibly and the hero looks
    static. */
 .intro { background: #090B10; }
+
+
+/* ===== Nov 2026 additions ===== */
+
+.stat-cell { min-width: 0; }
+@media (max-width: 380px) {
+    .stat-cell { padding-left: 0.6rem; padding-right: 0.6rem; }
+    .stat-num { font-size: 2.4rem !important; }
+}
+@media (max-width: 900px) {
+    .offer-grid > * { min-width: 0; }
+    .offer-card .btn { align-self: stretch; white-space: normal; text-align: center; padding-left: 1.2rem; padding-right: 1.2rem; }
+}
+
+/* Process — 4-step cycle ------------------------------------------------- */
+.process-band { border-top: 1px solid var(--line); }
+.process {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0 1.5rem;
+    position: relative;
+    counter-reset: none;
+}
+.step { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.step-when {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 0.9rem;
+    height: 1.2em;
+}
+.step-node {
+    position: relative;
+    height: 2.75rem;
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+}
+/* connecting rail */
+.step-node::before {
+    content: "";
+    position: absolute;
+    left: 2.75rem; right: -1.5rem; top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--line-strong));
+}
+.step:last-child .step-node::before {
+    right: 0;
+    background: repeating-linear-gradient(90deg, var(--line-strong) 0 4px, transparent 4px 9px);
+}
+.step-node span {
+    position: relative;
+    width: 2.75rem; height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    background: var(--ink);
+}
+.step:first-child .step-node span { background: var(--accent); color: var(--accent-ink); }
+.step-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 0.7rem;
+}
+.step-body { color: var(--mist); font-size: 0.95rem; line-height: 1.6; max-width: 30ch; }
+.step-price {
+    margin-top: 1.1rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--accent);
+    line-height: 1;
+}
+.step-price span {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-left: 0.45rem;
+}
+.process-loop {
+    margin-top: 2.6rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mist);
+}
+.process-loop span { color: var(--accent); font-size: 1.1rem; margin-right: 0.5rem; vertical-align: -0.08em; }
+
+.step-note {
+    margin-top: 0.9rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed var(--line-strong);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--mist);
+    max-width: 30ch;
+}
+.process-why {
+    margin-top: 1.6rem;
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+}
+.process-why-key {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+.process-why p { color: var(--mist); font-size: 0.92rem; line-height: 1.65; max-width: 680px; }
+.process-why a { color: var(--accent); white-space: nowrap; }
+.process-why a:hover { text-decoration: underline; }
+@media (max-width: 620px) {
+    .process-why { grid-template-columns: 1fr; gap: 0.5rem; }
+}
+
+@media (max-width: 900px) {
+    .step-note { grid-column: 2; max-width: none; }
+    .process { grid-template-columns: 1fr; gap: 0; }
+    .step {
+        display: grid;
+        grid-template-columns: 2.75rem 1fr;
+        column-gap: 1.25rem;
+        padding-bottom: 2.2rem;
+    }
+    .step-node { grid-column: 1; grid-row: 1 / span 4; margin: 0; height: auto; align-items: flex-start; }
+    .step-node::before {
+        left: 50%; right: auto; top: 2.75rem; bottom: -2.2rem;
+        width: 1px; height: auto;
+        background: linear-gradient(180deg, var(--accent), var(--line-strong));
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step:last-child .step-node::before { display: none; }
+    .step-when, .step-title, .step-body, .step-price { grid-column: 2; }
+    .step-when { margin: 0.75rem 0 0.4rem; height: auto; }
+    .step-body { max-width: none; }
+}
+
+/* Statement — who / what / why, directly under the hero video */
+.statement {
+    position: relative;
+    background: var(--panel);
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line);
+    padding: clamp(3rem, 6vw, 4.5rem) 0;
+}
+#about, #testing, #process, #by-age, #story, #contact { scroll-margin-top: var(--nav-h); }
+.statement-inner {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+}
+.statement .eyebrow { font-size: 0.72rem; letter-spacing: 0.28em; }
+.statement .eyebrow::before { width: 1.25rem; }
+.statement-line {
+    max-width: 640px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.7;
+    letter-spacing: 0.005em;
+    color: var(--mist);
+    text-wrap: pretty;
+}
+.statement-line strong { font-weight: 600; color: var(--text); }
+@media (max-width: 620px) {
+    .statement-inner { grid-template-columns: 1fr; gap: 0.9rem; }
+    .statement-line { font-size: 0.9rem; line-height: 1.65; }
+}
+
+/* Hero pitch — two quiet lines under the brand line
+   L1: what + where   ·   L2: the two prices, split by audience */
+.hero-pitch {
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.62rem;
+    line-height: 1.6;
+    letter-spacing: 0.16em;
+    text-indent: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: rgba(242, 245, 248, 0.72);
+}
+.offer-prices {
+    display: block;
+    font-size: 0.58rem;
+    letter-spacing: 0.13em;
+    text-indent: 0.13em;
+    color: rgba(242, 245, 248, 0.5);
+}
+.offer-prices em { font-style: normal; color: var(--accent); }
+.offer-prices .sep { opacity: 0.5; margin: 0 0.45em; }
+@media (max-width: 620px) {
+    .hero-pitch { font-size: 0.55rem; letter-spacing: 0.1em; text-indent: 0.1em; margin-top: 1.1rem; gap: 0.25rem; }
+    .offer-prices { font-size: 0.5rem; letter-spacing: 0.07em; text-indent: 0.07em; }
+}
+@media (max-width: 360px) {
+    .hero-pitch { font-size: 0.5rem; letter-spacing: 0.06em; text-indent: 0.06em; }
+    .offer-prices { font-size: 0.46rem; letter-spacing: 0.04em; text-indent: 0.04em; }
+}
+
+.offer-prices em { font-weight: 700; }
+#faq { scroll-margin-top: var(--nav-h); }
+
+.faq-body a, .offer-extra a { color: var(--accent); border-bottom: 1px solid rgba(127,212,255,0.35); }
+.faq-body a:hover, .offer-extra a:hover { border-color: var(--accent); }
+.trust-val a { overflow-wrap: anywhere; }
