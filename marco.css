@@ -68,7 +68,7 @@ h1, h2, h3, .display {
 
 .eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--accent); flex: none; }
 
-.section-head { padding: clamp(4.5rem, 9vw, 7.5rem) 0 clamp(2.2rem, 4.5vw, 3.5rem); }
+.section-head { padding-top: clamp(4.5rem, 9vw, 7.5rem); padding-bottom: clamp(2.2rem, 4.5vw, 3.5rem); }
 
 .section-head h2 { font-size: clamp(2.5rem, 5.5vw, 4.4rem); font-weight: 800; margin: 0.9rem 0 0.9rem; }
 
@@ -1493,9 +1493,6 @@ h1, h2, h3, .display {
     border-top: 1px solid var(--line);
 }
 .readout-wide {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: clamp(2rem, 5vw, 4rem);
     margin: 1.2rem 0 0;
     border-top: 0;
 }
@@ -1516,9 +1513,6 @@ h1, h2, h3, .display {
 .story-single { grid-template-columns: 1fr; }
 .story-single .story-copy { max-width: 720px; }
 .story-summary { font-size: 1.12rem; line-height: 1.65; color: var(--text) !important; }
-@media (max-width: 760px) {
-    .readout-wide { grid-template-columns: 1fr; }
-}
 
 /* Stats band — now standalone after the intro film + credentials */
 .stats-band { display: block; }
@@ -1567,11 +1561,14 @@ h1, h2, h3, .display {
     padding-bottom: 0.2rem;
 }
 @media (max-width: 760px) {
+    .readout-wide { grid-template-columns: 1fr; column-gap: 0; }
+    .readout-wide li,
     .readout-wide li:nth-child(5) {
         grid-column: auto;
         border-bottom: 1px solid var(--line);
-        padding-bottom: 0.8rem;
+        padding-bottom: 0.85rem;
     }
+    .readout-wide li:last-child { border-bottom: 0; }
 }
 
 /* Stats band directly under the intro film */
@@ -1581,3 +1578,117 @@ h1, h2, h3, .display {
     background: var(--panel-2);
 }
 .intro-film { border-bottom: 0; }
+
+/* ===== Phone pass — v75 ================================================= */
+html, body { overflow-x: hidden; }
+
+@media (max-width: 760px) {
+    /* Film: video leads at real size, no floating box */
+    .intro-film { padding: 2.2rem 0 2.8rem; }
+    .film-inner { gap: 1.9rem; }
+    .film-frame { max-width: 100%; width: 100%; }
+    .film-frame::after { display: none; }
+    .film-video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        object-position: center 30%;
+        border-radius: var(--radius);
+    }
+    .film-copy h2 { font-size: clamp(2.05rem, 10.6vw, 2.8rem); line-height: 0.97; }
+    .film-copy p { font-size: 0.97rem; line-height: 1.62; max-width: 34ch; }
+    .film-copy .btn { width: 100%; }
+    .film-note { margin-top: 0.75rem; }
+
+    /* Credentials: one clean column, key over value */
+    .film-credentials { margin-top: 2.1rem; padding-top: 1.3rem; }
+    .readout-wide { margin-top: 1rem; }
+    .readout-wide .readout-key { font-size: 0.66rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 0.3rem; }
+    .readout-wide .readout-val { font-size: 0.95rem; line-height: 1.5; }
+
+    /* Footer: one balanced column, tap-sized links */
+    .footer-grid { gap: 2.1rem; padding: 2.7rem 0 2rem; }
+    .footer-brand h3 { font-size: 1.4rem; letter-spacing: 0; }
+    .footer-brand p { font-size: 0.9rem; max-width: none; line-height: 1.55; }
+    .footer-contact { display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-start; margin-top: 0.9rem; }
+    .footer-contact .sep { display: none; }
+    .footer-col h4 { margin-bottom: 0.65rem; }
+    .footer-col ul li { margin-bottom: 0.65rem; }
+    .footer-col a { font-size: 1rem; opacity: 0.9; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; }
+}
+
+/* ===== Phone pass 2 — containment + rhythm =============================== */
+@media (max-width: 760px) {
+    .container { max-width: 100%; }
+    img, svg, video, table { max-width: 100%; }
+    .section-head { padding-top: 2.8rem; padding-bottom: 1.5rem; }
+    .section-head h2 {
+        font-size: clamp(1.7rem, 8.2vw, 2.35rem);
+        line-height: 1.04;
+        letter-spacing: -0.015em;
+        overflow-wrap: break-word;
+    }
+    .section-head p { font-size: 0.97rem; line-height: 1.6; max-width: none; }
+    .eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; }
+    #testing .container { padding-top: 2rem !important; }
+
+    .measure-row {
+        grid-template-columns: 2.6rem minmax(0, 1fr);
+        column-gap: 0.85rem;
+        row-gap: 0.35rem;
+        padding: 1.15rem 0;
+    }
+    .measure-no { grid-column: 1; font-size: 1.12rem; }
+    .measure-name { grid-column: 2; text-align: left; font-size: 1.5rem; }
+    .measure-what, .measure-why { grid-column: 1 / -1; font-size: 0.95rem; }
+    .measures-note { font-size: 0.66rem; letter-spacing: 0.1em; line-height: 1.85; }
+
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 calc(-1 * var(--pad-x));
+        padding: 0 var(--pad-x);
+    }
+    .table-scroll .age-table { min-width: 520px; }
+}
+
+/* wrap guard */
+body { overflow-wrap: break-word; }
+@media (max-width: 760px) {
+    .age-wrap, .age-band, .test-band, .process-band { max-width: 100%; overflow-x: clip; }
+}
+
+/* Phone pass 3 — film frame gets a real height (it collapsed to 0 on small screens) */
+@media (max-width: 760px) {
+    .film-frame {
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        background: #000;
+    }
+    .film-video {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: auto;
+        object-fit: cover;
+        object-position: center 30%;
+        border: 0;
+        border-radius: 0;
+    }
+}
+
+/* Poster as the frame background — guarantees a visible still before/if the video paints */
+.film-frame {
+    background: #000 url("media/intro-film-poster.jpg") center 30% / cover no-repeat;
+}
+
+/* Root cause: the later desktop .film-inner { 1fr 320px } overrode the mobile 1fr,
+   squeezing the video into a ~35px sliver. Force one column below 900. */
+@media (max-width: 900px) {
+    .film-inner { grid-template-columns: minmax(0, 1fr); }
+}
