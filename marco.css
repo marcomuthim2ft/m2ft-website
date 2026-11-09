@@ -1651,13 +1651,12 @@ html, body { overflow-x: hidden; }
         margin: 0 calc(-1 * var(--pad-x));
         padding: 0 var(--pad-x);
     }
-    .table-scroll .age-table { min-width: 520px; }
 }
 
 /* wrap guard */
 body { overflow-wrap: break-word; }
 @media (max-width: 760px) {
-    .age-wrap, .age-band, .test-band, .process-band { max-width: 100%; overflow-x: clip; }
+    .age-wrap, .age-band, .test-band, .process-band { max-width: 100%; }
 }
 
 /* Phone pass 3 — film frame gets a real height (it collapsed to 0 on small screens) */
@@ -1748,4 +1747,41 @@ body { overflow-wrap: break-word; }
     .footer-grid { grid-template-columns: 1fr; }
     .social-row { grid-template-columns: 1fr; gap: 0.3rem; }
     .social-links a { font-size: 0.95rem; }
+}
+
+/* ===== Age band — illustration per row, no clipping ==================== */
+.age-table tbody th {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 54px;
+    column-gap: 0.7rem;
+    align-items: center;
+    vertical-align: middle;
+}
+.age-id { display: block; min-width: 0; }
+.age-fig { display: block; width: 54px; }
+.age-fig svg { display: block; width: 100%; height: auto; }
+@media (max-width: 1020px) {
+    .age-table tbody th { grid-template-columns: minmax(0, 1fr) 46px; }
+    .age-fig { width: 46px; }
+}
+@media (max-width: 860px) {
+    .age-table tbody th {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 58px;
+        align-items: center;
+        padding: 0 0 0.85rem;
+    }
+    .age-fig { width: 58px; }
+    .age-table td { padding-right: 0; }
+}
+
+/* Age band — give the id column room so names never break mid-word */
+.age-table tbody th { width: 21%; min-width: 176px; }
+.age-num, .age-name { white-space: nowrap; overflow-wrap: normal; word-break: normal; }
+.age-id { overflow-wrap: normal; word-break: normal; }
+@media (max-width: 1020px) {
+    .age-table tbody th { width: 22%; min-width: 150px; }
+}
+@media (max-width: 860px) {
+    .age-table tbody th { width: 100%; min-width: 0; }
 }
