@@ -1819,3 +1819,43 @@ body { overflow-wrap: break-word; }
     .age-name { font-size: 0.7rem; letter-spacing: 0.12em; }
     .age-fig { width: 52px; }
 }
+
+/* ===== Intro film — muted autoplay + tap for sound ===================== */
+.film-frame { position: relative; }
+.film-sound {
+    position: absolute;
+    left: 12px; top: 12px; bottom: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.85rem 0.5rem 0.65rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+    transition: transform .15s ease, background .15s ease;
+}
+.film-sound.is-visible { display: inline-flex; }
+.film-sound:hover { transform: translateY(-1px); }
+.film-sound svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.film-sound svg path:first-child { fill: currentColor; stroke: none; }
+.film-sound .slash { opacity: 1; transition: opacity .15s ease; }
+.film-sound.is-on { background: rgba(9,11,16,.82); color: var(--accent); }
+.film-sound.is-on .slash { opacity: 0; }
+@media (max-width: 760px) {
+    .film-sound { left: 10px; top: 10px; bottom: auto; font-size: 0.62rem; padding: 0.45rem 0.75rem 0.45rem 0.6rem; }
+}
+
+/* Mobile: frame matches the film's native 9:16 so captions are never cropped */
+@media (max-width: 760px) {
+    .film-frame { aspect-ratio: 9 / 16; }
+    .film-video { object-position: center; }
+}

@@ -101,7 +101,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="marco.css?v=97">
+    <link rel="stylesheet" href="marco.css?v=101">
 </head>
 <body>
     <nav class="nav" id="nav">
@@ -140,14 +140,20 @@
                 <h2>IN MY OWN<br>WORDS.</h2>
                 <p>What I actually test, why the numbers matter more than how a player feels, and what happens between the first session and the re-test. The whole process, said straight — no sales pitch.</p>
                 <a class="btn btn-ghost" href="#testing">See the testing</a>
-                <div class="film-note">Sound on &middot; captions included</div>
+                <div class="film-note">Starts muted &middot; tap for sound &middot; captions on</div>
             </div>
             <div class="film-frame">
-                <video id="introFilm" class="film-video" controls playsinline preload="none"
+                <video id="introFilm" class="film-video" controls muted autoplay playsinline
+                       preload="metadata"
                        poster="media/intro-film-poster.jpg?v=2"
                        aria-label="Marco Muthi — intro film">
-                    <source src="media/intro-film.mp4?v=1" type="video/mp4">
+                    <source src="media/intro-film.mp4?v=2" type="video/mp4">
+                    <track kind="captions" src="media/intro-film.vtt?v=1" srclang="en" label="English" default>
                 </video>
+                <button class="film-sound" id="filmSound" type="button" aria-label="Turn sound on">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7.5h2.5L10 4.5v11L6.5 12.5H4z"/><path class="wave" d="M13 7.2a4 4 0 0 1 0 5.6"/><path class="wave" d="M15.4 5a7.2 7.2 0 0 1 0 10"/><path class="slash" d="M3 3l14 14"/></svg>
+                    <span>Tap for sound</span>
+                </button>
             </div>
         </div>
 
@@ -790,5 +796,47 @@
     </footer>
 
     <script src="m2.js?v=67"></script>
+
+<script>
+(function () {
+  var v = document.getElementById('introFilm');
+  var b = document.getElementById('filmSound');
+  if (!v || !b) return;
+  var label = b.querySelector('span');
+
+  function paint() {
+    var on = !v.muted;
+    b.classList.toggle('is-on', on);
+    label.textContent = on ? 'Sound on' : 'Tap for sound';
+    b.setAttribute('aria-label', on ? 'Turn sound off' : 'Turn sound on');
+  }
+  b.addEventListener('click', function () {
+    v.muted = !v.muted;
+    if (v.paused) { v.play().catch(function () {}); }
+    paint();
+  });
+  v.addEventListener('volumechange', paint);
+  v.addEventListener('play', function () { b.classList.add('is-visible'); });
+
+  var c = navigator.connection || {};
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cautious = c.saveData || /(^|-)2g$/.test(c.effectiveType || '');
+  if (reduced || cautious || !('IntersectionObserver' in window)) {
+    v.removeAttribute('autoplay');
+    v.pause();
+    b.classList.add('is-visible');
+    paint();
+    return;
+  }
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { v.play().catch(function () {}); }
+      else if (!v.paused) { v.pause(); }
+    });
+  }, { threshold: 0.5 }).observe(v);
+
+  paint();
+})();
+</script>
 </body>
 </html>
