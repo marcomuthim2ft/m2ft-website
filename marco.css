@@ -1785,3 +1785,37 @@ body { overflow-wrap: break-word; }
 @media (max-width: 860px) {
     .age-table tbody th { width: 100%; min-width: 0; }
 }
+
+/* ===== Age band — stop the name overflowing into the illustration ====== */
+.age-table tbody th {
+    width: 25%;
+    min-width: 196px;
+    grid-template-columns: minmax(0, 1fr) 52px;
+    column-gap: 0.6rem;
+}
+.age-id { min-width: 0; }
+.age-num  { white-space: nowrap; }
+.age-name {
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    line-height: 1.45;
+}
+.age-fig { width: 52px; flex: none; }
+@media (max-width: 1020px) {
+    .age-table tbody th { width: 26%; min-width: 178px; grid-template-columns: minmax(0, 1fr) 46px; }
+    .age-fig { width: 46px; }
+}
+@media (max-width: 860px) {
+    .age-table tbody th {
+        width: 100%;
+        min-width: 0;
+        grid-template-columns: minmax(0, 1fr) 52px;
+        column-gap: 0.7rem;
+    }
+    .age-name { font-size: 0.7rem; letter-spacing: 0.12em; }
+    .age-fig { width: 52px; }
+}
