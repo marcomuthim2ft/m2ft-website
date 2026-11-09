@@ -1695,7 +1695,7 @@ body { overflow-wrap: break-word; }
 
 /* ===== Testing figures + footer socials — v85 =========================== */
 .measure-row {
-    grid-template-columns: 2.6rem 190px minmax(0, 0.9fr) minmax(0, 1.45fr);
+    grid-template-columns: 2.4rem 210px minmax(0, 0.9fr) minmax(0, 1.4fr);
     align-items: start;
 }
 .measure-no    { grid-column: 1; grid-row: 1; }
@@ -1703,7 +1703,7 @@ body { overflow-wrap: break-word; }
 .measure-name  { grid-column: 3; grid-row: 1; }
 .measure-what  { grid-column: 3; grid-row: 2; }
 .measure-why   { grid-column: 4; grid-row: 1 / span 2; }
-.measure-fig svg { width: 190px; height: 128px; display: block; }
+.measure-fig svg { width: 100%; max-width: 208px; height: auto; display: block; }
 .measure-name { margin-bottom: 0.5rem; }
 
 @media (max-width: 900px) {
@@ -1711,7 +1711,7 @@ body { overflow-wrap: break-word; }
     .measure-fig { grid-column: 1 / -1; grid-row: 2; }
     .measure-what { grid-column: 2; grid-row: 3; }
     .measure-why { grid-column: 3; grid-row: 3; }
-    .measure-fig svg { width: 100%; height: 128px; }
+    .measure-fig svg { width: 100%; max-width: 208px; height: auto; display: block; }
 }
 @media (max-width: 760px) {
     .measure-row { grid-template-columns: 2.4rem minmax(0, 1fr); row-gap: 0.45rem; }
@@ -1720,7 +1720,7 @@ body { overflow-wrap: break-word; }
     .measure-fig  { grid-column: 1 / -1; grid-row: 2; margin: 0.5rem 0 0.7rem; }
     .measure-what { grid-column: 1 / -1; grid-row: 3; }
     .measure-why  { grid-column: 1 / -1; grid-row: 4; }
-    .measure-fig svg { width: 100%; height: auto; max-width: 420px; }
+    .measure-fig svg { width: 100%; max-width: 208px; height: auto; display: block; }
 }
 
 
